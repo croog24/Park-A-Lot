@@ -1,5 +1,0 @@
-Manifest-Version: 1.0
-Implementation-Title: Park-A-Lot_Server
-Implementation-Version: 0.0.1
-Main-Class: sample.Hello
-
