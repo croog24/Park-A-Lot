@@ -1,0 +1,26 @@
+package com.github.parkalot.dao;
+
+import java.time.DayOfWeek;
+import java.util.List;
+
+import com.github.parkalot.model.Rating;
+
+public interface RatingDAO {
+
+	/**
+	 * Adds a rating to the Database.
+	 * @param rating the <code>Rating</code> to add.
+	 * @throws Exception if an error occurred during the transaction.
+	 */
+	public void addRating(Rating rating) throws Exception;
+
+	public void updateRating(Rating rating) throws Exception;
+	
+	public List<Rating> getRatingsByHour(Long parkingLotId, int hour) throws Exception;
+
+	public List<Rating> getRatingsBetweenHours(Long parkingLotId, int minHour, int maxHour) throws Exception;
+
+	public List<Rating> getRatingsByDayOfWeek(DayOfWeek weekDay) throws Exception;
+
+	public List<Rating> getAllRatingsByParkingLotId(Long parkingLotId) throws Exception;
+}

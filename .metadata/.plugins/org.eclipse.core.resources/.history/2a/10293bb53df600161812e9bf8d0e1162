@@ -1,0 +1,52 @@
+package com.github.parkalot.dao;
+
+import java.time.DayOfWeek;
+import java.util.List;
+
+import com.github.parkalot.model.Rating;
+
+public interface RatingDAO {
+
+	/**
+	 * Adds a {@code Rating} to the Database.
+	 * 
+	 * @param rating the <code>Rating</code> to add.
+	 * @throws Exception if an error occurred during the transaction.
+	 */
+	public void addRating(Rating rating) throws Exception;
+
+	/**
+	 * Updates a {@code Rating} in the Database.
+	 * 
+	 * @param rating the <code>Rating</code> to update.
+	 * @throws Exception if an error occurred during the transaction.
+	 */
+	public void updateRating(Rating rating) throws Exception;
+
+	/**
+	 * Retrieves a list of <code>Rating</code>s by hour.
+	 * 
+	 * @param parkingLotId the parking lot ID to search with.
+	 * @param hour the hour to search within.
+	 * @return a <code>List</code> of {@code Rating}s with the specified
+	 *         parameters.
+	 * @throws Exception if an error occurred during the transaction.
+	 */
+	public List<Rating> getRatingsByHour(Long parkingLotId, int hour) throws Exception;
+
+	/**
+	 * Retrieves a list of <code>Rating</code>s within a range of hours.
+	 * 
+	 * @param parkingLotId the parking lot ID to search with.
+	 * @param minHour the minimum hour range to search.
+	 * @param maxHour the maxmimum hour range to search.
+	 * @return a <code>List</code> of {@code Rating}s with the specified
+	 *         parameters.
+	 * @throws Exception if an error occurred during the query.
+	 */
+	public List<Rating> getRatingsBetweenHours(Long parkingLotId, int minHour, int maxHour) throws Exception;
+
+	public List<Rating> getRatingsByDayOfWeek(DayOfWeek weekDay) throws Exception;
+
+	public List<Rating> getAllRatingsByParkingLotId(Long parkingLotId) throws Exception;
+}

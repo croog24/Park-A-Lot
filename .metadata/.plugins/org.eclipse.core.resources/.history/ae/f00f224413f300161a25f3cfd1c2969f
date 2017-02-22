@@ -1,0 +1,38 @@
+package com.github.parkalot.service;
+
+import static org.mockito.Matchers.any;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.util.ReflectionTestUtils;
+
+import com.github.parkalot.TestContext;
+import com.github.parkalot.dao.impl.RatingDAOImpl;
+import com.github.parkalot.model.Rating;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(classes = { TestContext.class })
+public class TestRatingService {
+
+	@Autowired
+	private RatingService ratingService;
+
+	private RatingDAOImpl mockRatingDAOImpl;
+
+	@Before
+	public void init() {
+		mockRatingDAOImpl = Mockito.mock(RatingDAOImpl.class);
+		ReflectionTestUtils.setField(ratingService, "ratingDao", mockRatingDAOImpl);
+	}
+
+	@Test
+	public void testAddRating() throws Exception {
+		Rating rating = new Rating(1, 5, 3);
+		ratingService.addRating(rating);
+	}
+}

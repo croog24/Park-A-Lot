@@ -1,0 +1,76 @@
+package com.github.parkalot;
+
+import java.io.File;
+
+import org.apache.log4j.Logger;
+import org.springframework.aop.framework.Advised;
+import org.springframework.aop.support.AopUtils;
+import org.springframework.test.util.ReflectionTestUtils;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+/**
+ * A utility class with common useful test methods.
+ * 
+ * @author Craig
+ *
+ */
+public final class TestHelper {
+
+	private static final Logger LOGGER = Logger.getLogger(TestHelper.class);
+
+	/**
+	 * Creates a JSON object from a JSON file resource.
+	 * 
+	 * @param fileName the JSON file name.
+	 * @param clazz the class of the JSON object.
+	 * @return a new <code>Object</code> of input class type <code>T</code>.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T createJSONObjectFromResource(String fileName, Class<T> clazz) {
+		Object jsonObj = null;
+		ClassLoader classLoader = TestHelper.class.getClassLoader();
+		try {
+			File file = new File(classLoader.getResource(fileName).getFile());
+			jsonObj = new ObjectMapper().readValue(file, clazz);
+		} catch (Exception e) {
+			LOGGER.error(String.format("Failed to find test resource while creating JSONObject: %s", fileName), e);
+		}
+		return (T) jsonObj;
+	}
+
+	/**
+	 * Leverages the ReflectionTestUtils framework to conveniently inject mock
+	 * objects.
+	 * 
+	 * @param obj the object to inject into.
+	 * @param mockObject the mock object to inject.
+	 * @param fieldName the name of the field on the object to inject into.
+	 */
+	public static void injectMock(Object obj, Object mockObject, String fieldName) {
+		try {
+			ReflectionTestUtils.setField(unwrapProxy(obj), fieldName, mockObject);
+		} catch (Exception e) {
+			LOGGER.error(String.format("Failed to inject %s into %s using fieldname %s", mockObject, obj, fieldName), e);
+		}
+	}
+
+	/**
+	 * Certain <code>Transactional</code> annotations proxy and object. The use
+	 * of this method is to ensure the real object is referenced so when
+	 * injecting mock objects, it is injecting into the correct bean.
+	 * 
+	 * @param proxy the object to unwrap.
+	 * @return The unwrapped <code>T</code> object.
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	protected static <T> T unwrapProxy(Object proxy) throws Exception {
+		if (AopUtils.isAopProxy(proxy) || AopUtils.isCglibProxy(proxy) || AopUtils.isJdkDynamicProxy(proxy)) {
+			Object target = ((Advised) proxy).getTargetSource().getTarget();
+			return (T) target;
+		}
+
+		return (T) proxy;
+	}
+}

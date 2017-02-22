@@ -1,0 +1,24 @@
+package com.github.parkalot.service;
+
+import com.googleapis.maps.place.GooglePlacesResponse;
+
+/**
+ * The main Service layer to call Google's Places API.
+ * 
+ * @author Craig
+ *
+ */
+public interface GooglePlacesAPIService {
+
+	public void setCurrentLocation(String latitude, String longitude);
+
+	public void setSelectedLocation(String latitude, String longitude);
+
+	public GooglePlacesResponse getNearbyParking();
+
+	public GooglePlacesResponse getNearbyParking(int radius);
+
+	public GooglePlacesResponse getParkingAtSelectedLocation();
+
+	public GooglePlacesResponse getParkingAtSelectedLocation(int radius);
+}

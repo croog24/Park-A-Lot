@@ -1,0 +1,23 @@
+Front end:
+	- Google API direction loader
+	- Display ratings on Map
+	- Lookup screen
+	- Detailed view screen of each parking lot
+	- notifications to ask (may get annoying, maybe leave out)
+
+Back end:
+- Rest API
+	- Submit
+	- Get details
+	- Search
+- Database
+	- unique hash for time/date + user device + location
+		- to reject to avoid spam
+	- location
+	- rating
+
+	
+	Build tools
+		- Gradle 3.2
+
+		

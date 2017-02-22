@@ -1,0 +1,26 @@
+package com.github.parkalot.service;
+
+import java.time.DayOfWeek;
+import java.util.List;
+
+import com.github.parkalot.model.Rating;
+
+public interface RatingService {
+
+	/**
+	 * Test
+	 * @param rating
+	 * @return
+	 */
+	public boolean addRating(Rating rating);
+
+	public boolean updateRating(Rating rating);
+
+	public List<Rating> getRatingsByHour(Long parkingLotId, int hour);
+
+	public List<Rating> getRatingsBetweenHours(Long parkingLotId, int minHour, int maxHour);
+
+	public List<Rating> getRatingsByDayOfWeek(DayOfWeek weekDay);
+
+	public List<Rating> getAllRatingsByParkingLotId(Long parkingLotId);
+}
