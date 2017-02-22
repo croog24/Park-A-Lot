@@ -28,5 +28,5 @@ local.properties
 # Build Folders
 .settings
 .gradle
-build
-bin
+build/*
+bin/*
