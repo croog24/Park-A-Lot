@@ -2,18 +2,26 @@ package com.github.parkalot.model;
 
 import java.util.ArrayList;
 
-public class ParkingLot {
+import org.lightcouch.Document;
+
+public class ParkingLot extends Document {
 
 	private String parkingLotId;
 	private String name;
 	private ArrayList<Rating> ratingList;
 
-	// TODO: implement this into sequence
-	public ParkingLot(String id) {
-		this.parkingLotId= id;
+	public ParkingLot(String parkingLotId) {
+		this.parkingLotId = parkingLotId;
+		// Set the internal CouchDB _id as well
+		this.setId(parkingLotId);
 	}
+
 	public String getParkingLotId() {
 		return parkingLotId;
+	}
+
+	public void setParkingLotId(String parkingLotId) {
+		this.parkingLotId = parkingLotId;
 	}
 
 	public String getName() {
@@ -31,7 +39,7 @@ public class ParkingLot {
 	public void setRatingList(ArrayList<Rating> ratingList) {
 		this.ratingList = ratingList;
 	}
-	
+
 	@Override
 	public String toString() {
 		return String.format("Parking Lot ID:%s Name:%s Ratings:%s", parkingLotId, name, ratingList);

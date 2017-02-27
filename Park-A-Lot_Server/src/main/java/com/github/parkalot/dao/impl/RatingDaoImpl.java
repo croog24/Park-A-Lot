@@ -4,21 +4,31 @@ import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.lightcouch.CouchDbClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.github.parkalot.dao.RatingDao;
 import com.github.parkalot.model.Rating;
 
+/**
+ * The RatingDao with a CouchDB based implementation.
+ * 
+ * @author Craig
+ *
+ */
 @Repository
 public class RatingDaoImpl implements RatingDao {
+
+	@Autowired
+	private CouchDbClient dbClient;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void addRating(Rating rating) throws Exception {
-		// TODO Auto-generated method stub
-
+		dbClient.save(rating);
 	}
 
 	/**
@@ -26,8 +36,7 @@ public class RatingDaoImpl implements RatingDao {
 	 */
 	@Override
 	public void updateRating(Rating rating) throws Exception {
-		// TODO Auto-generated method stub
-
+		dbClient.update(rating);
 	}
 
 	/**

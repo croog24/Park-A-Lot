@@ -6,7 +6,7 @@ import java.util.List;
 import com.github.parkalot.model.Rating;
 
 /**
- * A DAO for basic CRUD methods involving Ratings in the Database.
+ * A DAO for basic CRUD methods involving Ratings.
  * 
  * @author Craig
  *

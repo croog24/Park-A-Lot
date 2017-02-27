@@ -64,7 +64,7 @@ public class RatingServiceImpl implements RatingService {
 			}
 			ratingList = ratingDao.getRatingsByHour(parkingLotId, hour);
 		} catch (Exception e) {
-			LOGGER.error("Error retrieving resultset: ", e);
+			LOGGER.error("Error retrieving resultset for getRatingsByHour(): " + e);
 		}
 
 		return ratingList;
@@ -83,7 +83,7 @@ public class RatingServiceImpl implements RatingService {
 
 			ratingList = ratingDao.getRatingsBetweenHours(parkingLotId, minHour, maxHour);
 		} catch (Exception e) {
-			LOGGER.error("Error retrieving resultset: ", e);
+			LOGGER.error("Error retrieving resultset for getRatingsBetweenHours(): " + e);
 		}
 		return ratingList;
 	}

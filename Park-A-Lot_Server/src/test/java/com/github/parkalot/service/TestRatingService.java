@@ -27,7 +27,7 @@ public class TestRatingService {
 	private RatingService ratingService;
 
 	private RatingDaoImpl mockRatingDAOImpl;
-	private final List<Rating> mockList = Arrays.asList(new Rating(1, 2, 3), new Rating(4, 5, 6));
+	private final List<Rating> mockList = Arrays.asList(new Rating("1", 2, 3), new Rating("4", 5, 6));
 
 	@Before
 	public void init() {
@@ -37,17 +37,19 @@ public class TestRatingService {
 
 	@Test
 	public void testAddRating() throws Exception {
-		Rating rating = new Rating(1, 5, 3);
+		Rating rating = new Rating("1", 5, 3);
 		boolean result = ratingService.addRating(rating);
 
+		verify(mockRatingDAOImpl).addRating(rating);
 		assertTrue("Did not successfully add Rating", result);
 	}
 
 	@Test
 	public void testUpdateRating() throws Exception {
-		Rating rating = new Rating(1, 5, 3);
+		Rating rating = new Rating("1", 5, 3);
 		boolean result = ratingService.updateRating(rating);
 
+		verify(mockRatingDAOImpl).updateRating(rating);
 		assertTrue("Did not successfully update Rating", result);
 	}
 
@@ -58,6 +60,7 @@ public class TestRatingService {
 
 		List<Rating> resultList = ratingService.getAllRatingsByParkingLotId(123L);
 
+		verify(mockRatingDAOImpl).getAllRatingsByParkingLotId(123L);
 		assertEquals("Unexpected result size", expectedListSize, resultList.size());
 	}
 
@@ -68,6 +71,7 @@ public class TestRatingService {
 
 		List<Rating> resultList = ratingService.getRatingsBetweenHours(123L, 1, 2);
 
+		verify(mockRatingDAOImpl).getRatingsBetweenHours(123L, 1, 2);
 		assertEquals("Unexpected result size", expectedListSize, resultList.size());
 	}
 	
@@ -78,6 +82,7 @@ public class TestRatingService {
 
 		List<Rating> resultList = ratingService.getRatingsBetweenHours(123L, 122, 222);
 
+		verify(mockRatingDAOImpl, never()).getRatingsBetweenHours(123L, 122, 222);
 		assertEquals("Unexpected result size", expectedListSize, resultList.size());
 	}
 
@@ -88,6 +93,7 @@ public class TestRatingService {
 
 		List<Rating> resultList = ratingService.getRatingsByDayOfWeek(123L, DayOfWeek.FRIDAY);
 
+		verify(mockRatingDAOImpl).getRatingsByDayOfWeek(123L, DayOfWeek.FRIDAY);
 		assertEquals("Unexpected result size", expectedListSize, resultList.size());
 	}
 
@@ -98,6 +104,7 @@ public class TestRatingService {
 
 		List<Rating> resultList = ratingService.getRatingsByHour(123L, 1);
 
+		verify(mockRatingDAOImpl).getRatingsByHour(123L, 1);
 		assertEquals("Unexpected result size", expectedListSize, resultList.size());
 	}
 
@@ -108,6 +115,7 @@ public class TestRatingService {
 
 		List<Rating> resultList = ratingService.getRatingsByHour(123L, 55);
 
+		verify(mockRatingDAOImpl, never()).getRatingsByHour(123L, 1);
 		assertEquals("Unexpected result size", expectedListSize, resultList.size());
 	}
 

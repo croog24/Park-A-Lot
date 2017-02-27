@@ -1,5 +1,6 @@
 package com.github.parkalot;
 
+import org.lightcouch.CouchDbClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,11 @@ public class ParkALotAppContext {
 	@Bean(name = "googlePlacesRestTemplate")
 	public RestTemplate getRestTemplate() {
 		return new RestTemplate();
+	}
+	
+	@Bean(name = "couchDbClient")
+	public CouchDbClient getCouchDbClient() {
+		return new CouchDbClient();
 	}
 	
 }
