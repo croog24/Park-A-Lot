@@ -39,8 +39,7 @@ public class ParkingLotDaoImpl implements ParkingLotDao {
 	 */
 	@Override
 	public ParkingLot getParkingLot(String parkingLotId) throws Exception {
-		ParkingLot parkingLot = couchDbClient.find(ParkingLot.class, parkingLotId);
-		return parkingLot;
+		return couchDbClient.find(ParkingLot.class, parkingLotId);
 	}
 
 }

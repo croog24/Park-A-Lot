@@ -1,13 +1,7 @@
 package com.github.parkalot.dao;
 
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.lightcouch.CouchDbClient;
@@ -44,19 +38,5 @@ public class TestRatingDao {
 		ratingDao.updateRating(r);
 		
 		verify(couchDbClient).update(r);
-	}
-	
-	@Test
-	@Ignore("TODO")
-	public final void testGetAllRatingsByParkingLotId() throws Exception {
-		ArrayList<Rating> returnList = new ArrayList<Rating>();
-		Rating returnRating = new Rating("123", 1, 23L);
-		returnList.add(returnRating);
-		
-		when(couchDbClient.find(Rating.class, "123")).thenReturn(returnRating);
-		
-		List<Rating> testRating = ratingDao.getAllRatingsByParkingLotId(123L);
-		
-		
 	}
 }

@@ -33,7 +33,6 @@ public class RatingServiceImpl implements RatingService {
 			LOGGER.error("Error adding Rating to Database: ", e);
 			return false;
 		}
-
 		return true;
 	}
 
@@ -96,20 +95,6 @@ public class RatingServiceImpl implements RatingService {
 		List<Rating> ratingList = new ArrayList<Rating>();
 		try {
 			ratingList = ratingDao.getRatingsByDayOfWeek(parkingLotId, weekDay);
-		} catch (Exception e) {
-			LOGGER.error("Error retrieving resultset: ", e);
-		}
-		return ratingList;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<Rating> getAllRatingsByParkingLotId(Long parkingLotId) {
-		List<Rating> ratingList = new ArrayList<Rating>();
-		try {
-			ratingList = ratingDao.getAllRatingsByParkingLotId(parkingLotId);
 		} catch (Exception e) {
 			LOGGER.error("Error retrieving resultset: ", e);
 		}

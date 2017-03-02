@@ -54,17 +54,6 @@ public class TestRatingService {
 	}
 
 	@Test
-	public void testGetAllRatingsByParkingLotId() throws Exception {
-		final int expectedListSize = 2;
-		when(mockRatingDAOImpl.getAllRatingsByParkingLotId(123L)).thenReturn(mockList);
-
-		List<Rating> resultList = ratingService.getAllRatingsByParkingLotId(123L);
-
-		verify(mockRatingDAOImpl).getAllRatingsByParkingLotId(123L);
-		assertEquals("Unexpected result size", expectedListSize, resultList.size());
-	}
-
-	@Test
 	public void testGetRatingsBetweenHours() throws Exception {
 		final int expectedListSize = 2;
 		when(mockRatingDAOImpl.getRatingsBetweenHours(123L, 1, 2)).thenReturn(mockList);

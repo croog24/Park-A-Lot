@@ -63,15 +63,5 @@ public interface RatingDao {
 	 * @throws Exception if an error occurred during the query.
 	 */
 	public List<Rating> getRatingsByDayOfWeek(Long parkingLotId, DayOfWeek weekDay) throws Exception;
-
-	/**
-	 * Retrieves a full <code>List</code> of <code>Rating</code>s in a specified
-	 * parking lot ID.
-	 * 
-	 * @param parkingLotId the parking lot ID to search with.
-	 * @return a <code>List</code> of {@code Rating}s with the specified
-	 *         parameters.
-	 * @throws Exception if an error occurred during the query.
-	 */
-	public List<Rating> getAllRatingsByParkingLotId(Long parkingLotId) throws Exception;
+	
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.github.parkalot.dao.RatingDao;
+import com.github.parkalot.model.ParkingLot;
 import com.github.parkalot.model.Rating;
 
 /**
@@ -64,16 +65,6 @@ public class RatingDaoImpl implements RatingDao {
 	 */
 	@Override
 	public List<Rating> getRatingsByDayOfWeek(Long parkingLotId, DayOfWeek weekDay) throws Exception {
-		List<Rating> ratingList = new ArrayList<Rating>();
-		// TODO Auto-generated method stub
-		return ratingList;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public List<Rating> getAllRatingsByParkingLotId(Long parkingLotId) throws Exception {
 		List<Rating> ratingList = new ArrayList<Rating>();
 		// TODO Auto-generated method stub
 		return ratingList;

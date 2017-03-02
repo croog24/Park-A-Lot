@@ -59,11 +59,4 @@ public interface RatingService {
 	 */
 	public List<Rating> getRatingsByDayOfWeek(Long parkingLotId, DayOfWeek weekDay);
 
-	/**
-	 * Retrieves a list of Ratings in the supplied parkingLotId.
-	 * 
-	 * @param parkingLotId the ID of the parking lot to search.
-	 * @return A list of {@link Rating} with the given search parameters.
-	 */
-	public List<Rating> getAllRatingsByParkingLotId(Long parkingLotId);
 }
