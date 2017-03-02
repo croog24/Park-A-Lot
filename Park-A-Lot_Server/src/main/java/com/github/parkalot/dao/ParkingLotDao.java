@@ -11,26 +11,26 @@ import com.github.parkalot.model.ParkingLot;
 public interface ParkingLotDao {
 
 	/**
-	 * Adds a new {@code ParkingLot} to the Database.
+	 * Adds a new {@link ParkingLot} to the Database.
 	 * 
-	 * @param parkingLot the <code>ParkingLot</code> to add.
+	 * @param parkingLot the {@link ParkingLot} to add.
 	 * @throws Exception if an error occurred during the transaction.
 	 */
 	public void addParkingLot(ParkingLot parkingLot) throws Exception;
 
 	/**
-	 * Updates a specified {@code ParkingLot} in the Database.
+	 * Updates a specified {@link ParkingLot} in the Database.
 	 * 
-	 * @param parkingLot the <code>ParkingLot</code> to update.
+	 * @param parkingLot the {@link ParkingLot} to update.
 	 * @throws Exception if an error occurred during the transaction.
 	 */
 	public void updateParkingLot(ParkingLot parkingLot) throws Exception;
 
 	/**
-	 * Retrieves a {@code ParkingLot} from the Database.
+	 * Retrieves a {@link ParkingLot} from the Database.
 	 * 
-	 * @param parkingLotId the ID of the <code>ParkingLot</code> to retrieve.
-	 * @return ParkingLot the stored <code>ParkingLot</code> object.
+	 * @param parkingLotId the ID of the {@link ParkingLot} to retrieve.
+	 * @return ParkingLot the stored {@link ParkingLot} object.
 	 * @throws Exception if an error occurred during the transaction.
 	 */
 	public ParkingLot getParkingLot(String parkingLotId) throws Exception;

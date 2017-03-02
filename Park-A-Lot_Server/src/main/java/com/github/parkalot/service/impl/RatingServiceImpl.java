@@ -107,7 +107,7 @@ public class RatingServiceImpl implements RatingService {
 	 * 
 	 * @param min the minimum hour used.
 	 * @param max the maximum hour used.
-	 * @return <code>true</code> if the provided hours meet the valid min/max
+	 * @return {@code true} if the provided hours meet the valid min/max
 	 *         range specifications.
 	 */
 	private boolean isHourRangeValid(int min, int max) {
@@ -123,7 +123,7 @@ public class RatingServiceImpl implements RatingService {
 	 * Database hours.
 	 * 
 	 * @param hour the hour to check.
-	 * @return <code>true</code> if the provided hour meets the valid min/max
+	 * @return {@code true} if the provided hour meets the valid min/max
 	 *         range specifications.
 	 */
 	private boolean isHourRangeValid(int hour) {

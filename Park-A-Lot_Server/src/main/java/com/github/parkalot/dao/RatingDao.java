@@ -6,7 +6,7 @@ import java.util.List;
 import com.github.parkalot.model.Rating;
 
 /**
- * A DAO for basic CRUD methods involving Ratings.
+ * A DAO for basic CRUD methods involving {@link Rating}s.
  * 
  * @author Craig
  *
@@ -14,54 +14,50 @@ import com.github.parkalot.model.Rating;
 public interface RatingDao {
 
 	/**
-	 * Adds a {@code Rating} to the Database.
+	 * Adds a {@link Rating} to the Database.
 	 * 
-	 * @param rating the <code>Rating</code> to add.
+	 * @param rating the {@link Rating} to add.
 	 * @throws Exception if an error occurred during the transaction.
 	 */
 	public void addRating(Rating rating) throws Exception;
 
 	/**
-	 * Updates a {@code Rating} in the Database.
+	 * Updates a {@link Rating} in the Database.
 	 * 
-	 * @param rating the <code>Rating</code> to update.
+	 * @param rating the {@link Rating} to update.
 	 * @throws Exception if an error occurred during the transaction.
 	 */
 	public void updateRating(Rating rating) throws Exception;
 
 	/**
-	 * Retrieves a <code>List</code> of <code>Rating</code>s by hour.
+	 * Retrieves a {@code List } of {@link Rating}s by hour.
 	 * 
 	 * @param parkingLotId the parking lot ID to search with.
 	 * @param hour the hour to search within.
-	 * @return a <code>List</code> of {@code Rating}s with the specified
-	 *         parameters.
+	 * @return a {@code List} of {@link Rating}s with the specified parameters.
 	 * @throws Exception if an error occurred during the transaction.
 	 */
 	public List<Rating> getRatingsByHour(Long parkingLotId, int hour) throws Exception;
 
 	/**
-	 * Retrieves a <code>List</code> of <code>Rating</code>s within a range of
-	 * hours.
+	 * Retrieves a {@code List} of {@link Rating}s within a range of hours.
 	 * 
 	 * @param parkingLotId the parking lot ID to search with.
 	 * @param minHour the minimum hour range to search.
 	 * @param maxHour the maximum hour range to search.
-	 * @return a <code>List</code> of {@code Rating}s with the specified
-	 *         parameters.
+	 * @return a {@code List} of {@link Rating}s with the specified parameters.
 	 * @throws Exception if an error occurred during the query.
 	 */
 	public List<Rating> getRatingsBetweenHours(Long parkingLotId, int minHour, int maxHour) throws Exception;
 
 	/**
-	 * Retrieves a <code>List</code> of <code>Rating</code>s on a specified day
-	 * of the week.
+	 * Retrieves a {@code List} of {@link Rating}s on a specified day of the
+	 * week.
 	 * 
 	 * @param weekDay the day of the week to search with.
-	 * @return a <code>List</code> of {@code Rating}s with the specified
-	 *         parameters.
+	 * @return a {@code List} of {@link Rating}s with the specified parameters.
 	 * @throws Exception if an error occurred during the query.
 	 */
 	public List<Rating> getRatingsByDayOfWeek(Long parkingLotId, DayOfWeek weekDay) throws Exception;
-	
+
 }

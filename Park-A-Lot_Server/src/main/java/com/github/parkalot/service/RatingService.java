@@ -17,8 +17,7 @@ public interface RatingService {
 	 * Adds the provided rating to the Database.
 	 * 
 	 * @param rating the rating to add.
-	 * @return <code>true</code> if the {@link Rating} has been successfully
-	 *         added.
+	 * @return {@code true} if the {@link Rating} has been successfully added.
 	 */
 	public boolean addRating(Rating rating);
 
@@ -26,8 +25,7 @@ public interface RatingService {
 	 * Updates the provided rating in the Database.
 	 * 
 	 * @param rating the rating to update.
-	 * @return <code>true</code> if the {@link Rating} has been successfully
-	 *         updated.
+	 * @return {@code true} if the {@link Rating} has been successfully updated.
 	 */
 	public boolean updateRating(Rating rating);
 
