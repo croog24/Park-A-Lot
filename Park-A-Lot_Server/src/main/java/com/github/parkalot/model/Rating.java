@@ -8,14 +8,16 @@ public class Rating extends Document {
 
 	private String ratingId;
 	private int value;
+	private String parkingLotId;
 	private LocalDateTime dateSubmitted;
 	private long submittedByUserId;
 
-	public Rating(String ratingId, int value, long submittedByUserId) {
+	public Rating(String ratingId, int value, String parkingLotId, long submittedByUserId) {
 		this.ratingId = ratingId;
 		// Set the internal CouchDB _id as well
 		this.setId(ratingId);
 		this.value = value;
+		this.parkingLotId = parkingLotId;
 		this.dateSubmitted = LocalDateTime.now();
 		this.submittedByUserId = submittedByUserId;
 	}
@@ -34,6 +36,14 @@ public class Rating extends Document {
 
 	public void setValue(int value) {
 		this.value = value;
+	}
+	
+	public String getParkingLotId() {
+		return parkingLotId;
+	}
+
+	public void setParkingLotId(String parkingLotId) {
+		this.parkingLotId = parkingLotId;
 	}
 
 	public long getSubmittedByUserId() {
@@ -54,7 +64,7 @@ public class Rating extends Document {
 
 	@Override
 	public String toString() {
-		return String.format("ParkingLotId: %s Rating: %s SubmittedBy: %s @ %s", this.ratingId, this.value,
+		return String.format("ParkingLotId: %s RatingId: %s Value: %s SubmittedBy: %s @ %s", this.parkingLotId, this.ratingId, this.value,
 				this.submittedByUserId, this.dateSubmitted);
 	}
 

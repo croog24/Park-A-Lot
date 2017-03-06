@@ -44,7 +44,7 @@ public class RatingDaoImpl implements RatingDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Rating> getRatingsByHour(Long parkingLotId, int hour) throws Exception {
+	public List<Rating> getRatingsByHour(String parkingLotId, int hour) throws Exception {
 		List<Rating> ratingList = new ArrayList<Rating>();
 		// TODO Auto-generated method stub
 		return ratingList;
@@ -54,7 +54,7 @@ public class RatingDaoImpl implements RatingDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Rating> getRatingsBetweenHours(Long parkingLotId, int minHour, int maxHour) throws Exception {
+	public List<Rating> getRatingsBetweenHours(String parkingLotId, int minHour, int maxHour) throws Exception {
 		List<Rating> ratingList = new ArrayList<Rating>();
 		// TODO Auto-generated method stub
 		return ratingList;
@@ -64,7 +64,7 @@ public class RatingDaoImpl implements RatingDao {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Rating> getRatingsByDayOfWeek(Long parkingLotId, DayOfWeek weekDay) throws Exception {
+	public List<Rating> getRatingsByDayOfWeek(String parkingLotId, DayOfWeek weekDay) throws Exception {
 		List<Rating> ratingList = new ArrayList<Rating>();
 		// TODO Auto-generated method stub
 		return ratingList;

@@ -36,7 +36,7 @@ public interface RatingService {
 	 * @param hour the hour to search with.
 	 * @return A list of {@link Rating} with the given search parameters.
 	 */
-	public List<Rating> getRatingsByHour(Long parkingLotId, int hour);
+	public List<Rating> getRatingsByHour(String parkingLotId, int hour);
 
 	/**
 	 * Retrieves a list of Ratings in the supplied parkingLotId and hour range.
@@ -46,7 +46,7 @@ public interface RatingService {
 	 * @param maxHour the maximum <b>inclusive</b> hour range to search with.
 	 * @return A list of {@link Rating} with the given search parameters.
 	 */
-	public List<Rating> getRatingsBetweenHours(Long parkingLotId, int minHour, int maxHour);
+	public List<Rating> getRatingsBetweenHours(String parkingLotId, int minHour, int maxHour);
 
 	/**
 	 * Retrieves a list of Ratings in the supplied parkingLotId and week day.
@@ -55,6 +55,6 @@ public interface RatingService {
 	 * @param weekDay the day of the week to search with.
 	 * @return A list of {@link Rating} with the given search parameters.
 	 */
-	public List<Rating> getRatingsByDayOfWeek(Long parkingLotId, DayOfWeek weekDay);
+	public List<Rating> getRatingsByDayOfWeek(String parkingLotId, DayOfWeek weekDay);
 
 }

@@ -37,7 +37,7 @@ public interface RatingDao {
 	 * @return a {@code List} of {@link Rating}s with the specified parameters.
 	 * @throws Exception if an error occurred during the transaction.
 	 */
-	public List<Rating> getRatingsByHour(Long parkingLotId, int hour) throws Exception;
+	public List<Rating> getRatingsByHour(String parkingLotId, int hour) throws Exception;
 
 	/**
 	 * Retrieves a {@code List} of {@link Rating}s within a range of hours.
@@ -48,7 +48,7 @@ public interface RatingDao {
 	 * @return a {@code List} of {@link Rating}s with the specified parameters.
 	 * @throws Exception if an error occurred during the query.
 	 */
-	public List<Rating> getRatingsBetweenHours(Long parkingLotId, int minHour, int maxHour) throws Exception;
+	public List<Rating> getRatingsBetweenHours(String parkingLotId, int minHour, int maxHour) throws Exception;
 
 	/**
 	 * Retrieves a {@code List} of {@link Rating}s on a specified day of the
@@ -58,6 +58,6 @@ public interface RatingDao {
 	 * @return a {@code List} of {@link Rating}s with the specified parameters.
 	 * @throws Exception if an error occurred during the query.
 	 */
-	public List<Rating> getRatingsByDayOfWeek(Long parkingLotId, DayOfWeek weekDay) throws Exception;
+	public List<Rating> getRatingsByDayOfWeek(String parkingLotId, DayOfWeek weekDay) throws Exception;
 
 }

@@ -8,7 +8,7 @@ public class ParkingLot extends Document {
 
 	private String parkingLotId;
 	private String name;
-	private ArrayList<Rating> ratingList;
+	private ArrayList<String> ratingIdList;
 
 	public ParkingLot(String parkingLotId) {
 		this.parkingLotId = parkingLotId;
@@ -32,17 +32,17 @@ public class ParkingLot extends Document {
 		this.name = name;
 	}
 
-	public ArrayList<Rating> getRatingList() {
-		return ratingList;
+	public ArrayList<String> getRatingList() {
+		return ratingIdList;
 	}
 
-	public void setRatingList(ArrayList<Rating> ratingList) {
-		this.ratingList = ratingList;
+	public void setRatingList(ArrayList<String> ratingIdList) {
+		this.ratingIdList = ratingIdList;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Parking Lot ID:%s Name:%s Ratings:%s", parkingLotId, name, ratingList);
+		return String.format("Parking Lot ID:%s Name:%s Ratings:%s", parkingLotId, name, ratingIdList);
 	}
 
 }

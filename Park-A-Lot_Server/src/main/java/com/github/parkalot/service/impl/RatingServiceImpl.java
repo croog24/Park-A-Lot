@@ -55,7 +55,7 @@ public class RatingServiceImpl implements RatingService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Rating> getRatingsByHour(Long parkingLotId, int hour) {
+	public List<Rating> getRatingsByHour(String parkingLotId, int hour) {
 		List<Rating> ratingList = new ArrayList<Rating>();
 		try {
 			if (!isHourRangeValid(hour)) {
@@ -73,7 +73,7 @@ public class RatingServiceImpl implements RatingService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Rating> getRatingsBetweenHours(Long parkingLotId, int minHour, int maxHour) {
+	public List<Rating> getRatingsBetweenHours(String parkingLotId, int minHour, int maxHour) {
 		List<Rating> ratingList = new ArrayList<Rating>();
 		try {
 			if (!isHourRangeValid(minHour, maxHour)) {
@@ -91,7 +91,7 @@ public class RatingServiceImpl implements RatingService {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<Rating> getRatingsByDayOfWeek(Long parkingLotId, DayOfWeek weekDay) {
+	public List<Rating> getRatingsByDayOfWeek(String parkingLotId, DayOfWeek weekDay) {
 		List<Rating> ratingList = new ArrayList<Rating>();
 		try {
 			ratingList = ratingDao.getRatingsByDayOfWeek(parkingLotId, weekDay);

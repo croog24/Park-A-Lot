@@ -24,7 +24,7 @@ public class TestRatingDao {
 	
 	@Test
 	public final void testAddRating() throws Exception {
-		Rating r = new Rating("123", 1, 23L);
+		Rating r = new Rating("123", 1, "123", 23L);
 		
 		ratingDao.addRating(r);
 		
@@ -33,7 +33,7 @@ public class TestRatingDao {
 	
 	@Test
 	public final void testUpdateRating() throws Exception {
-		Rating r = new Rating("123", 1, 23L);
+		Rating r = new Rating("123", 1, "123", 23L);
 		
 		ratingDao.updateRating(r);
 		
