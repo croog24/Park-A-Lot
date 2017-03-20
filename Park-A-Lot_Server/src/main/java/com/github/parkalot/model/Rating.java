@@ -9,6 +9,7 @@ public class Rating extends Document {
 	private String ratingId;
 	private int value;
 	private String parkingLotId;
+	// Date submitted == effective time of rating
 	private LocalDateTime dateSubmitted;
 	private long submittedByUserId;
 
