@@ -130,4 +130,18 @@ public class RatingServiceImpl implements RatingService {
 		return MIN_HOUR <= hour && hour <= MAX_HOUR;
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Rating> getRatingsByParkingLot(String parkingLotId) {
+		List<Rating> ratingList = new ArrayList<Rating>();
+		try {
+			ratingList = ratingDao.getRatingsByParkingLot(parkingLotId);
+		} catch (Exception e) {
+			LOGGER.error("Error retrieving resultset: ", e);
+		}
+		return ratingList;
+	}
+
 }

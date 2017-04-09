@@ -28,13 +28,13 @@ public class TestParkingLotService {
 	private ParkingLotDao mockParkingLotDao;
 
 	@Before
-	public final void init() throws Exception {
+	public void init() throws Exception {
 		mockParkingLotDao = mock(ParkingLotDaoImpl.class);
 		TestHelper.injectMock(parkingLotService, mockParkingLotDao, "parkingLotDao");
 	}
 
 	@Test
-	public final void testAddParkingLot() throws Exception {
+	public void testAddParkingLot() throws Exception {
 		ParkingLot parkingLot = new ParkingLot("123");
 
 		boolean result = parkingLotService.addParkingLot(parkingLot);
@@ -44,7 +44,7 @@ public class TestParkingLotService {
 	}
 
 	@Test
-	public final void testUpdateParkingLot() throws Exception {
+	public void testUpdateParkingLot() throws Exception {
 		ParkingLot parkingLot = new ParkingLot("123");
 
 		boolean result = parkingLotService.updateParkingLot(parkingLot);
@@ -54,7 +54,7 @@ public class TestParkingLotService {
 	}
 
 	@Test
-	public final void testGetParkingLot() throws Exception {
+	public void testGetParkingLot() throws Exception {
 		final String PARKING_LOT_ID = "123";
 		final ParkingLot PARKING_LOT = new ParkingLot(PARKING_LOT_ID);
 		when(mockParkingLotDao.getParkingLot(PARKING_LOT_ID)).thenReturn(PARKING_LOT);

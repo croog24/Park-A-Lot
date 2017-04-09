@@ -3,7 +3,7 @@ package com.github.parkalot.service;
 import com.googleapis.maps.place.GooglePlacesResponse;
 
 /**
- * A {@code protoype} scoped service layer to call Google's Places API.
+ * A {@code prototype} scoped service layer to call Google's Places API.
  * 
  * @author Craig
  *

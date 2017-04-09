@@ -10,10 +10,10 @@ import static org.mockito.Mockito.when;
 
 import java.time.DayOfWeek;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.junit.After;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.lightcouch.CouchDbClient;
@@ -47,6 +47,7 @@ public class TestRatingDao {
 		View mockView = mock(View.class);
 		when(mockView.includeDocs(Mockito.anyBoolean())).thenReturn(mockView);
 		when(mockView.key(Mockito.anyString())).thenReturn(mockView);
+		when(mockView.keys(Mockito.anyListOf(String.class))).thenReturn(mockView);
 		when(mockView.startKey(Mockito.anyString())).thenReturn(mockView);
 		when(mockView.endKey(Mockito.anyString())).thenReturn(mockView);
 		when(couchDbClient.view(anyString())).thenReturn(mockView);
@@ -88,10 +89,10 @@ public class TestRatingDao {
 		
 		List<Rating> resultList = ratingDao.getRatingsBetweenHours(PARKING_LOT_ID, MIN_HOUR, MAX_HOUR);
 		
-		verify(couchDbClient).view("rating/by_hour");
+		verify(couchDbClient).view("rating/byHour");
 		verify(mockView).includeDocs(true);
-		verify(mockView).startKey(MIN_HOUR);
-		verify(mockView).endKey(MAX_HOUR);
+		verify(mockView).startKey(Arrays.asList(PARKING_LOT_ID, MIN_HOUR + ""));
+		verify(mockView).endKey(Arrays.asList(PARKING_LOT_ID, MAX_HOUR + ""));
 		verify(mockView).query(Rating.class);
 
 		assertTrue("ResultList RatingsBetweenHours() should not be empty", !resultList.isEmpty());
@@ -114,9 +115,9 @@ public class TestRatingDao {
 		
 		List<Rating> resultList = ratingDao.getRatingsByHour(PARKING_LOT_ID, EXPECTED_HOUR);
 		
-		verify(couchDbClient).view("rating/by_hour");
+		verify(couchDbClient).view("rating/byHour");
 		verify(mockView).includeDocs(true);
-		verify(mockView).key(EXPECTED_HOUR);
+		verify(mockView).keys(Arrays.asList(PARKING_LOT_ID, EXPECTED_HOUR + ""));
 		verify(mockView).query(Rating.class);
 		
 		assertTrue("ResultList RatingsByHour() should not be empty", !resultList.isEmpty());
@@ -124,7 +125,6 @@ public class TestRatingDao {
 	}
 
 	@Test
-	@Ignore("TBD based on different LocalDateTime Rating data storage")
 	public final void testGetRatingsByDayOfWeek() throws Exception {
 		final int EXPECTED_SIZE = 5;
 		final DayOfWeek EXPECTED_DAY_OF_WEEK = DayOfWeek.SATURDAY;
@@ -132,20 +132,45 @@ public class TestRatingDao {
 		List<Rating> mockResultList = new ArrayList<Rating>();
 		for (int i = 0; i < 5; i++) {
 			Rating rating = new Rating(i + "", 4, PARKING_LOT_ID, 123L);
+			rating.setDayOfWeek(DayOfWeek.SATURDAY);
 			mockResultList.add(rating);
 		}
-		
+
 		View mockView = createBaseMockView();
 		when(mockView.query(Rating.class)).thenReturn(mockResultList);
 
 		List<Rating> resultList = ratingDao.getRatingsByDayOfWeek(PARKING_LOT_ID, EXPECTED_DAY_OF_WEEK);
 		
-		verify(couchDbClient).view("rating/by_hour");
+		verify(couchDbClient).view("rating/byDay");
 		verify(mockView).includeDocs(true);
-		verify(mockView).key(EXPECTED_DAY_OF_WEEK.getValue());
+		verify(mockView).key(Arrays.asList(PARKING_LOT_ID, EXPECTED_DAY_OF_WEEK.toString()));
 		verify(mockView).query(Rating.class);
 
 		assertTrue("ResultList RatingsByHour() should not be empty", !resultList.isEmpty());
+		assertEquals("Unexpected resultList size: ", EXPECTED_SIZE, resultList.size());
+	}
+	
+	@Test
+	public final void testGetRatingsByParkingLot() throws Exception {
+		final int EXPECTED_SIZE = 5;
+
+		List<Rating> mockResultList = new ArrayList<Rating>();
+		for (int i = 0; i < 5; i++) {
+			Rating rating = new Rating(i + "", 4, PARKING_LOT_ID, 123L);
+			mockResultList.add(rating);
+		}
+
+		View mockView = createBaseMockView();
+		when(mockView.query(Rating.class)).thenReturn(mockResultList);
+
+		List<Rating> resultList = ratingDao.getRatingsByParkingLot(PARKING_LOT_ID);
+		
+		verify(couchDbClient).view("rating/byParkingLot");
+		verify(mockView).includeDocs(true);
+		verify(mockView).key(PARKING_LOT_ID);
+		verify(mockView).query(Rating.class);
+
+		assertTrue("ResultList RatingsByParkingLot() should not be empty", !resultList.isEmpty());
 		assertEquals("Unexpected resultList size: ", EXPECTED_SIZE, resultList.size());
 	}
 

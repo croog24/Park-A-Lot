@@ -15,8 +15,8 @@ public interface ParkingLotService {
 	/**
 	 * Adds a {@link ParkingLot} to the database.
 	 * 
-	 * @param parkingLot the {@link ParkingLot} to add.
-	 * @return {@code true} if the {@link ParkingLot} has been successfully
+	 * @param parkingLot the {@code ParkingLot} to add.
+	 * @return {@code true} if the {@code ParkingLot} has been successfully
 	 *         added.
 	 */
 	public boolean addParkingLot(ParkingLot parkingLot);
@@ -24,8 +24,8 @@ public interface ParkingLotService {
 	/**
 	 * Updates the {@Link ParkingLot} in the database.
 	 * 
-	 * @param parkingLot the {@link ParkingLot} to update.
-	 * @return {@code true} if the {@link ParkingLot} has been successfully
+	 * @param parkingLot the {@code ParkingLot} to update.
+	 * @return {@code true} if the {@code ParkingLot} has been successfully
 	 *         updated.
 	 */
 	public boolean updateParkingLot(ParkingLot parkingLot);
@@ -33,8 +33,8 @@ public interface ParkingLotService {
 	/**
 	 * Retrieves the {@link ParkingLot} by ID.
 	 * 
-	 * @param parkingLotId the ID of the {@link ParkingLot} to retrieve.
-	 * @return ParkingLot the {@link ParkingLot} requested.
+	 * @param parkingLotId the ID of the {@code ParkingLot} to retrieve.
+	 * @return ParkingLot the {@code ParkingLot} requested.
 	 */
 	public ParkingLot getParkingLotById(String parkingLotId);
 

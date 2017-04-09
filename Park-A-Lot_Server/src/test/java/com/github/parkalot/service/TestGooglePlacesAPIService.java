@@ -49,7 +49,7 @@ public class TestGooglePlacesAPIService {
 	}
 
 	@Test
-	public final void testGetNearbyParking() throws Exception {
+	public void testGetNearbyParking() throws Exception {
 		mockServer.expect(method(HttpMethod.GET))
 				.andRespond(withSuccess(objMapper.writeValueAsString(sampleJSONResponse), MediaType.APPLICATION_JSON));
 
@@ -61,7 +61,7 @@ public class TestGooglePlacesAPIService {
 	}
 
 	@Test
-	public final void testGetNearbyParkingWithRadius() throws Exception {
+	public void testGetNearbyParkingWithRadius() throws Exception {
 		mockServer.expect(method(HttpMethod.GET))
 				.andRespond(withSuccess(objMapper.writeValueAsString(sampleJSONResponse), MediaType.APPLICATION_JSON));
 
@@ -73,7 +73,7 @@ public class TestGooglePlacesAPIService {
 	}
 
 	@Test
-	public final void testSelectedParking() throws Exception {
+	public void testSelectedParking() throws Exception {
 		mockServer.expect(method(HttpMethod.GET))
 				.andRespond(withSuccess(objMapper.writeValueAsString(sampleJSONResponse), MediaType.APPLICATION_JSON));
 
@@ -85,7 +85,7 @@ public class TestGooglePlacesAPIService {
 	}
 
 	@Test
-	public final void testSelectedParkingWithRadius() throws Exception {
+	public void testSelectedParkingWithRadius() throws Exception {
 		mockServer.expect(method(HttpMethod.GET))
 				.andRespond(withSuccess(objMapper.writeValueAsString(sampleJSONResponse), MediaType.APPLICATION_JSON));
 

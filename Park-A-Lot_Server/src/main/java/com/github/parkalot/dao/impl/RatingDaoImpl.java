@@ -1,6 +1,7 @@
 package com.github.parkalot.dao.impl;
 
 import java.time.DayOfWeek;
+import java.util.Arrays;
 import java.util.List;
 
 import org.lightcouch.CouchDbClient;
@@ -23,8 +24,9 @@ import com.github.parkalot.model.Rating;
 @Repository
 public class RatingDaoImpl implements RatingDao {
 
-	private static final String BY_HOUR_VIEW = "rating/by_hour";
-	//private static final String BY_DAY_OF_WEEK_VIEW = "rating/by_day";
+	private static final String BY_PARKING_LOT_VIEW = "rating/byParkingLot";
+	private static final String BY_DAY_VIEW = "rating/byDay";
+	private static final String BY_HOUR_VIEW = "rating/byHour";
 
 	@Autowired
 	private CouchDbClient dbClient;
@@ -52,7 +54,7 @@ public class RatingDaoImpl implements RatingDao {
 	public List<Rating> getRatingsByHour(String parkingLotId, int hour) throws Exception {
 		return dbClient.view(BY_HOUR_VIEW)
 				.includeDocs(true)
-				.key(hour)
+				.keys(Arrays.asList(parkingLotId, String.valueOf(hour)))
 				.query(Rating.class);
 	}
 
@@ -63,8 +65,8 @@ public class RatingDaoImpl implements RatingDao {
 	public List<Rating> getRatingsBetweenHours(String parkingLotId, int minHour, int maxHour) throws Exception {
 		return dbClient.view(BY_HOUR_VIEW)
 				.includeDocs(true)
-				.startKey(minHour)
-				.endKey(maxHour)
+				.startKey(Arrays.asList(parkingLotId, String.valueOf(minHour)))
+				.endKey((Arrays.asList(parkingLotId, String.valueOf(maxHour))))
 				.query(Rating.class);
 	}
 
@@ -73,14 +75,20 @@ public class RatingDaoImpl implements RatingDao {
 	 */
 	@Override
 	public List<Rating> getRatingsByDayOfWeek(String parkingLotId, DayOfWeek weekDay) throws Exception {
-		/*return dbClient.view(BY_DAY_OF_WEEK_VIEW)
+		return dbClient.view(BY_DAY_VIEW)
 				.includeDocs(true)
-				.key(weekDay.getValue())
-				.query(Rating.class);*/
-		
-		// TODO: Rating object stored more specific to what we need instead of native LocalDateTime Object
-		return dbClient.view(BY_HOUR_VIEW)
+				.key(Arrays.asList(parkingLotId, weekDay.toString()))
+				.query(Rating.class);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<Rating> getRatingsByParkingLot(String parkingLotId) throws Exception {
+		return dbClient.view(BY_PARKING_LOT_VIEW)
 				.includeDocs(true)
+				.key(parkingLotId)
 				.query(Rating.class);
 	}
 

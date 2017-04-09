@@ -14,47 +14,55 @@ import com.github.parkalot.model.Rating;
 public interface RatingService {
 
 	/**
-	 * Adds the provided rating to the Database.
+	 * Adds the provided {@link Rating} to the Database.
 	 * 
-	 * @param rating the rating to add.
-	 * @return {@code true} if the {@link Rating} has been successfully added.
+	 * @param rating the {@code Rating} to add.
+	 * @return {@code true} if the {@code Rating} has been successfully added.
 	 */
 	public boolean addRating(Rating rating);
 
 	/**
-	 * Updates the provided rating in the Database.
+	 * Updates the provided {@link Rating} in the Database.
 	 * 
-	 * @param rating the rating to update.
-	 * @return {@code true} if the {@link Rating} has been successfully updated.
+	 * @param rating the {@code Rating} to update.
+	 * @return {@code true} if the {@code Rating} has been successfully updated.
 	 */
 	public boolean updateRating(Rating rating);
 
 	/**
-	 * Retrieves a list of Ratings in the supplied parkingLotId and hour.
+	 * Retrieves a {@code List} of {@link Rating}s in the supplied parkingLotId and hour.
 	 * 
 	 * @param parkingLotId the ID of the parking lot to search.
 	 * @param hour the hour to search with.
-	 * @return A list of {@link Rating} with the given search parameters.
+	 * @return A list of {@code Rating} with the given search parameters.
 	 */
 	public List<Rating> getRatingsByHour(String parkingLotId, int hour);
 
 	/**
-	 * Retrieves a list of Ratings in the supplied parkingLotId and hour range.
+	 * Retrieves a {@code List} of {@link Rating}s in the supplied parkingLotId and hour range.
 	 * 
 	 * @param parkingLotId the ID of the parking lot to search.
 	 * @param minHour the minimum <b>inclusive</b> hour range to search with.
 	 * @param maxHour the maximum <b>inclusive</b> hour range to search with.
-	 * @return A list of {@link Rating} with the given search parameters.
+	 * @return A list of {@code Rating} with the given search parameters.
 	 */
 	public List<Rating> getRatingsBetweenHours(String parkingLotId, int minHour, int maxHour);
 
 	/**
-	 * Retrieves a list of Ratings in the supplied parkingLotId and week day.
+	 * Retrieves a {@code List} of {@link Rating}s in the supplied parkingLotId and week day.
 	 * 
 	 * @param parkingLotId the ID of the parking lot to search.
 	 * @param weekDay the day of the week to search with.
-	 * @return A list of {@link Rating} with the given search parameters.
+	 * @return A list of {@code Rating} with the given search parameters.
 	 */
 	public List<Rating> getRatingsByDayOfWeek(String parkingLotId, DayOfWeek weekDay);
+	
+	/**
+	 * Retrieves a {@code List} of {@link Rating}s in the supplied parkingLotId.
+	 * 
+	 * @param parkingLotId the ID of the parking lot to search.
+	 * @return A list of {@code Rating}s with the given search parameters.
+	 */
+	public List<Rating> getRatingsByParkingLot(String parkingLotId);
 
 }

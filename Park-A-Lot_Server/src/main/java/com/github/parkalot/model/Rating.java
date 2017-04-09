@@ -1,5 +1,6 @@
 package com.github.parkalot.model;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 
 import org.lightcouch.Document;
@@ -9,8 +10,8 @@ public class Rating extends Document {
 	private String ratingId;
 	private int value;
 	private String parkingLotId;
-	// Date submitted == effective time of rating
-	private LocalDateTime dateSubmitted;
+	private int hour;
+	private DayOfWeek dayOfWeek;
 	private long submittedByUserId;
 
 	public Rating(String ratingId, int value, String parkingLotId, long submittedByUserId) {
@@ -19,7 +20,9 @@ public class Rating extends Document {
 		this.setId(ratingId);
 		this.value = value;
 		this.parkingLotId = parkingLotId;
-		this.dateSubmitted = LocalDateTime.now();
+		LocalDateTime dt = LocalDateTime.now();
+		this.hour = dt.getHour();
+		this.dayOfWeek = dt.getDayOfWeek();
 		this.submittedByUserId = submittedByUserId;
 	}
 
@@ -51,22 +54,30 @@ public class Rating extends Document {
 		return submittedByUserId;
 	}
 
-	public LocalDateTime getDateSubmitted() {
-		return dateSubmitted;
-	}
-
-	public void setDateSubmitted(LocalDateTime dateSubmitted) {
-		this.dateSubmitted = dateSubmitted;
-	}
-
 	public void setSubmittedByUserId(long submittedByUserId) {
 		this.submittedByUserId = submittedByUserId;
+	}
+	
+	public int getHour() {
+		return hour;
+	}
+
+	public void setHour(int hour) {
+		this.hour = hour;
+	}
+
+	public DayOfWeek getDayOfWeek() {
+		return dayOfWeek;
+	}
+
+	public void setDayOfWeek(DayOfWeek dayOfWeek) {
+		this.dayOfWeek = dayOfWeek;
 	}
 
 	@Override
 	public String toString() {
-		return String.format("ParkingLotId: %s RatingId: %s Value: %s SubmittedBy: %s @ %s", this.parkingLotId, this.ratingId, this.value,
-				this.submittedByUserId, this.dateSubmitted);
+		return String.format("ParkingLotId: %s RatingId: %s Value: %s SubmittedBy: %s @ %s %s", this.parkingLotId, this.ratingId, this.value,
+				this.submittedByUserId, this.dayOfWeek, this.hour);
 	}
 
 }
