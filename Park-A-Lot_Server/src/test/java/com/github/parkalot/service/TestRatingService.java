@@ -66,17 +66,6 @@ public class TestRatingService {
 	}
 	
 	@Test
-	public void testGetRatingsBetweenHours_InvalidHour() throws Exception {
-		final int EXPECTED_LIST_SIZE = 0;
-		when(mockRatingDaoImpl.getRatingsBetweenHours("123", 122, 222)).thenReturn(mockList);
-
-		List<Rating> resultList = ratingService.getRatingsBetweenHours("123", 122, 222);
-
-		verify(mockRatingDaoImpl, never()).getRatingsBetweenHours("123", 122, 222);
-		assertEquals("Unexpected result size", EXPECTED_LIST_SIZE, resultList.size());
-	}
-
-	@Test
 	public void testGetRatingsByDayOfWeek() throws Exception {
 		final int EXPECTED_LIST_SIZE = 2;
 		when(mockRatingDaoImpl.getRatingsByDayOfWeek("123", DayOfWeek.FRIDAY)).thenReturn(mockList);
@@ -98,17 +87,6 @@ public class TestRatingService {
 		assertEquals("Unexpected result size", EXPECTED_LIST_SIZE, resultList.size());
 	}
 
-	@Test
-	public void testGetRatingsByHour_InvalidHour() throws Exception {
-		final int EXPECTED_LIST_SIZE = 0;
-		when(mockRatingDaoImpl.getRatingsByHour("123", 1)).thenReturn(mockList);
-
-		List<Rating> resultList = ratingService.getRatingsByHour("123", 30);
-
-		verify(mockRatingDaoImpl, never()).getRatingsByHour("123", 1);
-		assertEquals("Unexpected result size", EXPECTED_LIST_SIZE, resultList.size());
-	}
-	
 	@Test
 	public void testGetRatingsByParkingLot() throws Exception {
 		final String PARKING_LOT_ID = "123";
