@@ -48,8 +48,8 @@ public class RatingController {
 	public ResponseEntity getRatings(
 			@PathVariable("parking-lot-id") String parkingLotId, 
 			@RequestParam(value = "weekday", required = false) String weekday,
-			@RequestParam(value = "min-hour", defaultValue = "-1") int minHour, 
-			@RequestParam(value = "max-hour", defaultValue = "-1") int maxHour) {
+			@RequestParam(value = "min-hour", required = false) Integer minHour, 
+			@RequestParam(value = "max-hour", required = false) Integer maxHour) {
 		LOGGER.debug("Start of RatingController.getRatings()");
 		
 		ResponseEntity<List<Rating>> response = null;
@@ -58,11 +58,11 @@ public class RatingController {
 			if (weekday != null) {
 				response = handleGetRatingsByWeekday(parkingLotId, weekday);
 			}
-			else if (isBothHourParamsPresent(minHour, maxHour)) {
+			else if (minHour != null && maxHour != null) {
 				response = handleGetRatingsBetweenHours(parkingLotId, minHour, maxHour);
 			}
-			else if (isHourParamPresent(minHour, maxHour)) {
-				if(minHour != -1) {
+			else if (minHour != null || maxHour != null) {
+				if(minHour != null) {
 					response = handleGetRatingsByHour(parkingLotId, minHour);
 				}
 				else {
@@ -95,7 +95,7 @@ public class RatingController {
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity addRating(
 			@PathVariable("parking-lot-id") String parkingLotId,
-			@RequestParam(value = "value") int value,
+			@RequestParam(value = "value") Integer value,
 			@RequestParam(value = "submitted-by") String submittedBy) {
 		LOGGER.debug("Start of RatingController.addRating()");
 		ResponseEntity response = null;
@@ -181,34 +181,6 @@ public class RatingController {
 		return new ResponseEntity<List<Rating>>(
 				ratingService.getRatingsBetweenHours(parkingLotId, minHour, maxHour), 
 				HttpStatus.OK);
-	}
-	
-	/**
-	 * Checks if at least one of the hour parameters are present.
-	 * 
-	 * @param minHour optional minimum hour parameter.
-	 * @param maxHour optional maximum hour parameter.
-	 * @return {@code true} if at least one of the parameters is present.
-	 */
-	private boolean isHourParamPresent(int minHour, int maxHour) {
-		if (minHour == -1 && maxHour == -1) {
-			return false;
-		}
-		return true;
-	}
-	
-	/**
-	 * Checks if both hour parameters are present.
-	 * 
-	 * @param minHour the required minimum hour.
-	 * @param maxHour the required maximum hour.
-	 * @return {@code true} if both of the parameters are present.
-	 */
-	private boolean isBothHourParamsPresent(int minHour, int maxHour) {
-		if (minHour != -1 && maxHour != -1) {
-			return true;
-		}
-		return false;
 	}
 	
 	/**
