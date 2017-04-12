@@ -56,7 +56,7 @@ public class TestRatingDao {
 
 	@Test
 	public final void testAddRating() throws Exception {
-		Rating r = new Rating("123", 1, PARKING_LOT_ID, 23L);
+		Rating r = new Rating(PARKING_LOT_ID, 1, "23");
 
 		ratingDao.addRating(r);
 
@@ -65,7 +65,7 @@ public class TestRatingDao {
 
 	@Test
 	public final void testUpdateRating() throws Exception {
-		Rating r = new Rating("123", 1, "123", 23L);
+		Rating r = new Rating("123", 1, "23");
 
 		ratingDao.updateRating(r);
 
@@ -80,7 +80,7 @@ public class TestRatingDao {
 		
 		List<Rating> mockResultList = new ArrayList<Rating>();
 		for (int i = 0; i < 5; i++) {
-			Rating rating = new Rating(i + "", MIN_HOUR, PARKING_LOT_ID, 123L);
+			Rating rating = new Rating(PARKING_LOT_ID, 5, "123");
 			mockResultList.add(rating);
 		}
 		
@@ -106,7 +106,7 @@ public class TestRatingDao {
 
 		List<Rating> mockResultList = new ArrayList<Rating>();
 		for (int i = 0; i < 5; i++) {
-			Rating rating = new Rating(i + "", 4, PARKING_LOT_ID, 123L);
+			Rating rating = new Rating(PARKING_LOT_ID, 4, "123");
 			mockResultList.add(rating);
 		}
 		
@@ -131,7 +131,7 @@ public class TestRatingDao {
 
 		List<Rating> mockResultList = new ArrayList<Rating>();
 		for (int i = 0; i < 5; i++) {
-			Rating rating = new Rating(i + "", 4, PARKING_LOT_ID, 123L);
+			Rating rating = new Rating(PARKING_LOT_ID, 4, "123");
 			rating.setDayOfWeek(DayOfWeek.SATURDAY);
 			mockResultList.add(rating);
 		}
@@ -156,7 +156,7 @@ public class TestRatingDao {
 
 		List<Rating> mockResultList = new ArrayList<Rating>();
 		for (int i = 0; i < 5; i++) {
-			Rating rating = new Rating(i + "", 4, PARKING_LOT_ID, 123L);
+			Rating rating = new Rating(PARKING_LOT_ID, 4, "123");
 			mockResultList.add(rating);
 		}
 

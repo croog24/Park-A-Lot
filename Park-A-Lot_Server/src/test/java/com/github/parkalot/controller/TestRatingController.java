@@ -7,6 +7,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.DayOfWeek;
@@ -55,7 +56,7 @@ public class TestRatingController {
 		mockRatingService = mock(RatingServiceImpl.class);
 		TestHelper.injectMock(ratingController, mockRatingService, "ratingService");
 		
-		mockRatingList.add(new Rating("1", 2, "123", 4L));
+		mockRatingList.add(new Rating("123", 2, "4"));
 	}
 	
 	@Test
@@ -118,6 +119,20 @@ public class TestRatingController {
 			.andExpect(status().isOk());
 		
 		verify(mockRatingService).getRatingsBetweenHours(PARKING_LOT_ID, MIN_HOUR, MAX_HOUR);
+	}
+	
+	@Test
+	public void testAddRating() throws Exception {
+		final String PARKING_LOT_ID = "123";
+		final String USER_ID = "USER";
+		final int RATING_VALUE = 3;
+		
+		when(mockRatingService.addRating(any(Rating.class))).thenReturn(true);
+		
+		mockMvc.perform(put("/rating/" + PARKING_LOT_ID).param("value", "" + RATING_VALUE).param("submitted-by", USER_ID))
+			.andExpect(status().isCreated());
+		
+		verify(mockRatingService).addRating(any(Rating.class));
 	}
 	
 }

@@ -27,7 +27,7 @@ public class TestRatingService {
 	private RatingService ratingService;
 
 	private RatingDaoImpl mockRatingDaoImpl;
-	private final List<Rating> mockList = Arrays.asList(new Rating("1", 2, "2",3), new Rating("4", 5, "2",6));
+	private final List<Rating> mockList = Arrays.asList(new Rating("1", 2, "2"), new Rating("4", 5, "2"));
 
 	@Before
 	public void init() {
@@ -37,7 +37,7 @@ public class TestRatingService {
 
 	@Test
 	public void testAddRating() throws Exception {
-		Rating rating = new Rating("1", 5, "2", 3);
+		Rating rating = new Rating("1", 5, "2");
 		
 		boolean result = ratingService.addRating(rating);
 
@@ -47,7 +47,7 @@ public class TestRatingService {
 
 	@Test
 	public void testUpdateRating() throws Exception {
-		Rating rating = new Rating("1", 5, "2",3);
+		Rating rating = new Rating("1", 5, "2");
 		boolean result = ratingService.updateRating(rating);
 
 		verify(mockRatingDaoImpl).updateRating(rating);

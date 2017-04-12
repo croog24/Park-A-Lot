@@ -2,20 +2,22 @@ package com.github.parkalot.model;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 import org.lightcouch.Document;
 
 public class Rating extends Document {
 
 	private String ratingId;
-	private int value;
 	private String parkingLotId;
+	private int value;
 	private int hour;
 	private DayOfWeek dayOfWeek;
-	private long submittedByUserId;
+	// The unique device ID of the user
+	private String submittedByUserId;
 
-	public Rating(String ratingId, int value, String parkingLotId, long submittedByUserId) {
-		this.ratingId = ratingId;
+	public Rating(String parkingLotId, int value, String submittedByUserId) {
+		this.ratingId = UUID.randomUUID().toString();
 		// Set the internal CouchDB _id as well
 		this.setId(ratingId);
 		this.value = value;
@@ -50,11 +52,11 @@ public class Rating extends Document {
 		this.parkingLotId = parkingLotId;
 	}
 
-	public long getSubmittedByUserId() {
+	public String getSubmittedByUserId() {
 		return submittedByUserId;
 	}
 
-	public void setSubmittedByUserId(long submittedByUserId) {
+	public void setSubmittedByUserId(String submittedByUserId) {
 		this.submittedByUserId = submittedByUserId;
 	}
 	
