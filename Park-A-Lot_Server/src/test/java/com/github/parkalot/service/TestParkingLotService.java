@@ -35,7 +35,7 @@ public class TestParkingLotService {
 
 	@Test
 	public void testAddParkingLot() throws Exception {
-		ParkingLot parkingLot = new ParkingLot("123");
+		ParkingLot parkingLot = new ParkingLot("123", "name");
 
 		boolean result = parkingLotService.addParkingLot(parkingLot);
 
@@ -45,7 +45,7 @@ public class TestParkingLotService {
 
 	@Test
 	public void testUpdateParkingLot() throws Exception {
-		ParkingLot parkingLot = new ParkingLot("123");
+		ParkingLot parkingLot = new ParkingLot("123", "name");
 
 		boolean result = parkingLotService.updateParkingLot(parkingLot);
 
@@ -56,7 +56,7 @@ public class TestParkingLotService {
 	@Test
 	public void testGetParkingLot() throws Exception {
 		final String PARKING_LOT_ID = "123";
-		final ParkingLot PARKING_LOT = new ParkingLot(PARKING_LOT_ID);
+		final ParkingLot PARKING_LOT = new ParkingLot(PARKING_LOT_ID, "name");
 		when(mockParkingLotDao.getParkingLot(PARKING_LOT_ID)).thenReturn(PARKING_LOT);
 
 		ParkingLot result = parkingLotService.getParkingLotById(PARKING_LOT_ID);

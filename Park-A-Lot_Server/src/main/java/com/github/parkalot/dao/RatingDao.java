@@ -16,7 +16,7 @@ public interface RatingDao {
 	/**
 	 * Adds a {@link Rating} to the Database.
 	 * 
-	 * @param rating the {@link Rating} to add.
+	 * @param rating the {@code Rating} to add.
 	 * @throws Exception if an error occurred during the transaction.
 	 */
 	public void addRating(Rating rating) throws Exception;
@@ -24,17 +24,24 @@ public interface RatingDao {
 	/**
 	 * Updates a {@link Rating} in the Database.
 	 * 
-	 * @param rating the {@link Rating} to update.
+	 * @param rating the {@code Rating} to update.
 	 * @throws Exception if an error occurred during the transaction.
 	 */
 	public void updateRating(Rating rating) throws Exception;
 
 	/**
+	 * Deletes a {@link Rating} in the Database.
+	 * @param rating the {@code Rating} to delete.
+	 * @throws Exception if an error occurred during the transaction.
+	 */
+	public void deleteRating(Rating rating) throws Exception;
+	
+	/**
 	 * Retrieves a {@code List } of {@link Rating}s by hour.
 	 * 
 	 * @param parkingLotId the parking lot ID to search with.
 	 * @param hour the hour to search within.
-	 * @return a {@code List} of {@link Rating}s with the specified parameters.
+	 * @return a {@code List} of {@code Rating}s with the specified parameters.
 	 * @throws Exception if an error occurred during the transaction.
 	 */
 	public List<Rating> getRatingsByHour(String parkingLotId, int hour) throws Exception;
@@ -45,7 +52,7 @@ public interface RatingDao {
 	 * @param parkingLotId the parking lot ID to search with.
 	 * @param minHour the minimum hour range to search.
 	 * @param maxHour the maximum hour range to search.
-	 * @return a {@code List} of {@link Rating}s with the specified parameters.
+	 * @return a {@code List} of {@code Rating}s with the specified parameters.
 	 * @throws Exception if an error occurred during the query.
 	 */
 	public List<Rating> getRatingsBetweenHours(String parkingLotId, int minHour, int maxHour) throws Exception;
@@ -55,7 +62,7 @@ public interface RatingDao {
 	 * week.
 	 * 
 	 * @param weekDay the day of the week to search with.
-	 * @return a {@code List} of {@link Rating}s with the specified parameters.
+	 * @return a {@code List} of {@code Rating}s with the specified parameters.
 	 * @throws Exception if an error occurred during the query.
 	 */
 	public List<Rating> getRatingsByDayOfWeek(String parkingLotId, DayOfWeek weekDay) throws Exception;
@@ -64,8 +71,8 @@ public interface RatingDao {
 	 * Retrieves a {@code List} of {@link Rating}s on a {@link ParkingLot}.
 	 * 
 	 * @param parkingLotId the parking lot ID to search with.
-	 * @return a {@code List} of {@link Rating}s with the specified parameters.
-	 * @throws Exception if an error occured during the query.
+	 * @return a {@code List} of {@code Rating}s with the specified parameters.
+	 * @throws Exception if an error occurred during the query.
 	 */
 	public List<Rating> getRatingsByParkingLot(String parkingLotId) throws Exception;
 

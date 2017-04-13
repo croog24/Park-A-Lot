@@ -10,8 +10,10 @@ public class ParkingLot extends Document {
 	private String name;
 	private ArrayList<String> ratingIdList;
 
-	public ParkingLot(String parkingLotId) {
+	public ParkingLot(String parkingLotId, String name) {
 		this.parkingLotId = parkingLotId;
+		this.name = name;
+		this.ratingIdList = new ArrayList<String>();
 		// Set the internal CouchDB _id as well
 		this.setId(parkingLotId);
 	}

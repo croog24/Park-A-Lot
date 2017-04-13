@@ -22,7 +22,7 @@ public interface ParkingLotService {
 	public boolean addParkingLot(ParkingLot parkingLot);
 
 	/**
-	 * Updates the {@Link ParkingLot} in the database.
+	 * Updates the {@link ParkingLot} in the database.
 	 * 
 	 * @param parkingLot the {@code ParkingLot} to update.
 	 * @return {@code true} if the {@code ParkingLot} has been successfully

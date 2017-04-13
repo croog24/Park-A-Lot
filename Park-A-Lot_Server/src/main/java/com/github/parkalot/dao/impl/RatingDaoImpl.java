@@ -46,7 +46,15 @@ public class RatingDaoImpl implements RatingDao {
 	public void updateRating(Rating rating) throws Exception {
 		dbClient.update(rating);
 	}
-
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void deleteRating(Rating rating) throws Exception {
+		dbClient.remove(rating);
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */

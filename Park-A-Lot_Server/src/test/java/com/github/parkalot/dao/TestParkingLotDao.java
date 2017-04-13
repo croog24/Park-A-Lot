@@ -25,8 +25,8 @@ public class TestParkingLotDao {
 	private CouchDbClient couchDbClient;
 	
 	@Test
-	public final void testAddParkingLot() throws Exception {
-		ParkingLot p = new ParkingLot("123");
+	public void testAddParkingLot() throws Exception {
+		ParkingLot p = new ParkingLot("123", "name");
 		
 		parkingLotDao.addParkingLot(p);
 		
@@ -34,8 +34,8 @@ public class TestParkingLotDao {
 	}
 	
 	@Test
-	public final void testUpdateParkingLot() throws Exception {
-		ParkingLot p = new ParkingLot("123");
+	public void testUpdateParkingLot() throws Exception {
+		ParkingLot p = new ParkingLot("123", "name");
 		
 		parkingLotDao.updateParkingLot(p);
 		
@@ -43,10 +43,10 @@ public class TestParkingLotDao {
 	}
 	
 	@Test
-	public final void testGetParkingLot() throws Exception {
+	public void testGetParkingLot() throws Exception {
 		final String PARKING_LOT_ID = "123";
 		
-		ParkingLot p = new ParkingLot(PARKING_LOT_ID);
+		ParkingLot p = new ParkingLot(PARKING_LOT_ID, "name");
 		when(couchDbClient.find(ParkingLot.class, PARKING_LOT_ID)).thenReturn(p);
 		
 		ParkingLot result = parkingLotDao.getParkingLot("123");

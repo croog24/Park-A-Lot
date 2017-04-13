@@ -30,6 +30,13 @@ public interface RatingService {
 	public boolean updateRating(Rating rating);
 
 	/**
+	 * Deletes a {@link Rating}.
+	 * 
+	 * @param rating the {@code Rating} to delete.
+	 */
+	public void deleteRating(Rating rating);
+	
+	/**
 	 * Retrieves a {@code List} of {@link Rating}s in the supplied parkingLotId and hour.
 	 * 
 	 * @param parkingLotId the ID of the parking lot to search.

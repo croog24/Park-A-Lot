@@ -28,7 +28,7 @@ public class RatingServiceImpl implements RatingService {
 		try {
 			ratingDao.addRating(rating);
 		} catch (Exception e) {
-			LOGGER.error("Error adding Rating to Database: ", e);
+			LOGGER.error("Error adding Rating to Database: " + e);
 			return false;
 		}
 		return true;
@@ -42,11 +42,23 @@ public class RatingServiceImpl implements RatingService {
 		try {
 			ratingDao.updateRating(rating);
 		} catch (Exception e) {
-			LOGGER.error("Error updating Rating in Database: ", e);
+			LOGGER.error("Error updating Rating in Database: " + e);
 			return false;
 		}
 
 		return true;
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void deleteRating(Rating rating) {
+		try {
+			ratingDao.deleteRating(rating);
+		} catch (Exception e) {
+			LOGGER.error("Error deleting Rating in Database: " + e);
+		}
 	}
 
 	/**

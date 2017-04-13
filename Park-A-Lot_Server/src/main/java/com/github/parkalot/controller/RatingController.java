@@ -14,9 +14,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.parkalot.ValidationException;
+import com.github.parkalot.model.ParkingLot;
 import com.github.parkalot.model.Rating;
+import com.github.parkalot.service.ParkingLotService;
 import com.github.parkalot.service.RatingService;
 
+/**
+ * Entry point for all requests involving {@link Rating} retrieval/adding.
+ * 
+ * @author Craig
+ *
+ */
 @SuppressWarnings({ "unchecked", "rawtypes" })
 @RestController
 @RequestMapping("/rating/{parking-lot-id}")
@@ -30,6 +38,9 @@ public class RatingController {
 
 	@Autowired
 	private RatingService ratingService;
+	
+	@Autowired
+	private ParkingLotService parkingLotService;
 
 	/**
 	 * Main GET request handler for {@link Rating} types. Handles several
@@ -74,9 +85,9 @@ public class RatingController {
 			}
 
 		} catch (ValidationException e) {
-			response = handleValidationException(e.getMessage());
+			response = ResponseEntityUtils.handleValidationException(e.getMessage());
 		} catch (Exception e) {
-			response = handleUnexpectedException(e.getMessage());
+			response = ResponseEntityUtils.handleUnexpectedException(e.getMessage());
 		}
 		
 		LOGGER.debug("End of RatingController.getRatings()");
@@ -101,22 +112,11 @@ public class RatingController {
 		ResponseEntity response = null;
 		
 		try {
-			if (!isValueValid(value)) {
-				throw new ValidationException("Unexpected Rating value provided!");
-			}
-			
-			boolean isCreated = ratingService.addRating(new Rating(parkingLotId, value, submittedBy));
-			if (isCreated) {
-				response = new ResponseEntity(HttpStatus.CREATED);
-			}
-			else {
-				throw new Exception("Rating not successfully added, please try again!");
-			}
-			
+			response = handleAddRating(parkingLotId, value, submittedBy);
 		} catch (ValidationException e) {
-			response = handleValidationException(e.getMessage());
+			response = ResponseEntityUtils.handleValidationException(e.getMessage());
 		} catch (Exception e) {
-			response = handleUnexpectedException(e.getMessage());
+			response = ResponseEntityUtils.handleUnexpectedException(e.getMessage());
 		}
 		
 		LOGGER.debug("End of RatingController.addRating()");
@@ -213,26 +213,35 @@ public class RatingController {
 	}
 	
 	/**
-	 * Handles responses where a {@link ValidationException} occurred.
-	 * 
-	 * @param message the message of the exception.
-	 * @return A {@link ResponseEntity} with {@code HttpStatus} 400 BAD_REQUEST.
+	 * Handles requests to add a {@link Rating}.
 	 */
-	private ResponseEntity handleValidationException(String message) {
-		final String msg = String.format("Validation error: %s", message);
-		LOGGER.error(msg);
-		return new ResponseEntity(msg, HttpStatus.BAD_REQUEST);
-	}
-	
-	/**
-	 * Handles responses where an unexpected {@code Exception} occured.
-	 * 
-	 * @param message the message of the exception.
-	 * @return A {@link ResponseEntity} with {@code HttpStatus} 500 INTERNAL_SERVER_ERROR.
-	 */
-	private ResponseEntity handleUnexpectedException(String message) {
-		final String msg = String.format("Unexpected error: %s", message);
-		LOGGER.error(msg);
-		return new ResponseEntity(msg, HttpStatus.INTERNAL_SERVER_ERROR);
+	private ResponseEntity handleAddRating(String parkingLotId, int value, String submittedBy) throws Exception {
+		if (!isValueValid(value)) {
+			throw new ValidationException("Unexpected Rating value provided!");
+		}
+		
+		Rating r = new Rating(parkingLotId, value, submittedBy);
+		boolean isCreated = ratingService.addRating(r);
+		if (isCreated) {
+			// Update the containing parking lot
+			ParkingLot p = parkingLotService.getParkingLotById(parkingLotId);
+			if (p == null) {
+				throw new Exception("ParkingLot not found!");
+			}
+			
+			p.getRatingList().add(r.getRatingId());
+			
+			boolean isLotUpdated = parkingLotService.updateParkingLot(p);
+			if (!isLotUpdated) {
+				// Remove orphan Rating and throw error
+				ratingService.deleteRating(r);
+				throw new Exception("Unable to update the containing Parking Lot!");
+			}
+		}
+		else {
+			throw new Exception("Rating not successfully added, please try again!");
+		}
+			
+		return new ResponseEntity(HttpStatus.CREATED);
 	}
 }

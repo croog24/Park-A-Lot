@@ -55,7 +55,7 @@ public class TestRatingDao {
 	}
 
 	@Test
-	public final void testAddRating() throws Exception {
+	public void testAddRating() throws Exception {
 		Rating r = new Rating(PARKING_LOT_ID, 1, "23");
 
 		ratingDao.addRating(r);
@@ -64,16 +64,25 @@ public class TestRatingDao {
 	}
 
 	@Test
-	public final void testUpdateRating() throws Exception {
+	public void testUpdateRating() throws Exception {
 		Rating r = new Rating("123", 1, "23");
 
 		ratingDao.updateRating(r);
 
 		verify(couchDbClient).update(r);
 	}
+	
+	@Test
+	public void testDeleteRating() throws Exception {
+		Rating r = new Rating("123", 1, "23");
+		
+		ratingDao.deleteRating(r);
+		
+		verify(couchDbClient).remove(r);
+	}
 
 	@Test
-	public final void testGetRatingsBetweenHour() throws Exception {
+	public void testGetRatingsBetweenHour() throws Exception {
 		final int EXPECTED_SIZE = 5;
 		final int MIN_HOUR = 3;
 		final int MAX_HOUR = 6;
@@ -100,7 +109,7 @@ public class TestRatingDao {
 	}
 
 	@Test
-	public final void testGetRatingsByHour() throws Exception {
+	public void testGetRatingsByHour() throws Exception {
 		final int EXPECTED_SIZE = 5;
 		final int EXPECTED_HOUR = 3;
 
@@ -125,7 +134,7 @@ public class TestRatingDao {
 	}
 
 	@Test
-	public final void testGetRatingsByDayOfWeek() throws Exception {
+	public void testGetRatingsByDayOfWeek() throws Exception {
 		final int EXPECTED_SIZE = 5;
 		final DayOfWeek EXPECTED_DAY_OF_WEEK = DayOfWeek.SATURDAY;
 
@@ -151,7 +160,7 @@ public class TestRatingDao {
 	}
 	
 	@Test
-	public final void testGetRatingsByParkingLot() throws Exception {
+	public void testGetRatingsByParkingLot() throws Exception {
 		final int EXPECTED_SIZE = 5;
 
 		List<Rating> mockResultList = new ArrayList<Rating>();
@@ -173,5 +182,5 @@ public class TestRatingDao {
 		assertTrue("ResultList RatingsByParkingLot() should not be empty", !resultList.isEmpty());
 		assertEquals("Unexpected resultList size: ", EXPECTED_SIZE, resultList.size());
 	}
-
+	
 }
