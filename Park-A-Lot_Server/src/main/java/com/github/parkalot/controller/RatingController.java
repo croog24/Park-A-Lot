@@ -149,9 +149,9 @@ public class RatingController {
 	private ResponseEntity handleGetRatingsByWeekday(String parkingLotId, String weekday) throws Exception {
 		DayOfWeek dayEnum;
 		try {
-			dayEnum = DayOfWeek.valueOf(weekday);
+			dayEnum = DayOfWeek.valueOf(weekday.toUpperCase());
 		} catch (Exception e) {
-			throw new ValidationException(String.format("Weekday value  %s  is not a valid weekday", weekday));
+			throw new ValidationException(String.format("Weekday value %s is not a valid weekday", weekday));
 		}
 		
 		return new ResponseEntity<List<Rating>>(

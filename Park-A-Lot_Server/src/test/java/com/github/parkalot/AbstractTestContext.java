@@ -16,7 +16,8 @@ public class AbstractTestContext {
 		return new RestTemplate();
 	}
 	
-	@Bean(name = "couchDbClient")
+	// TODO: Spring is picking up this bean during actual deployment...why...
+	//@Bean(name = "couchDbClient")
 	public CouchDbClient getCouchDbClient() {
 		return Mockito.mock(CouchDbClient.class);
 	}
