@@ -7,31 +7,29 @@ import java.time.DayOfWeek;
 import java.util.Arrays;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.parkalot.TestContext;
 import com.github.parkalot.dao.impl.RatingDaoImpl;
 import com.github.parkalot.model.Rating;
-import com.github.parkalot.service.impl.RatingServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestContext.class })
 public class TestRatingService {
 
+	@Autowired
+	@InjectMocks
 	private RatingService ratingService;
 
+	@Mock
 	private RatingDaoImpl mockRatingDaoImpl;
 	private final List<Rating> mockList = Arrays.asList(new Rating("1", 2, "2"), new Rating("4", 5, "2"));
-
-	@Before
-	public void init() {
-		mockRatingDaoImpl = mock(RatingDaoImpl.class);
-		ratingService = new RatingServiceImpl(mockRatingDaoImpl);
-	}
 
 	@Test
 	public void testAddRating() throws Exception {

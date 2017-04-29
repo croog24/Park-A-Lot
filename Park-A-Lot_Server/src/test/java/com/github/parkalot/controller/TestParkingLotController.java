@@ -1,6 +1,5 @@
 package com.github.parkalot.controller;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -10,6 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -20,10 +21,8 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.github.parkalot.TestContext;
-import com.github.parkalot.TestHelper;
 import com.github.parkalot.model.ParkingLot;
 import com.github.parkalot.service.ParkingLotService;
-import com.github.parkalot.service.impl.ParkingLotServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestContext.class })
@@ -35,8 +34,10 @@ public class TestParkingLotController {
     private WebApplicationContext ctx;
 	
 	@Autowired
+	@InjectMocks
 	private ParkingLotController parkingLotController;
 	
+	@Mock
 	private ParkingLotService mockParkingLotService;
 	private MockMvc mockMvc;
 	final String PARKING_LOT_ID = "123";
@@ -44,8 +45,6 @@ public class TestParkingLotController {
 	@Before
 	public void init() throws Exception {
 		mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-		mockParkingLotService = mock(ParkingLotServiceImpl.class);
-		TestHelper.injectMock(parkingLotController, mockParkingLotService, "parkingLotService");
 	}
 	
 	@Test

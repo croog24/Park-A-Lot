@@ -1,35 +1,31 @@
 package com.github.parkalot.service;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.parkalot.TestContext;
 import com.github.parkalot.dao.ParkingLotDao;
-import com.github.parkalot.dao.impl.ParkingLotDaoImpl;
 import com.github.parkalot.model.ParkingLot;
-import com.github.parkalot.service.impl.ParkingLotServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestContext.class })
 public class TestParkingLotService {
 
+	@Autowired
+	@InjectMocks
 	private ParkingLotService parkingLotService;
 
+	@Mock
 	private ParkingLotDao mockParkingLotDao;
-
-	@Before
-	public void init() throws Exception {
-		mockParkingLotDao = mock(ParkingLotDaoImpl.class);
-		parkingLotService = new ParkingLotServiceImpl(mockParkingLotDao);
-	}
 
 	@Test
 	public void testAddParkingLot() throws Exception {
