@@ -31,9 +31,12 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesAPIService 
 	private String selectedLatitude;
 	private String selectedLongitude;
 
-	@Autowired
-	@Qualifier("googlePlacesRestTemplate")
 	private RestTemplate restTemplate;
+	
+	@Autowired
+	public GooglePlacesAPIServiceImpl(@Qualifier("googlePlacesRestTemplate") RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
 
 	/**
 	 * {@inheritDoc}

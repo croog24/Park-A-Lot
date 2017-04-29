@@ -8,21 +8,19 @@ import static org.mockito.Mockito.when;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.parkalot.TestContext;
-import com.github.parkalot.TestHelper;
 import com.github.parkalot.dao.ParkingLotDao;
 import com.github.parkalot.dao.impl.ParkingLotDaoImpl;
 import com.github.parkalot.model.ParkingLot;
+import com.github.parkalot.service.impl.ParkingLotServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestContext.class })
 public class TestParkingLotService {
 
-	@Autowired
 	private ParkingLotService parkingLotService;
 
 	private ParkingLotDao mockParkingLotDao;
@@ -30,7 +28,7 @@ public class TestParkingLotService {
 	@Before
 	public void init() throws Exception {
 		mockParkingLotDao = mock(ParkingLotDaoImpl.class);
-		TestHelper.injectMock(parkingLotService, mockParkingLotDao, "parkingLotDao");
+		parkingLotService = new ParkingLotServiceImpl(mockParkingLotDao);
 	}
 
 	@Test
