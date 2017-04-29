@@ -28,8 +28,12 @@ public class RatingDaoImpl implements RatingDao {
 	private static final String BY_DAY_VIEW = "rating/byDay";
 	private static final String BY_HOUR_VIEW = "rating/byHour";
 
-	@Autowired
 	private CouchDbClient dbClient;
+
+	@Autowired
+	public RatingDaoImpl(CouchDbClient dbClient) {
+		this.dbClient = dbClient;
+	}
 
 	/**
 	 * {@inheritDoc}

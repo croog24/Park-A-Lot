@@ -36,11 +36,14 @@ public class RatingController {
 	private static final int MIN_RATING_VALUE = 1;
 	private static final int MAX_RATING_VALUE = 5;
 
-	@Autowired
 	private RatingService ratingService;
+	private ParkingLotService parkingLotService;
 	
 	@Autowired
-	private ParkingLotService parkingLotService;
+	public RatingController(RatingService ratingService, ParkingLotService parkingLotService) {
+		this.ratingService = ratingService;
+		this.parkingLotService = parkingLotService;
+	}
 
 	/**
 	 * Main GET request handler for {@link Rating} types. Handles several

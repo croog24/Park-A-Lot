@@ -17,8 +17,12 @@ public class RatingServiceImpl implements RatingService {
 
 	private static final Logger LOGGER = Logger.getLogger(RatingServiceImpl.class);
 
-	@Autowired
 	private RatingDao ratingDao;
+	
+	@Autowired
+	public RatingServiceImpl(RatingDao ratingDao) {
+		this.ratingDao = ratingDao;
+	}
 
 	/**
 	 * {@inheritDoc}

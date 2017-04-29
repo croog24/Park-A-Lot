@@ -15,9 +15,13 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 
 	private static final Logger LOGGER = Logger.getLogger(ParkingLotServiceImpl.class);
 	
-	@Autowired
 	private ParkingLotDao parkingLotDao;
 	
+	@Autowired
+	public ParkingLotServiceImpl(ParkingLotDao parkingLotDao) {
+		this.parkingLotDao = parkingLotDao;
+	}
+
 	/**
 	 * {@inheritDoc}
 	 */

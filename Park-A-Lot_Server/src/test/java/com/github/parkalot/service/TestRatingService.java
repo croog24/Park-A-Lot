@@ -10,20 +10,18 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.parkalot.TestContext;
-import com.github.parkalot.TestHelper;
 import com.github.parkalot.dao.impl.RatingDaoImpl;
 import com.github.parkalot.model.Rating;
+import com.github.parkalot.service.impl.RatingServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = { TestContext.class })
 public class TestRatingService {
 
-	@Autowired
 	private RatingService ratingService;
 
 	private RatingDaoImpl mockRatingDaoImpl;
@@ -32,7 +30,7 @@ public class TestRatingService {
 	@Before
 	public void init() {
 		mockRatingDaoImpl = mock(RatingDaoImpl.class);
-		TestHelper.injectMock(ratingService, mockRatingDaoImpl, "ratingDao");
+		ratingService = new RatingServiceImpl(mockRatingDaoImpl);
 	}
 
 	@Test

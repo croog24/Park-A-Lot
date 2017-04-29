@@ -22,7 +22,10 @@ public class ParkingLotController {
 	
 	@Autowired
 	private ParkingLotService parkingLotService;
-	
+	public ParkingLotController(ParkingLotService parkingLotService) {
+		this.parkingLotService = parkingLotService;
+	}
+
 	@RequestMapping(method = RequestMethod.PUT)
 	public ResponseEntity addParkingLot(
 			@PathVariable("parking-lot-id") String parkingLotId,
