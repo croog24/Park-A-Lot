@@ -19,7 +19,7 @@ public interface ParkingLotService {
 	 * @return {@code true} if the {@code ParkingLot} has been successfully
 	 *         added.
 	 */
-	public boolean addParkingLot(ParkingLot parkingLot);
+	boolean addParkingLot(ParkingLot parkingLot);
 
 	/**
 	 * Updates the {@link ParkingLot} in the database.
@@ -28,7 +28,7 @@ public interface ParkingLotService {
 	 * @return {@code true} if the {@code ParkingLot} has been successfully
 	 *         updated.
 	 */
-	public boolean updateParkingLot(ParkingLot parkingLot);
+	boolean updateParkingLot(ParkingLot parkingLot);
 
 	/**
 	 * Retrieves the {@link ParkingLot} by ID.
@@ -36,12 +36,12 @@ public interface ParkingLotService {
 	 * @param parkingLotId the ID of the {@code ParkingLot} to retrieve.
 	 * @return ParkingLot the {@code ParkingLot} requested.
 	 */
-	public ParkingLot getParkingLotById(String parkingLotId);
+	ParkingLot getParkingLotById(String parkingLotId);
 
 	/**
 	 * TODO: Possible implement for caching...will see how the rest of the
 	 * design pans out.
 	 */
-	public List<ParkingLot> getMultipleParkingLotsById(String[] parkingLotIdList);
+	List<ParkingLot> getMultipleParkingLotsById(String[] parkingLotIdList);
 
 }

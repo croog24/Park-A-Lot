@@ -19,7 +19,7 @@ public interface RatingDao {
 	 * @param rating the {@code Rating} to add.
 	 * @throws Exception if an error occurred during the transaction.
 	 */
-	public void addRating(Rating rating) throws Exception;
+	void addRating(Rating rating) throws Exception;
 
 	/**
 	 * Updates a {@link Rating} in the Database.
@@ -27,14 +27,14 @@ public interface RatingDao {
 	 * @param rating the {@code Rating} to update.
 	 * @throws Exception if an error occurred during the transaction.
 	 */
-	public void updateRating(Rating rating) throws Exception;
+	void updateRating(Rating rating) throws Exception;
 
 	/**
 	 * Deletes a {@link Rating} in the Database.
 	 * @param rating the {@code Rating} to delete.
 	 * @throws Exception if an error occurred during the transaction.
 	 */
-	public void deleteRating(Rating rating) throws Exception;
+	void deleteRating(Rating rating) throws Exception;
 	
 	/**
 	 * Retrieves a {@code List } of {@link Rating}s by hour.
@@ -44,7 +44,7 @@ public interface RatingDao {
 	 * @return a {@code List} of {@code Rating}s with the specified parameters.
 	 * @throws Exception if an error occurred during the transaction.
 	 */
-	public List<Rating> getRatingsByHour(String parkingLotId, int hour) throws Exception;
+	List<Rating> getRatingsByHour(String parkingLotId, int hour) throws Exception;
 
 	/**
 	 * Retrieves a {@code List} of {@link Rating}s within a range of hours.
@@ -55,7 +55,7 @@ public interface RatingDao {
 	 * @return a {@code List} of {@code Rating}s with the specified parameters.
 	 * @throws Exception if an error occurred during the query.
 	 */
-	public List<Rating> getRatingsBetweenHours(String parkingLotId, int minHour, int maxHour) throws Exception;
+	List<Rating> getRatingsBetweenHours(String parkingLotId, int minHour, int maxHour) throws Exception;
 
 	/**
 	 * Retrieves a {@code List} of {@link Rating}s on a specified day of the
@@ -65,7 +65,7 @@ public interface RatingDao {
 	 * @return a {@code List} of {@code Rating}s with the specified parameters.
 	 * @throws Exception if an error occurred during the query.
 	 */
-	public List<Rating> getRatingsByDayOfWeek(String parkingLotId, DayOfWeek weekDay) throws Exception;
+	List<Rating> getRatingsByDayOfWeek(String parkingLotId, DayOfWeek weekDay) throws Exception;
 	
 	/**
 	 * Retrieves a {@code List} of {@link Rating}s on a {@link ParkingLot}.
@@ -74,6 +74,6 @@ public interface RatingDao {
 	 * @return a {@code List} of {@code Rating}s with the specified parameters.
 	 * @throws Exception if an error occurred during the query.
 	 */
-	public List<Rating> getRatingsByParkingLot(String parkingLotId) throws Exception;
+	List<Rating> getRatingsByParkingLot(String parkingLotId) throws Exception;
 
 }

@@ -19,7 +19,7 @@ public interface RatingService {
 	 * @param rating the {@code Rating} to add.
 	 * @return {@code true} if the {@code Rating} has been successfully added.
 	 */
-	public boolean addRating(Rating rating);
+	boolean addRating(Rating rating);
 
 	/**
 	 * Updates the provided {@link Rating} in the Database.
@@ -27,14 +27,14 @@ public interface RatingService {
 	 * @param rating the {@code Rating} to update.
 	 * @return {@code true} if the {@code Rating} has been successfully updated.
 	 */
-	public boolean updateRating(Rating rating);
+	boolean updateRating(Rating rating);
 
 	/**
 	 * Deletes a {@link Rating}.
 	 * 
 	 * @param rating the {@code Rating} to delete.
 	 */
-	public void deleteRating(Rating rating);
+	void deleteRating(Rating rating);
 	
 	/**
 	 * Retrieves a {@code List} of {@link Rating}s in the supplied parkingLotId and hour.
@@ -43,7 +43,7 @@ public interface RatingService {
 	 * @param hour the hour to search with.
 	 * @return A list of {@code Rating} with the given search parameters.
 	 */
-	public List<Rating> getRatingsByHour(String parkingLotId, int hour);
+	List<Rating> getRatingsByHour(String parkingLotId, int hour);
 
 	/**
 	 * Retrieves a {@code List} of {@link Rating}s in the supplied parkingLotId and hour range.
@@ -53,7 +53,7 @@ public interface RatingService {
 	 * @param maxHour the maximum <b>inclusive</b> hour range to search with.
 	 * @return A list of {@code Rating} with the given search parameters.
 	 */
-	public List<Rating> getRatingsBetweenHours(String parkingLotId, int minHour, int maxHour);
+	List<Rating> getRatingsBetweenHours(String parkingLotId, int minHour, int maxHour);
 
 	/**
 	 * Retrieves a {@code List} of {@link Rating}s in the supplied parkingLotId and week day.
@@ -62,7 +62,7 @@ public interface RatingService {
 	 * @param weekDay the day of the week to search with.
 	 * @return A list of {@code Rating} with the given search parameters.
 	 */
-	public List<Rating> getRatingsByDayOfWeek(String parkingLotId, DayOfWeek weekDay);
+	List<Rating> getRatingsByDayOfWeek(String parkingLotId, DayOfWeek weekDay);
 	
 	/**
 	 * Retrieves a {@code List} of {@link Rating}s in the supplied parkingLotId.
@@ -70,6 +70,6 @@ public interface RatingService {
 	 * @param parkingLotId the ID of the parking lot to search.
 	 * @return A list of {@code Rating}s with the given search parameters.
 	 */
-	public List<Rating> getRatingsByParkingLot(String parkingLotId);
+	List<Rating> getRatingsByParkingLot(String parkingLotId);
 
 }

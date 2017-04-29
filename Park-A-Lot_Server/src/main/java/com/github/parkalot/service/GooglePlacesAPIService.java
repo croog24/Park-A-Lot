@@ -16,7 +16,7 @@ public interface GooglePlacesAPIService {
 	 * @param latitude the latitude of the client.
 	 * @param longitude the longitude of the client.
 	 */
-	public void setCurrentLocation(String latitude, String longitude);
+	void setCurrentLocation(String latitude, String longitude);
 
 	/**
 	 * Sets the selected location of the client.
@@ -24,7 +24,7 @@ public interface GooglePlacesAPIService {
 	 * @param latitude the latitude of the client's selection.
 	 * @param longitude the longitude of the client's selection.
 	 */
-	public void setSelectedLocation(String latitude, String longitude);
+	void setSelectedLocation(String latitude, String longitude);
 
 	/**
 	 * Gets the parking spots nearby the current location using the default
@@ -32,7 +32,7 @@ public interface GooglePlacesAPIService {
 	 * 
 	 * @return A {@code GooglePlacesResponse} of nearby parking spots.
 	 */
-	public GooglePlacesResponse getNearbyParking();
+	GooglePlacesResponse getNearbyParking();
 
 	/**
 	 * Gets the parking spots nearby within the specified radius of the current
@@ -42,7 +42,7 @@ public interface GooglePlacesAPIService {
 	 * @return A {@code GooglePlacesResponse} of nearby parking spots within
 	 *         the specified radius.
 	 */
-	public GooglePlacesResponse getNearbyParking(int radius);
+	GooglePlacesResponse getNearbyParking(int radius);
 
 	/**
 	 * Gets the parking spots at a specified location using the default radius.
@@ -50,7 +50,7 @@ public interface GooglePlacesAPIService {
 	 * @return A {@code GooglePlacesResponse} of parking spots near a specified
 	 *         location.
 	 */
-	public GooglePlacesResponse getParkingAtSelectedLocation();
+	GooglePlacesResponse getParkingAtSelectedLocation();
 
 	/**
 	 * Gets the parking spots at a specified location within the the specified
@@ -60,5 +60,5 @@ public interface GooglePlacesAPIService {
 	 * @return A {@code GooglePlacesResponse} of nearby parking spots at a
 	 *         specified location within the specified radius.
 	 */
-	public GooglePlacesResponse getParkingAtSelectedLocation(int radius);
+	GooglePlacesResponse getParkingAtSelectedLocation(int radius);
 }
