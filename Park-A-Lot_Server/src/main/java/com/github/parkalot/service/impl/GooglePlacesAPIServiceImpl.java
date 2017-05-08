@@ -38,27 +38,18 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesAPIService 
 		this.restTemplate = restTemplate;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void setCurrentLocation(String latitude, String longitude) {
 		this.currLatitude = latitude;
 		this.currLongitude = longitude;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void setSelectedLocation(String latitude, String longitude) {
 		this.selectedLatitude = latitude;
 		this.selectedLongitude = longitude;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public GooglePlacesResponse getNearbyParking() {
 		LOGGER.debug("Creating GetNearbyParking() request");
@@ -67,9 +58,6 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesAPIService 
 		return sendRequest(req);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public GooglePlacesResponse getNearbyParking(int radius) {
 		LOGGER.debug("Creating GetNearbyParking(radius) request");
@@ -78,9 +66,6 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesAPIService 
 		return sendRequest(req);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public GooglePlacesResponse getParkingAtSelectedLocation() {
 		LOGGER.debug("Creating GetParkingAtSelectedLocation() request");
@@ -90,9 +75,6 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesAPIService 
 		return sendRequest(req);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public GooglePlacesResponse getParkingAtSelectedLocation(int radius) {
 		LOGGER.debug("Creating GetParkingAtSelectedLocation(radius) request");
@@ -101,13 +83,11 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesAPIService 
 		return sendRequest(req);
 	}
 
-	/**
-	 * Sends the GooglePlacesRequest with the specified parameters.
+	/** Sends the GooglePlacesRequest with the specified parameters.
 	 * 
-	 * @param request the request to send.
+	 * @param request the request to send
 	 * @return GooglePlacesResponse a response containing a list of parking lots
-	 *         and their information.
-	 */
+	 *         and their information */
 	private GooglePlacesResponse sendRequest(GooglePlacesRequest request) {
 		GooglePlacesResponse resp = new GooglePlacesResponse();
 		try {
@@ -124,14 +104,12 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesAPIService 
 		return resp;
 	}
 
-	/**
-	 * Generates the full URI of the RESTful API call to invoke for the Google
+	/** Generates the full URI of the RESTful API call to invoke for the Google
 	 * Places API.
 	 * 
-	 * @param request the request to use.
+	 * @param request the request to use
 	 * @return String a String URI containing the default necessary parameters
-	 *         and optional parameters of the Google Places API calls.
-	 */
+	 *         and optional parameters of the Google Places API calls */
 	private String generateURI(GooglePlacesRequest request) {
 		LOGGER.debug("Generating GooglePlaces API URI");
 		return String.format("%sjson?location=%s&radius=%s&type=parking&key=%s", 

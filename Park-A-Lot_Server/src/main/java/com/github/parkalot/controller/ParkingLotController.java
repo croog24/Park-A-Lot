@@ -41,7 +41,7 @@ public class ParkingLotController {
 				throw new Exception("Parking Lot not successfully added, please try again!");
 			}
 		} catch (Exception e) {
-			response = ResponseEntityUtils.handleUnexpectedException(e.getMessage());
+			response = ResponseEntityUtils.createUnhandledExcResponse(e.getMessage());
 		}
 		
 		LOGGER.debug("End of ParkingLotController.addParkingLot()");
@@ -61,7 +61,7 @@ public class ParkingLotController {
 			
 			response = new ResponseEntity<ParkingLot>(p, HttpStatus.OK);
 		} catch (Exception e) {
-			response = ResponseEntityUtils.handleUnexpectedException(e.getMessage());
+			response = ResponseEntityUtils.createUnhandledExcResponse(e.getMessage());
 		}
 		LOGGER.debug("End of ParkingLotController.getParkingLot()");
 		return response;

@@ -6,30 +6,27 @@ import org.springframework.http.ResponseEntity;
 
 import com.github.parkalot.ValidationException;
 
-@SuppressWarnings({"rawtypes", "unchecked"})
-public class ResponseEntityUtils {
+public abstract class ResponseEntityUtils<T> {
 	
 	private static final Logger LOGGER = Logger.getLogger(ResponseEntityUtils.class);
 	
-	/**
-	 * Handles responses where a {@link ValidationException} occurred.
+	/** Creates a {@code ResponseEntity} with information in which a
+	 * {@link ValidationException} occurred.
 	 * 
-	 * @param message the message of the exception.
-	 * @return A {@link ResponseEntity} with {@code HttpStatus} 400 BAD_REQUEST.
-	 */
-	public static ResponseEntity handleValidationException(String message) {
+	 * @param message the message of the validation exception
+	 * @return A {@link ResponseEntity} with {@code HttpStatus} 400 */
+	public static <T> ResponseEntity<T> createValidationExcResponse(String message) {
 		final String msg = String.format("Validation error: %s", message);
 		LOGGER.error(msg);
 		return new ResponseEntity(msg, HttpStatus.BAD_REQUEST);
 	}
 	
-	/**
-	 * Handles responses where an unexpected {@code Exception} occured.
+	/** Creates a {@code ResponseEntity} with information in which an
+	 * {@code Exception} occurred.
 	 * 
-	 * @param message the message of the exception.
-	 * @return A {@link ResponseEntity} with {@code HttpStatus} 500 INTERNAL_SERVER_ERROR.
-	 */
-	public static ResponseEntity handleUnexpectedException(String message) {
+	 * @param message the message of the unhandled exception
+	 * @return a {@link ResponseEntity} with {@code HttpStatus} 500 */
+	public static <T> ResponseEntity<T> createUnhandledExcResponse(String message) {
 		final String msg = String.format("Unexpected error: %s", message);
 		LOGGER.error(msg);
 		return new ResponseEntity(msg, HttpStatus.INTERNAL_SERVER_ERROR);

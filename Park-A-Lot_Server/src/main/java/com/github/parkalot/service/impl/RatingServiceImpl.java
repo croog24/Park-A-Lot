@@ -24,9 +24,6 @@ public class RatingServiceImpl implements RatingService {
 		this.ratingDao = ratingDao;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean addRating(Rating rating) {
 		try {
@@ -38,9 +35,6 @@ public class RatingServiceImpl implements RatingService {
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean updateRating(Rating rating) {
 		try {
@@ -53,9 +47,6 @@ public class RatingServiceImpl implements RatingService {
 		return true;
 	}
 	
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public void deleteRating(Rating rating) {
 		try {
@@ -65,9 +56,6 @@ public class RatingServiceImpl implements RatingService {
 		}
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public List<Rating> getRatingsByHour(String parkingLotId, int hour) {
 		List<Rating> ratingList = new ArrayList<Rating>();
@@ -80,9 +68,6 @@ public class RatingServiceImpl implements RatingService {
 		return ratingList;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public List<Rating> getRatingsBetweenHours(String parkingLotId, int minHour, int maxHour) {
 		List<Rating> ratingList = new ArrayList<Rating>();
@@ -94,9 +79,6 @@ public class RatingServiceImpl implements RatingService {
 		return ratingList;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public List<Rating> getRatingsByDayOfWeek(String parkingLotId, DayOfWeek weekDay) {
 		List<Rating> ratingList = new ArrayList<Rating>();
@@ -109,9 +91,6 @@ public class RatingServiceImpl implements RatingService {
 	}
 
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public List<Rating> getRatingsByParkingLot(String parkingLotId) {
 		List<Rating> ratingList = new ArrayList<Rating>();

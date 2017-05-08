@@ -2,63 +2,48 @@ package com.github.parkalot.service;
 
 import com.googleapis.maps.place.GooglePlacesResponse;
 
-/**
- * A {@code prototype} scoped service layer to call Google's Places API.
+/** A {@code prototype} scoped service layer to call Google's Places API.
  * 
- * @author Craig
- *
- */
+ * @author Craig */
 public interface GooglePlacesAPIService {
 
-	/**
-	 * Sets the current location of the client.
+	/** Sets the current location of the client.
 	 * 
-	 * @param latitude the latitude of the client.
-	 * @param longitude the longitude of the client.
-	 */
+	 * @param latitude the latitude of the client
+	 * @param longitude the longitude of the client */
 	void setCurrentLocation(String latitude, String longitude);
 
-	/**
-	 * Sets the selected location of the client.
+	/** Sets the selected location of the client.
 	 * 
-	 * @param latitude the latitude of the client's selection.
-	 * @param longitude the longitude of the client's selection.
-	 */
+	 * @param latitude the latitude of the client's selection
+	 * @param longitude the longitude of the client's selection */
 	void setSelectedLocation(String latitude, String longitude);
 
-	/**
-	 * Gets the parking spots nearby the current location using the default
+	/** Gets the parking spots nearby the current location using the default
 	 * radius.
 	 * 
-	 * @return A {@code GooglePlacesResponse} of nearby parking spots.
-	 */
+	 * @return A {@code GooglePlacesResponse} of nearby parking spots */
 	GooglePlacesResponse getNearbyParking();
 
-	/**
-	 * Gets the parking spots nearby within the specified radius of the current
+	/** Gets the parking spots nearby within the specified radius of the current
 	 * location.
 	 * 
-	 * @param radius the radius of the request.
-	 * @return A {@code GooglePlacesResponse} of nearby parking spots within
-	 *         the specified radius.
-	 */
+	 * @param radius the radius of the request
+	 * @return A {@code GooglePlacesResponse} of nearby parking spots within the
+	 *         specified radius */
 	GooglePlacesResponse getNearbyParking(int radius);
 
-	/**
-	 * Gets the parking spots at a specified location using the default radius.
+	/** Gets the parking spots at a specified location using the default radius.
 	 * 
 	 * @return A {@code GooglePlacesResponse} of parking spots near a specified
-	 *         location.
-	 */
+	 *         location */
 	GooglePlacesResponse getParkingAtSelectedLocation();
 
-	/**
-	 * Gets the parking spots at a specified location within the the specified
+	/** Gets the parking spots at a specified location within the the specified
 	 * radius.
 	 * 
-	 * @param radius of the request.
+	 * @param radius of the request
 	 * @return A {@code GooglePlacesResponse} of nearby parking spots at a
-	 *         specified location within the specified radius.
-	 */
+	 *         specified location within the specified radius */
 	GooglePlacesResponse getParkingAtSelectedLocation(int radius);
 }

@@ -19,13 +19,9 @@ import com.github.parkalot.model.Rating;
 import com.github.parkalot.service.ParkingLotService;
 import com.github.parkalot.service.RatingService;
 
-/**
- * Entry point for all requests involving {@link Rating} retrieval/adding.
+/** Entry point for all requests involving {@link Rating} retrieval/adding.
  * 
- * @author Craig
- *
- */
-@SuppressWarnings({ "unchecked", "rawtypes" })
+ * @author Craig */
 @RestController
 @RequestMapping("/rating/{parking-lot-id}")
 public class RatingController {
@@ -45,21 +41,21 @@ public class RatingController {
 		this.parkingLotService = parkingLotService;
 	}
 
-	/**
-	 * Main GET request handler for {@link Rating} types. Handles several
+	/** Main GET request handler for {@link Rating} types. Handles several
 	 * optional filters, but a {@code ParkingLotId} must be provided.
 	 * <b>Note</b>: if both {@code minHour} and {@code maxHour} are provided, if
 	 * will filter by the hour range.
 	 * 
 	 * @param parkingLotId the mandatory parking lot ID.
 	 * @param weekday the optional <b>valid</b> weekday
-	 * @param minHour the optional <b>valid</b> min hour.
-	 * @param maxHour the optional <b>valid</b> max hour.
+	 * @param minHour the optional <b>valid</b> min hour
+	 * @param maxHour the optional <b>valid</b> max hour
 	 * @return A {@code List} of {@link Rating}s with {@link HttpStatus}
-	 *         {@code 200 OK} or {@code 400 BAD_REQUEST}/{@code 500 INTERNAL_SERVER_ERROR} if some error occurred.
-	 */
+	 *         {@code 200 OK} or
+	 *         {@code 400 BAD_REQUEST}/{@code 500 INTERNAL_SERVER_ERROR} if some
+	 *         error occurred */
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity getRatings(
+	public ResponseEntity<List<Rating>> getRatings(
 			@PathVariable("parking-lot-id") String parkingLotId, 
 			@RequestParam(value = "weekday", required = false) String weekday,
 			@RequestParam(value = "min-hour", required = false) Integer minHour, 
@@ -88,47 +84,45 @@ public class RatingController {
 			}
 
 		} catch (ValidationException e) {
-			response = ResponseEntityUtils.handleValidationException(e.getMessage());
+			response = ResponseEntityUtils.createValidationExcResponse(e.getMessage());
 		} catch (Exception e) {
-			response = ResponseEntityUtils.handleUnexpectedException(e.getMessage());
+			response = ResponseEntityUtils.createUnhandledExcResponse(e.getMessage());
 		}
 		
 		LOGGER.debug("End of RatingController.getRatings()");
 		return response;
 	}
 	
-	/**
-	 * Main PUT request handler for {@link Rating} types.
+	/** Main PUT request handler for {@link Rating} types.
 	 * 
-	 * @param parkingLotId the mandatory parking lot ID.
-	 * @param value the value of the {@code Rating}.
-	 * @param submittedBy the unique device ID of the user submitting the {@code Rating}.
-	 * @return A {@link ResponseEntity} with {@link HttpStatus}
-	 *         {@code 201 CREATED} or {@code 400 BAD_REQUEST}/{@code 500 INTERNAL_SERVER_ERROR} if some error occurred.
-	 */
+	 * @param parkingLotId the mandatory parking lot ID
+	 * @param value the value of the {@code Rating}
+	 * @param submittedBy the unique device ID of the user submitting the
+	 *            {@code Rating}
+	 * @return A {@link ResponseEntity} with {@link HttpStatus} {@code 201} if
+	 *         successful or {@code 400}/{@code 500} if some error occurred */
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity addRating(
+	public ResponseEntity<HttpStatus> addRating(
 			@PathVariable("parking-lot-id") String parkingLotId,
 			@RequestParam(value = "value") Integer value,
 			@RequestParam(value = "submitted-by") String submittedBy) {
 		LOGGER.debug("Start of RatingController.addRating()");
-		ResponseEntity response = null;
+		ResponseEntity<HttpStatus> response = null;
 		
 		try {
 			response = handleAddRating(parkingLotId, value, submittedBy);
 		} catch (ValidationException e) {
-			response = ResponseEntityUtils.handleValidationException(e.getMessage());
+			response = ResponseEntityUtils.createValidationExcResponse(e.getMessage());
 		} catch (Exception e) {
-			response = ResponseEntityUtils.handleUnexpectedException(e.getMessage());
+			response = ResponseEntityUtils.createUnhandledExcResponse(e.getMessage());
 		}
 		
 		LOGGER.debug("End of RatingController.addRating()");
 		return response;
 	}
 	
-	/**
-	 * Checks if the given {@link Rating} value attribute is within the valid range.
-	 */
+	/** Checks if the given {@link Rating} value attribute is within the valid
+	 * range. */
 	private boolean isValueValid(int value) {
 		if(value >= MIN_RATING_VALUE && value <= MAX_RATING_VALUE) {
 			return true;
@@ -137,19 +131,15 @@ public class RatingController {
 		return false;
 	}
 	
-	/**
-	 * Handles requests with no additional filters.
-	 */
- 	private ResponseEntity handleGetRatingsByParkingLotId(String parkingLotId) throws Exception {
+	/** Handles requests with no additional filters. */
+ 	private ResponseEntity<List<Rating>> handleGetRatingsByParkingLotId(String parkingLotId) throws Exception {
 		return new ResponseEntity<List<Rating>>(
 				ratingService.getRatingsByParkingLot(parkingLotId), 
 				HttpStatus.OK);
 	}
 	
-	/**
-	 * Handles requests with Weekday parameter present.
-	 */
-	private ResponseEntity handleGetRatingsByWeekday(String parkingLotId, String weekday) throws Exception {
+	/** Handles requests with Weekday parameter present. */
+	private ResponseEntity<List<Rating>> handleGetRatingsByWeekday(String parkingLotId, String weekday) throws Exception {
 		DayOfWeek dayEnum;
 		try {
 			dayEnum = DayOfWeek.valueOf(weekday.toUpperCase());
@@ -162,10 +152,8 @@ public class RatingController {
 				HttpStatus.OK);
 	}
 	
-	/**
-	 * Handles requests with a single hour provided.
-	 */
-	private ResponseEntity handleGetRatingsByHour(String parkingLotId, int hour) throws Exception {
+	/** Handles requests with a single hour provided. */
+	private ResponseEntity<List<Rating>> handleGetRatingsByHour(String parkingLotId, int hour) throws Exception {
 		if (!isHourRangeValid(hour)) {
 			throw new Exception("Invalid hour specified!");
 		}
@@ -174,10 +162,8 @@ public class RatingController {
 				ratingService.getRatingsByHour(parkingLotId, hour), HttpStatus.OK);
 	}
 	
-	/**
-	 * Handles requests with a specified hour range.
-	 */
-	private ResponseEntity handleGetRatingsBetweenHours(String parkingLotId, int minHour, int maxHour) throws Exception {
+	/** Handles requests with a specified hour range. */
+	private ResponseEntity<List<Rating>> handleGetRatingsBetweenHours(String parkingLotId, int minHour, int maxHour) throws Exception {
 		if(!isHourRangeValid(minHour, maxHour)) {
 			throw new Exception("Invalid hour range!");
 		}
@@ -186,15 +172,13 @@ public class RatingController {
 				HttpStatus.OK);
 	}
 	
-	/**
-	 * Checks if the supplied hour range is valid for the implemented Database's
-	 * hours.
+	/** Checks if the supplied hour range is valid for the implemented
+	 * Database's hours.
 	 * 
-	 * @param min the minimum hour used.
-	 * @param max the maximum hour used.
-	 * @return {@code true} if the provided hours meet the valid min/max
-	 *         range specifications.
-	 */
+	 * @param min the minimum hour used
+	 * @param max the maximum hour used
+	 * @return {@code true} if the provided hours meet the valid min/max range
+	 *         specifications */
 	private boolean isHourRangeValid(int min, int max) {
 		if (min > max || min <= DEFAULT_MIN_HOUR || max >= DEFAULT_MAX_HOUR) {
 			return false;
@@ -203,22 +187,18 @@ public class RatingController {
 		return true;
 	}
 
-	/**
-	 * Checks if the given hour is a searchable hour for the implemented
+	/** Checks if the given hour is a searchable hour for the implemented
 	 * Database hours.
 	 * 
-	 * @param hour the hour to check.
-	 * @return {@code true} if the provided hour meets the valid min/max
-	 *         range specifications.
-	 */
+	 * @param hour the hour to check
+	 * @return {@code true} if the provided hour meets the valid min/max range
+	 *         specifications */
 	private boolean isHourRangeValid(int hour) {
 		return DEFAULT_MIN_HOUR <= hour && hour <= DEFAULT_MAX_HOUR;
 	}
 	
-	/**
-	 * Handles requests to add a {@link Rating}.
-	 */
-	private ResponseEntity handleAddRating(String parkingLotId, int value, String submittedBy) throws Exception {
+	/** Handles requests to add a {@link Rating}. */
+	private ResponseEntity<HttpStatus> handleAddRating(String parkingLotId, int value, String submittedBy) throws Exception {
 		if (!isValueValid(value)) {
 			throw new ValidationException("Unexpected Rating value provided!");
 		}
@@ -245,6 +225,6 @@ public class RatingController {
 			throw new Exception("Rating not successfully added, please try again!");
 		}
 			
-		return new ResponseEntity(HttpStatus.CREATED);
+		return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
 	}
 }

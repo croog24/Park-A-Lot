@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @ComponentScan("com.github.parkalot")
 @PropertySource("classpath:config.properties")
 @EnableWebMvc
-public class ParkALotAppContext {
+public class AppContext {
 	
 	@Bean(name = "googlePlacesRestTemplate")
 	public RestTemplate getRestTemplate() {

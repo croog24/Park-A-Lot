@@ -22,9 +22,6 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 		this.parkingLotDao = parkingLotDao;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean addParkingLot(ParkingLot parkingLot) {
 		try {
@@ -36,9 +33,6 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public boolean updateParkingLot(ParkingLot parkingLot) {
 		try {
@@ -50,9 +44,6 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 		return true;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public ParkingLot getParkingLotById(String parkingLotId) {
 		ParkingLot p = null;
@@ -64,9 +55,6 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 		return p;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
 	@Override
 	public List<ParkingLot> getMultipleParkingLotsById(String[] parkingLotIdList) {
 		// TODO Auto-generated method stub
