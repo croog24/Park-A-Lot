@@ -16,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.github.parkalot.TestContext;
-import com.github.parkalot.dao.impl.RatingDaoImpl;
+import com.github.parkalot.dao.couchdb.CouchDbRatingDao;
 import com.github.parkalot.model.Rating;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,7 +28,7 @@ public class TestRatingService {
 	private RatingService ratingService;
 
 	@Mock
-	private RatingDaoImpl mockRatingDaoImpl;
+	private CouchDbRatingDao mockRatingDaoImpl;
 	private final List<Rating> mockList = Arrays.asList(new Rating("1", 2, "2"), new Rating("4", 5, "2"));
 
 	@Test

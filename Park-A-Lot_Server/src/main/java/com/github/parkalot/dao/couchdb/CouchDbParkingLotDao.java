@@ -1,4 +1,4 @@
-package com.github.parkalot.dao.impl;
+package com.github.parkalot.dao.couchdb;
 
 import org.apache.log4j.Logger;
 import org.lightcouch.CouchDbClient;
@@ -12,14 +12,14 @@ import com.github.parkalot.model.ParkingLot;
  * 
  * @author Craig */
 @Repository
-public class ParkingLotDaoImpl implements ParkingLotDao {
+public class CouchDbParkingLotDao implements ParkingLotDao {
 	
-	private static final Logger LOGGER = Logger.getLogger(ParkingLotDaoImpl.class);
+	private static final Logger LOGGER = Logger.getLogger(CouchDbParkingLotDao.class);
 	
 	private CouchDbClient couchDbClient;
 	
 	@Autowired
-	public ParkingLotDaoImpl(CouchDbClient couchDbClient) {
+	public CouchDbParkingLotDao(CouchDbClient couchDbClient) {
 		super();
 		this.couchDbClient = couchDbClient;
 	}

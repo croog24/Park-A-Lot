@@ -1,4 +1,4 @@
-package com.github.parkalot.dao.impl;
+package com.github.parkalot.dao.couchdb;
 
 import java.time.DayOfWeek;
 import java.util.Arrays;
@@ -19,7 +19,7 @@ import com.github.parkalot.model.Rating;
  * 
  * @author Craig */
 @Repository
-public class RatingDaoImpl implements RatingDao {
+public class CouchDbRatingDao implements RatingDao {
 
 	private static final String BY_PARKING_LOT_VIEW = "rating/byParkingLot";
 	private static final String BY_DAY_VIEW = "rating/byDay";
@@ -28,7 +28,7 @@ public class RatingDaoImpl implements RatingDao {
 	private CouchDbClient dbClient;
 
 	@Autowired
-	public RatingDaoImpl(CouchDbClient dbClient) {
+	public CouchDbRatingDao(CouchDbClient dbClient) {
 		this.dbClient = dbClient;
 	}
 
