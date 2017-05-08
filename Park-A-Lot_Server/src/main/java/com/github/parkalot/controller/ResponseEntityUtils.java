@@ -15,10 +15,10 @@ public abstract class ResponseEntityUtils<T> {
 	 * 
 	 * @param message the message of the validation exception
 	 * @return A {@link ResponseEntity} with {@code HttpStatus} 400 */
-	public static <T> ResponseEntity<T> createValidationExcResponse(String message) {
+	public static ResponseEntity<String> createValidationExcResponse(String message) {
 		final String msg = String.format("Validation error: %s", message);
 		LOGGER.error(msg);
-		return new ResponseEntity(msg, HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<String>(msg, HttpStatus.BAD_REQUEST);
 	}
 	
 	/** Creates a {@code ResponseEntity} with information in which an
@@ -26,9 +26,9 @@ public abstract class ResponseEntityUtils<T> {
 	 * 
 	 * @param message the message of the unhandled exception
 	 * @return a {@link ResponseEntity} with {@code HttpStatus} 500 */
-	public static <T> ResponseEntity<T> createUnhandledExcResponse(String message) {
+	public static ResponseEntity<String> createUnhandledExcResponse(String message) {
 		final String msg = String.format("Unexpected error: %s", message);
 		LOGGER.error(msg);
-		return new ResponseEntity(msg, HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<String>(msg, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

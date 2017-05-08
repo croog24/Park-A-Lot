@@ -55,14 +55,14 @@ public class RatingController {
 	 *         {@code 400 BAD_REQUEST}/{@code 500 INTERNAL_SERVER_ERROR} if some
 	 *         error occurred */
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Rating>> getRatings(
+	public ResponseEntity<?> getRatings(
 			@PathVariable("parking-lot-id") String parkingLotId, 
 			@RequestParam(value = "weekday", required = false) String weekday,
 			@RequestParam(value = "min-hour", required = false) Integer minHour, 
 			@RequestParam(value = "max-hour", required = false) Integer maxHour) {
 		LOGGER.debug("Start of RatingController.getRatings()");
 		
-		ResponseEntity<List<Rating>> response = null;
+		ResponseEntity<?> response = null;
 		
 		try {
 			if (weekday != null) {
@@ -102,12 +102,12 @@ public class RatingController {
 	 * @return A {@link ResponseEntity} with {@link HttpStatus} {@code 201} if
 	 *         successful or {@code 400}/{@code 500} if some error occurred */
 	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity<HttpStatus> addRating(
+	public ResponseEntity<String> addRating(
 			@PathVariable("parking-lot-id") String parkingLotId,
 			@RequestParam(value = "value") Integer value,
 			@RequestParam(value = "submitted-by") String submittedBy) {
 		LOGGER.debug("Start of RatingController.addRating()");
-		ResponseEntity<HttpStatus> response = null;
+		ResponseEntity<String> response = null;
 		
 		try {
 			response = handleAddRating(parkingLotId, value, submittedBy);
@@ -132,7 +132,7 @@ public class RatingController {
 	}
 	
 	/** Handles requests with no additional filters. */
- 	private ResponseEntity<List<Rating>> handleGetRatingsByParkingLotId(String parkingLotId) throws Exception {
+ 	private ResponseEntity<?> handleGetRatingsByParkingLotId(String parkingLotId) throws Exception {
 		return new ResponseEntity<List<Rating>>(
 				ratingService.getRatingsByParkingLot(parkingLotId), 
 				HttpStatus.OK);
@@ -198,7 +198,7 @@ public class RatingController {
 	}
 	
 	/** Handles requests to add a {@link Rating}. */
-	private ResponseEntity<HttpStatus> handleAddRating(String parkingLotId, int value, String submittedBy) throws Exception {
+	private ResponseEntity<String> handleAddRating(String parkingLotId, int value, String submittedBy) throws Exception {
 		if (!isValueValid(value)) {
 			throw new ValidationException("Unexpected Rating value provided!");
 		}
@@ -225,6 +225,6 @@ public class RatingController {
 			throw new Exception("Rating not successfully added, please try again!");
 		}
 			
-		return new ResponseEntity<HttpStatus>(HttpStatus.CREATED);
+		return new ResponseEntity<String>(HttpStatus.CREATED);
 	}
 }
