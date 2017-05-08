@@ -9,20 +9,17 @@ public interface ParkingLotDao {
 
 	/** Adds a new {@link ParkingLot} to the Database.
 	 * 
-	 * @param parkingLot the {@link ParkingLot} to add
-	 * @throws Exception if an error occurred during the transaction */
-	void addParkingLot(ParkingLot parkingLot) throws Exception;
+	 * @param parkingLot the {@link ParkingLot} to add */
+	void addParkingLot(ParkingLot parkingLot);
 
 	/** Updates a specified {@link ParkingLot} in the Database.
 	 * 
-	 * @param parkingLot the {@link ParkingLot} to update
-	 * @throws Exception if an error occurred during the transaction */
-	void updateParkingLot(ParkingLot parkingLot) throws Exception;
+	 * @param parkingLot the {@link ParkingLot} to update */
+	void updateParkingLot(ParkingLot parkingLot);
 
 	/** Retrieves a {@link ParkingLot} from the Database.
 	 * 
 	 * @param parkingLotId the ID of the {@link ParkingLot} to retrieve
-	 * @return ParkingLot the stored {@link ParkingLot} object
-	 * @throws Exception if an error occurred during the transaction */
-	ParkingLot getParkingLot(String parkingLotId) throws Exception;
+	 * @return ParkingLot the stored {@link ParkingLot} object */
+	ParkingLot getParkingLot(String parkingLotId);
 }

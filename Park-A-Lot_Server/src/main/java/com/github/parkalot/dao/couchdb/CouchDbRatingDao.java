@@ -33,22 +33,22 @@ public class CouchDbRatingDao implements RatingDao {
 	}
 
 	@Override
-	public void addRating(Rating rating) throws Exception {
+	public void addRating(Rating rating) {
 		dbClient.save(rating);
 	}
 
 	@Override
-	public void updateRating(Rating rating) throws Exception {
+	public void updateRating(Rating rating) {
 		dbClient.update(rating);
 	}
 	
 	@Override
-	public void deleteRating(Rating rating) throws Exception {
+	public void deleteRating(Rating rating) {
 		dbClient.remove(rating);
 	}
 	
 	@Override
-	public List<Rating> getRatingsByHour(String parkingLotId, int hour) throws Exception {
+	public List<Rating> getRatingsByHour(String parkingLotId, int hour) {
 		return dbClient.view(BY_HOUR_VIEW)
 				.includeDocs(true)
 				.keys(Arrays.asList(parkingLotId, String.valueOf(hour)))
@@ -56,7 +56,7 @@ public class CouchDbRatingDao implements RatingDao {
 	}
 
 	@Override
-	public List<Rating> getRatingsBetweenHours(String parkingLotId, int minHour, int maxHour) throws Exception {
+	public List<Rating> getRatingsBetweenHours(String parkingLotId, int minHour, int maxHour) {
 		return dbClient.view(BY_HOUR_VIEW)
 				.includeDocs(true)
 				.startKey(Arrays.asList(parkingLotId, String.valueOf(minHour)))
@@ -65,7 +65,7 @@ public class CouchDbRatingDao implements RatingDao {
 	}
 
 	@Override
-	public List<Rating> getRatingsByDayOfWeek(String parkingLotId, DayOfWeek weekDay) throws Exception {
+	public List<Rating> getRatingsByDayOfWeek(String parkingLotId, DayOfWeek weekDay) {
 		return dbClient.view(BY_DAY_VIEW)
 				.includeDocs(true)
 				.key(Arrays.asList(parkingLotId, weekDay.toString()))
@@ -73,7 +73,7 @@ public class CouchDbRatingDao implements RatingDao {
 	}
 
 	@Override
-	public List<Rating> getRatingsByParkingLot(String parkingLotId) throws Exception {
+	public List<Rating> getRatingsByParkingLot(String parkingLotId) {
 		return dbClient.view(BY_PARKING_LOT_VIEW)
 				.includeDocs(true)
 				.key(parkingLotId)

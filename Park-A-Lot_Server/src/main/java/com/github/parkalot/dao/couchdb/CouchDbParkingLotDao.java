@@ -25,21 +25,21 @@ public class CouchDbParkingLotDao implements ParkingLotDao {
 	}
 
 	@Override
-	public void addParkingLot(ParkingLot parkingLot) throws Exception {
+	public void addParkingLot(ParkingLot parkingLot) {
 		LOGGER.debug("Saving ParkingLot to DB: " + parkingLot.getId());
 		couchDbClient.save(parkingLot);
 		LOGGER.debug("ParkingLot added");
 	}
 
 	@Override
-	public void updateParkingLot(ParkingLot parkingLot) throws Exception {
+	public void updateParkingLot(ParkingLot parkingLot) {
 		LOGGER.debug("Updating ParkingLot in DB: " + parkingLot.getId());
 		couchDbClient.update(parkingLot);
 		LOGGER.debug("ParkingLot updated");
 	}
 
 	@Override
-	public ParkingLot getParkingLot(String parkingLotId) throws Exception {
+	public ParkingLot getParkingLot(String parkingLotId) {
 		LOGGER.debug("Searching for ParkingLot in DB: " + parkingLotId);
 		return couchDbClient.find(ParkingLot.class, parkingLotId);
 	}
