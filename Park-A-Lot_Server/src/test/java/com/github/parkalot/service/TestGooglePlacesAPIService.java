@@ -23,77 +23,76 @@ import com.github.parkalot.service.GooglePlacesAPIService;
 import com.googleapis.maps.place.GooglePlacesResponse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { TestContext.class })
+@ContextConfiguration(classes = {TestContext.class})
 public class TestGooglePlacesAPIService {
+    private final static ObjectMapper objMapper = new ObjectMapper();
 
-	private MockRestServiceServer mockServer;
+    private MockRestServiceServer mockServer;
 
-	@Autowired
-	@Qualifier("googlePlacesRestTemplate")
-	private RestTemplate restTemplate;
+    @Autowired
+    @Qualifier("googlePlacesRestTemplate")
+    private RestTemplate restTemplate;
 
-	@Autowired
-	private GooglePlacesAPIService service;
+    @Autowired
+    private GooglePlacesAPIService service;
 
-	private GooglePlacesResponse sampleJSONResponse;
-	private ObjectMapper objMapper;
+    private GooglePlacesResponse sampleJSONResponse;
 
-	@Before
-	public void setUp() {
-		mockServer = MockRestServiceServer.createServer(restTemplate);
-		objMapper = new ObjectMapper();
-		sampleJSONResponse = TestHelper.createJSONObjectFromResource("SampleGooglePlacesResponse.json",
-				GooglePlacesResponse.class);
-		service.setCurrentLocation("123", "123");
-		service.setSelectedLocation("1111", "2222");
-	}
+    @Before
+    public void setUp() {
+        mockServer = MockRestServiceServer.createServer(restTemplate);
+        sampleJSONResponse = TestHelper.createJSONObjectFromResource(
+                "SampleGooglePlacesResponse.json", GooglePlacesResponse.class);
+        service.setCurrentLocation("123", "123");
+        service.setSelectedLocation("1111", "2222");
+    }
 
-	@Test
-	public void testGetNearbyParking() throws Exception {
-		mockServer.expect(method(HttpMethod.GET))
-				.andRespond(withSuccess(objMapper.writeValueAsString(sampleJSONResponse), MediaType.APPLICATION_JSON));
+    @Test
+    public void testGetNearbyParking() throws Exception {
+        mockServer.expect(method(HttpMethod.GET)).andRespond(withSuccess(
+                objMapper.writeValueAsString(sampleJSONResponse), MediaType.APPLICATION_JSON));
 
-		GooglePlacesResponse resp = service.getNearbyParking();
+        final GooglePlacesResponse resp = service.getNearbyParking();
 
-		mockServer.verify();
+        mockServer.verify();
 
-		assertTrue("OK".equals(resp.getStatus()));
-	}
+        assertTrue("OK".equals(resp.getStatus()));
+    }
 
-	@Test
-	public void testGetNearbyParkingWithRadius() throws Exception {
-		mockServer.expect(method(HttpMethod.GET))
-				.andRespond(withSuccess(objMapper.writeValueAsString(sampleJSONResponse), MediaType.APPLICATION_JSON));
+    @Test
+    public void testGetNearbyParkingWithRadius() throws Exception {
+        mockServer.expect(method(HttpMethod.GET)).andRespond(withSuccess(
+                objMapper.writeValueAsString(sampleJSONResponse), MediaType.APPLICATION_JSON));
 
-		GooglePlacesResponse resp = service.getNearbyParking(1000);
+        final GooglePlacesResponse resp = service.getNearbyParking(1000);
 
-		mockServer.verify();
+        mockServer.verify();
 
-		assertTrue("OK".equals(resp.getStatus()));
-	}
+        assertTrue("OK".equals(resp.getStatus()));
+    }
 
-	@Test
-	public void testSelectedParking() throws Exception {
-		mockServer.expect(method(HttpMethod.GET))
-				.andRespond(withSuccess(objMapper.writeValueAsString(sampleJSONResponse), MediaType.APPLICATION_JSON));
+    @Test
+    public void testSelectedParking() throws Exception {
+        mockServer.expect(method(HttpMethod.GET)).andRespond(withSuccess(
+                objMapper.writeValueAsString(sampleJSONResponse), MediaType.APPLICATION_JSON));
 
-		GooglePlacesResponse resp = service.getParkingAtSelectedLocation();
+        final GooglePlacesResponse resp = service.getParkingAtSelectedLocation();
 
-		mockServer.verify();
+        mockServer.verify();
 
-		assertTrue("OK".equals(resp.getStatus()));
-	}
+        assertTrue("OK".equals(resp.getStatus()));
+    }
 
-	@Test
-	public void testSelectedParkingWithRadius() throws Exception {
-		mockServer.expect(method(HttpMethod.GET))
-				.andRespond(withSuccess(objMapper.writeValueAsString(sampleJSONResponse), MediaType.APPLICATION_JSON));
+    @Test
+    public void testSelectedParkingWithRadius() throws Exception {
+        mockServer.expect(method(HttpMethod.GET)).andRespond(withSuccess(
+                objMapper.writeValueAsString(sampleJSONResponse), MediaType.APPLICATION_JSON));
 
-		GooglePlacesResponse resp = service.getParkingAtSelectedLocation(100);
+        final GooglePlacesResponse resp = service.getParkingAtSelectedLocation(100);
 
-		mockServer.verify();
+        mockServer.verify();
 
-		assertTrue("OK".equals(resp.getStatus()));
-	}
+        assertTrue("OK".equals(resp.getStatus()));
+    }
 
 }

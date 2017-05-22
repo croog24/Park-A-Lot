@@ -11,14 +11,14 @@ import org.springframework.web.client.RestTemplate;
 @PropertySource("classpath:testConfig.properties")
 public class AbstractTestContext {
 
-	@Bean(name = "googlePlacesRestTemplate")
-	public RestTemplate getRestTemplate() {
-		return new RestTemplate();
-	}
-	
-	// TODO: Spring is picking up this bean during actual deployment...why...
-	@Bean(name = "couchDbClient")
-	public CouchDbClient getCouchDbClient() {
-		return Mockito.mock(CouchDbClient.class);
-	}
+    @Bean(name = "googlePlacesRestTemplate")
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
+    }
+
+    // TODO: Spring is picking up this bean during actual deployment...why...
+    @Bean(name = "couchDbClient")
+    public CouchDbClient getCouchDbClient() {
+        return Mockito.mock(CouchDbClient.class);
+    }
 }

@@ -17,44 +17,44 @@ import com.github.parkalot.TestContext;
 import com.github.parkalot.model.ParkingLot;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { TestContext.class })
+@ContextConfiguration(classes = {TestContext.class})
 public class TestParkingLotDao {
 
-	@Autowired
-	@InjectMocks
-	private ParkingLotDao parkingLotDao;
-	
-	@Mock
-	private CouchDbClient couchDbClient;
-	
-	@Test
-	public void testAddParkingLot() throws Exception {
-		ParkingLot p = new ParkingLot("123", "name");
-		
-		parkingLotDao.addParkingLot(p);
-		
-		verify(couchDbClient).save(p);
-	}
-	
-	@Test
-	public void testUpdateParkingLot() throws Exception {
-		ParkingLot p = new ParkingLot("123", "name");
-		
-		parkingLotDao.updateParkingLot(p);
-		
-		verify(couchDbClient).update(p);
-	}
-	
-	@Test
-	public void testGetParkingLot() throws Exception {
-		final String PARKING_LOT_ID = "123";
-		
-		ParkingLot p = new ParkingLot(PARKING_LOT_ID, "name");
-		when(couchDbClient.find(ParkingLot.class, PARKING_LOT_ID)).thenReturn(p);
-		
-		ParkingLot result = parkingLotDao.getParkingLot("123");
-		
-		assertEquals("Unexpected ParkingLot retrieved: ", result.getId(), PARKING_LOT_ID);
-		verify(couchDbClient).find(ParkingLot.class, PARKING_LOT_ID);
-	}
+    @Autowired
+    @InjectMocks
+    private ParkingLotDao parkingLotDao;
+
+    @Mock
+    private CouchDbClient couchDbClient;
+
+    @Test
+    public void testAddParkingLot() throws Exception {
+        final ParkingLot p = new ParkingLot("123", "name");
+
+        parkingLotDao.addParkingLot(p);
+
+        verify(couchDbClient).save(p);
+    }
+
+    @Test
+    public void testUpdateParkingLot() throws Exception {
+        final ParkingLot p = new ParkingLot("123", "name");
+
+        parkingLotDao.updateParkingLot(p);
+
+        verify(couchDbClient).update(p);
+    }
+
+    @Test
+    public void testGetParkingLot() throws Exception {
+        final String PARKING_LOT_ID = "123";
+
+        final ParkingLot p = new ParkingLot(PARKING_LOT_ID, "name");
+        when(couchDbClient.find(ParkingLot.class, PARKING_LOT_ID)).thenReturn(p);
+
+        final ParkingLot result = parkingLotDao.getParkingLot("123");
+
+        assertEquals("Unexpected ParkingLot retrieved: ", result.getId(), PARKING_LOT_ID);
+        verify(couchDbClient).find(ParkingLot.class, PARKING_LOT_ID);
+    }
 }

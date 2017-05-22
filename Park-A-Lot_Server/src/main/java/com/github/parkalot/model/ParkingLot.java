@@ -6,45 +6,34 @@ import org.lightcouch.Document;
 
 public class ParkingLot extends Document {
 
-	private String parkingLotId;
-	private String name;
-	private ArrayList<String> ratingIdList;
+    private final String parkingLotId;
+    private final String name;
+    private final ArrayList<String> ratingIdList;
 
-	public ParkingLot(String parkingLotId, String name) {
-		this.parkingLotId = parkingLotId;
-		this.name = name;
-		this.ratingIdList = new ArrayList<String>();
-		// Set the internal CouchDB _id as well
-		this.setId(parkingLotId);
-	}
+    public ParkingLot(final String parkingLotId, final String name) {
+        this.parkingLotId = parkingLotId;
+        this.name = name;
+        this.ratingIdList = new ArrayList<String>();
+        // Set the internal CouchDB _id as well
+        this.setId(parkingLotId);
+    }
 
-	public String getParkingLotId() {
-		return parkingLotId;
-	}
+    public String getParkingLotId() {
+        return parkingLotId;
+    }
 
-	public void setParkingLotId(String parkingLotId) {
-		this.parkingLotId = parkingLotId;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public ArrayList<String> getRatingList() {
+        return ratingIdList;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public ArrayList<String> getRatingList() {
-		return ratingIdList;
-	}
-
-	public void setRatingList(ArrayList<String> ratingIdList) {
-		this.ratingIdList = ratingIdList;
-	}
-
-	@Override
-	public String toString() {
-		return String.format("Parking Lot ID:%s Name:%s Ratings:%s", parkingLotId, name, ratingIdList);
-	}
+    @Override
+    public String toString() {
+        return String.format("Parking Lot ID:%s Name:%s Ratings:%s", parkingLotId, name,
+                ratingIdList);
+    }
 
 }

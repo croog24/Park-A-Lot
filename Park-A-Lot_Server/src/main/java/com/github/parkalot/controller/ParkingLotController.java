@@ -13,58 +13,58 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.parkalot.model.ParkingLot;
 import com.github.parkalot.service.ParkingLotService;
 
-@SuppressWarnings("rawtypes")
 @RestController
 @RequestMapping("/parking-lot/{parking-lot-id}")
 public class ParkingLotController {
 
-	private static final Logger LOGGER = Logger.getLogger(ParkingLotController.class);
-	
-	@Autowired
-	private ParkingLotService parkingLotService;
-	public ParkingLotController(ParkingLotService parkingLotService) {
-		this.parkingLotService = parkingLotService;
-	}
+    private static final Logger LOGGER = Logger.getLogger(ParkingLotController.class);
 
-	@RequestMapping(method = RequestMethod.PUT)
-	public ResponseEntity addParkingLot(
-			@PathVariable("parking-lot-id") String parkingLotId,
-			@RequestParam(value = "name") String name) {
-		LOGGER.debug("Start of ParkingLotController.addParkingLot()");
-		ResponseEntity response = null;
-		try {
-			boolean isCreated = parkingLotService.addParkingLot(new ParkingLot(parkingLotId, name));
-			if (isCreated) {
-				response = new ResponseEntity(HttpStatus.CREATED);
-			}
-			else {
-				throw new Exception("Parking Lot not successfully added, please try again!");
-			}
-		} catch (Exception e) {
-			response = ResponseEntityUtils.createUnhandledExcResponse(e.getMessage());
-		}
-		
-		LOGGER.debug("End of ParkingLotController.addParkingLot()");
-		return response;
-	}
-	
-	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity getParkingLot(
-			@PathVariable("parking-lot-id") String parkingLotId) {
-		LOGGER.debug("Start of ParkingLotController.getParkingLot()");
-		ResponseEntity response = null;
-		try {
-			ParkingLot p = parkingLotService.getParkingLotById(parkingLotId);
-			if (p == null) {
-				throw new Exception("ParkingLot not found!");
-			}
-			
-			response = new ResponseEntity<ParkingLot>(p, HttpStatus.OK);
-		} catch (Exception e) {
-			response = ResponseEntityUtils.createUnhandledExcResponse(e.getMessage());
-		}
-		LOGGER.debug("End of ParkingLotController.getParkingLot()");
-		return response;
-	}
-	
+    private ParkingLotService parkingLotService;
+
+    @Autowired
+    public ParkingLotController(final ParkingLotService parkingLotService) {
+        this.parkingLotService = parkingLotService;
+    }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity<String> addParkingLot(
+            @PathVariable("parking-lot-id") final String parkingLotId,
+            @RequestParam(value = "name") final String name) {
+        LOGGER.debug("Start of ParkingLotController.addParkingLot()");
+        ResponseEntity<String> response = null;
+        try {
+            final boolean isCreated =
+                    parkingLotService.addParkingLot(new ParkingLot(parkingLotId, name));
+            if (isCreated) {
+                response = new ResponseEntity<String>(HttpStatus.CREATED);
+            } else {
+                throw new Exception("Parking Lot not successfully added, please try again!");
+            }
+        } catch (Exception e) {
+            response = ResponseEntityUtils.createUnhandledExcResponse(e.getMessage());
+        }
+
+        LOGGER.debug("End of ParkingLotController.addParkingLot()");
+        return response;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<?> getParkingLot(
+            @PathVariable("parking-lot-id") final String parkingLotId) {
+        LOGGER.debug("Start of ParkingLotController.getParkingLot()");
+        ResponseEntity<?> response = null;
+        try {
+            final ParkingLot p = parkingLotService.getParkingLotById(parkingLotId);
+            if (p == null) {
+                throw new Exception("ParkingLot not found!");
+            }
+
+            response = new ResponseEntity<ParkingLot>(p, HttpStatus.OK);
+        } catch (Exception e) {
+            response = ResponseEntityUtils.createUnhandledExcResponse(e.getMessage());
+        }
+        LOGGER.debug("End of ParkingLotController.getParkingLot()");
+        return response;
+    }
+
 }

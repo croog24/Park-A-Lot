@@ -17,45 +17,46 @@ import com.github.parkalot.dao.ParkingLotDao;
 import com.github.parkalot.model.ParkingLot;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = { TestContext.class })
+@ContextConfiguration(classes = {TestContext.class})
 public class TestParkingLotService {
 
-	@Autowired
-	@InjectMocks
-	private ParkingLotService parkingLotService;
+    @Autowired
+    @InjectMocks
+    private ParkingLotService parkingLotService;
 
-	@Mock
-	private ParkingLotDao mockParkingLotDao;
+    @Mock
+    private ParkingLotDao mockParkingLotDao;
 
-	@Test
-	public void testAddParkingLot() throws Exception {
-		ParkingLot parkingLot = new ParkingLot("123", "name");
+    @Test
+    public void testAddParkingLot() throws Exception {
+        final ParkingLot parkingLot = new ParkingLot("123", "name");
 
-		boolean result = parkingLotService.addParkingLot(parkingLot);
+        final boolean result = parkingLotService.addParkingLot(parkingLot);
 
-		assertTrue("Did not successfully add ParkingLot", result);
-		verify(mockParkingLotDao).addParkingLot(parkingLot);
-	}
+        assertTrue("Did not successfully add ParkingLot", result);
+        verify(mockParkingLotDao).addParkingLot(parkingLot);
+    }
 
-	@Test
-	public void testUpdateParkingLot() throws Exception {
-		ParkingLot parkingLot = new ParkingLot("123", "name");
+    @Test
+    public void testUpdateParkingLot() throws Exception {
+        final ParkingLot parkingLot = new ParkingLot("123", "name");
 
-		boolean result = parkingLotService.updateParkingLot(parkingLot);
+        final boolean result = parkingLotService.updateParkingLot(parkingLot);
 
-		verify(mockParkingLotDao).updateParkingLot(parkingLot);
-		assertTrue("Did not successfully update ParkingLot", result);
-	}
+        verify(mockParkingLotDao).updateParkingLot(parkingLot);
+        assertTrue("Did not successfully update ParkingLot", result);
+    }
 
-	@Test
-	public void testGetParkingLot() throws Exception {
-		final String PARKING_LOT_ID = "123";
-		final ParkingLot PARKING_LOT = new ParkingLot(PARKING_LOT_ID, "name");
-		when(mockParkingLotDao.getParkingLot(PARKING_LOT_ID)).thenReturn(PARKING_LOT);
+    @Test
+    public void testGetParkingLot() throws Exception {
+        final String PARKING_LOT_ID = "123";
+        final ParkingLot PARKING_LOT = new ParkingLot(PARKING_LOT_ID, "name");
+        when(mockParkingLotDao.getParkingLot(PARKING_LOT_ID)).thenReturn(PARKING_LOT);
 
-		ParkingLot result = parkingLotService.getParkingLotById(PARKING_LOT_ID);
+        final ParkingLot result = parkingLotService.getParkingLotById(PARKING_LOT_ID);
 
-		verify(mockParkingLotDao).getParkingLot(PARKING_LOT_ID);
-		assertEquals("Unexpected ParkingLot returned", PARKING_LOT.getParkingLotId(), result.getParkingLotId());
-	}
+        verify(mockParkingLotDao).getParkingLot(PARKING_LOT_ID);
+        assertEquals("Unexpected ParkingLot returned", PARKING_LOT.getParkingLotId(),
+                result.getParkingLotId());
+    }
 }

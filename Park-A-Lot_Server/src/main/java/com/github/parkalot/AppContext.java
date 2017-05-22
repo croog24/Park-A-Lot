@@ -13,15 +13,15 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @PropertySource("classpath:config.properties")
 @EnableWebMvc
 public class AppContext {
-	
-	@Bean(name = "googlePlacesRestTemplate")
-	public RestTemplate getRestTemplate() {
-		return new RestTemplate();
-	}
-	
-	@Bean(name = "couchDbClient")
-	public CouchDbClient getCouchDbClient() {
-		return new CouchDbClient();
-	}
-	
+
+    @Bean(name = "googlePlacesRestTemplate")
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
+    }
+
+    @Bean(name = "couchDbClient")
+    public CouchDbClient getCouchDbClient() {
+        return new CouchDbClient();
+    }
+
 }
