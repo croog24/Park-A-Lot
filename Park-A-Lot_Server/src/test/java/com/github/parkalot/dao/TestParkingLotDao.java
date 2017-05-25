@@ -45,14 +45,14 @@ public class TestParkingLotDao {
 
     @Test
     public void testGetParkingLot() throws Exception {
-        final String PARKING_LOT_ID = "123";
+        final String parkingLotId = "123";
 
-        final ParkingLot p = new ParkingLot(PARKING_LOT_ID, "name");
-        when(couchDbClient.find(ParkingLot.class, PARKING_LOT_ID)).thenReturn(p);
+        final ParkingLot p = new ParkingLot(parkingLotId, "name");
+        when(couchDbClient.find(ParkingLot.class, parkingLotId)).thenReturn(p);
 
         final ParkingLot result = parkingLotDao.getParkingLot("123");
 
-        assertEquals("Unexpected ParkingLot retrieved: ", result.getId(), PARKING_LOT_ID);
-        verify(couchDbClient).find(ParkingLot.class, PARKING_LOT_ID);
+        assertEquals("Unexpected ParkingLot retrieved: ", result.getId(), parkingLotId);
+        verify(couchDbClient).find(ParkingLot.class, parkingLotId);
     }
 }

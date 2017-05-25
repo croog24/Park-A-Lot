@@ -47,14 +47,14 @@ public class TestParkingLotService {
 
     @Test
     public void testGetParkingLot() throws Exception {
-        final String PARKING_LOT_ID = "123";
-        final ParkingLot PARKING_LOT = new ParkingLot(PARKING_LOT_ID, "name");
-        when(mockParkingLotDao.getParkingLot(PARKING_LOT_ID)).thenReturn(PARKING_LOT);
+        final String parkingLotId = "123";
+        final ParkingLot parkingLot = new ParkingLot(parkingLotId, "name");
+        when(mockParkingLotDao.getParkingLot(parkingLotId)).thenReturn(parkingLot);
 
-        final ParkingLot result = parkingLotService.getParkingLotById(PARKING_LOT_ID);
+        final ParkingLot result = parkingLotService.getParkingLotById(parkingLotId);
 
-        verify(mockParkingLotDao).getParkingLot(PARKING_LOT_ID);
-        assertEquals("Unexpected ParkingLot returned", PARKING_LOT.getParkingLotId(),
+        verify(mockParkingLotDao).getParkingLot(parkingLotId);
+        assertEquals("Unexpected ParkingLot returned", parkingLot.getParkingLotId(),
                 result.getParkingLotId());
     }
 }

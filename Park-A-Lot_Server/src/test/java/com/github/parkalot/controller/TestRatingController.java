@@ -68,15 +68,15 @@ public class TestRatingController {
 
     @Test
     public void testGetRatingsByWeekday() throws Exception {
-        final DayOfWeek WEEKDAY = DayOfWeek.SATURDAY;
+        final DayOfWeek dayOfWeek = DayOfWeek.SATURDAY;
 
-        when(mockRatingService.getRatingsByDayOfWeek(PARKING_LOT_ID, WEEKDAY))
+        when(mockRatingService.getRatingsByDayOfWeek(PARKING_LOT_ID, dayOfWeek))
                 .thenReturn(mockRatingList);
 
-        mockMvc.perform(get("/rating/" + PARKING_LOT_ID).param("weekday", WEEKDAY.name()))
+        mockMvc.perform(get("/rating/" + PARKING_LOT_ID).param("weekday", dayOfWeek.name()))
                 .andExpect(status().isOk());
 
-        verify(mockRatingService).getRatingsByDayOfWeek(PARKING_LOT_ID, WEEKDAY);
+        verify(mockRatingService).getRatingsByDayOfWeek(PARKING_LOT_ID, dayOfWeek);
     }
 
     @Test
@@ -90,44 +90,44 @@ public class TestRatingController {
 
     @Test
     public void testGetRatingsBetweenHours_OneParam() throws Exception {
-        final int MIN_HOUR = 10;
+        final int minHour = 10;
 
-        when(mockRatingService.getRatingsByHour(PARKING_LOT_ID, MIN_HOUR))
+        when(mockRatingService.getRatingsByHour(PARKING_LOT_ID, minHour))
                 .thenReturn(mockRatingList);
 
         mockMvc.perform(
-                get("/rating/" + PARKING_LOT_ID).param("min-hour", String.valueOf(MIN_HOUR)))
+                get("/rating/" + PARKING_LOT_ID).param("min-hour", String.valueOf(minHour)))
                 .andExpect(status().isOk());
 
-        verify(mockRatingService).getRatingsByHour(PARKING_LOT_ID, MIN_HOUR);
+        verify(mockRatingService).getRatingsByHour(PARKING_LOT_ID, minHour);
     }
 
     @Test
     public void testGetRatingsBetweenHours_TwoParam() throws Exception {
-        final int MIN_HOUR = 10;
-        final int MAX_HOUR = 20;
+        final int minHour = 10;
+        final int maxHour = 20;
 
-        when(mockRatingService.getRatingsBetweenHours(PARKING_LOT_ID, MIN_HOUR, MAX_HOUR))
+        when(mockRatingService.getRatingsBetweenHours(PARKING_LOT_ID, minHour, maxHour))
                 .thenReturn(mockRatingList);
 
-        mockMvc.perform(get("/rating/" + PARKING_LOT_ID).param("min-hour", String.valueOf(MIN_HOUR))
-                .param("max-hour", String.valueOf(MAX_HOUR))).andExpect(status().isOk());
+        mockMvc.perform(get("/rating/" + PARKING_LOT_ID).param("min-hour", String.valueOf(minHour))
+                .param("max-hour", String.valueOf(maxHour))).andExpect(status().isOk());
 
-        verify(mockRatingService).getRatingsBetweenHours(PARKING_LOT_ID, MIN_HOUR, MAX_HOUR);
+        verify(mockRatingService).getRatingsBetweenHours(PARKING_LOT_ID, minHour, maxHour);
     }
 
     @Test
     public void testAddRating() throws Exception {
-        final String USER_ID = "USER";
-        final int RATING_VALUE = 3;
+        final String userId = "USER";
+        final int ratingValue = 3;
         final ParkingLot mockParkingLot = new ParkingLot(PARKING_LOT_ID, "NAME");
 
         when(mockRatingService.addRating(any(Rating.class))).thenReturn(true);
         when(mockParkingLotService.getParkingLotById(PARKING_LOT_ID)).thenReturn(mockParkingLot);
         when(mockParkingLotService.updateParkingLot(mockParkingLot)).thenReturn(true);
 
-        mockMvc.perform(put("/rating/" + PARKING_LOT_ID).param("value", "" + RATING_VALUE)
-                .param("submitted-by", USER_ID)).andExpect(status().isCreated());
+        mockMvc.perform(put("/rating/" + PARKING_LOT_ID).param("value", "" + ratingValue)
+                .param("submitted-by", userId)).andExpect(status().isCreated());
 
         verify(mockRatingService).addRating(any(Rating.class));
         verify(mockParkingLotService).getParkingLotById(PARKING_LOT_ID);
@@ -137,16 +137,16 @@ public class TestRatingController {
 
     @Test
     public void testAddRating_FailedParkingLotUpdate() throws Exception {
-        final String USER_ID = "USER";
-        final int RATING_VALUE = 3;
+        final String userId = "USER";
+        final int ratingValue = 3;
         final ParkingLot mockParkingLot = new ParkingLot(PARKING_LOT_ID, "NAME");
 
         when(mockRatingService.addRating(any(Rating.class))).thenReturn(true);
         when(mockParkingLotService.getParkingLotById(PARKING_LOT_ID)).thenReturn(mockParkingLot);
         when(mockParkingLotService.updateParkingLot(mockParkingLot)).thenReturn(false);
 
-        mockMvc.perform(put("/rating/" + PARKING_LOT_ID).param("value", "" + RATING_VALUE)
-                .param("submitted-by", USER_ID)).andExpect(status().isInternalServerError());
+        mockMvc.perform(put("/rating/" + PARKING_LOT_ID).param("value", "" + ratingValue)
+                .param("submitted-by", userId)).andExpect(status().isInternalServerError());
 
         verify(mockRatingService).addRating(any(Rating.class));
         verify(mockParkingLotService).getParkingLotById(PARKING_LOT_ID);

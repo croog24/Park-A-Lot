@@ -78,9 +78,9 @@ public class TestRatingDao {
 
     @Test
     public void testGetRatingsBetweenHour() throws Exception {
-        final int EXPECTED_SIZE = 5;
-        final int MIN_HOUR = 3;
-        final int MAX_HOUR = 6;
+        final int expectedSize = 5;
+        final int minHour = 3;
+        final int maxHour = 6;
 
         final List<Rating> mockResultList = new ArrayList<Rating>();
         for (int i = 0; i < 5; i++) {
@@ -92,22 +92,22 @@ public class TestRatingDao {
         when(mockView.query(Rating.class)).thenReturn(mockResultList);
 
         final List<Rating> resultList =
-                ratingDao.getRatingsBetweenHours(PARKING_LOT_ID, MIN_HOUR, MAX_HOUR);
+                ratingDao.getRatingsBetweenHours(PARKING_LOT_ID, minHour, maxHour);
 
         verify(couchDbClient).view("rating/byHour");
         verify(mockView).includeDocs(true);
-        verify(mockView).startKey(Arrays.asList(PARKING_LOT_ID, MIN_HOUR + ""));
-        verify(mockView).endKey(Arrays.asList(PARKING_LOT_ID, MAX_HOUR + ""));
+        verify(mockView).startKey(Arrays.asList(PARKING_LOT_ID, minHour + ""));
+        verify(mockView).endKey(Arrays.asList(PARKING_LOT_ID, maxHour + ""));
         verify(mockView).query(Rating.class);
 
         assertTrue("ResultList RatingsBetweenHours() should not be empty", !resultList.isEmpty());
-        assertEquals("Unexpected resultList size: ", EXPECTED_SIZE, resultList.size());
+        assertEquals("Unexpected resultList size: ", expectedSize, resultList.size());
     }
 
     @Test
     public void testGetRatingsByHour() throws Exception {
-        final int EXPECTED_SIZE = 5;
-        final int EXPECTED_HOUR = 3;
+        final int expectedSize = 5;
+        final int expectedHour = 3;
 
         final List<Rating> mockResultList = new ArrayList<Rating>();
         for (int i = 0; i < 5; i++) {
@@ -118,21 +118,21 @@ public class TestRatingDao {
         final View mockView = createBaseMockView();
         when(mockView.query(Rating.class)).thenReturn(mockResultList);
 
-        final List<Rating> resultList = ratingDao.getRatingsByHour(PARKING_LOT_ID, EXPECTED_HOUR);
+        final List<Rating> resultList = ratingDao.getRatingsByHour(PARKING_LOT_ID, expectedHour);
 
         verify(couchDbClient).view("rating/byHour");
         verify(mockView).includeDocs(true);
-        verify(mockView).keys(Arrays.asList(PARKING_LOT_ID, EXPECTED_HOUR + ""));
+        verify(mockView).keys(Arrays.asList(PARKING_LOT_ID, expectedHour + ""));
         verify(mockView).query(Rating.class);
 
         assertTrue("ResultList RatingsByHour() should not be empty", !resultList.isEmpty());
-        assertEquals("Unexpected resultList size: ", EXPECTED_SIZE, resultList.size());
+        assertEquals("Unexpected resultList size: ", expectedSize, resultList.size());
     }
 
     @Test
     public void testGetRatingsByDayOfWeek() throws Exception {
-        final int EXPECTED_SIZE = 5;
-        final DayOfWeek EXPECTED_DAY_OF_WEEK = LocalDateTime.now().getDayOfWeek();
+        final int expectedSize = 5;
+        final DayOfWeek expectedDayOfWeek = LocalDateTime.now().getDayOfWeek();
 
         final List<Rating> mockResultList = new ArrayList<Rating>();
         for (int i = 0; i < 5; i++) {
@@ -144,20 +144,20 @@ public class TestRatingDao {
         when(mockView.query(Rating.class)).thenReturn(mockResultList);
 
         final List<Rating> resultList =
-                ratingDao.getRatingsByDayOfWeek(PARKING_LOT_ID, EXPECTED_DAY_OF_WEEK);
+                ratingDao.getRatingsByDayOfWeek(PARKING_LOT_ID, expectedDayOfWeek);
 
         verify(couchDbClient).view("rating/byDay");
         verify(mockView).includeDocs(true);
-        verify(mockView).key(Arrays.asList(PARKING_LOT_ID, EXPECTED_DAY_OF_WEEK.toString()));
+        verify(mockView).key(Arrays.asList(PARKING_LOT_ID, expectedDayOfWeek.toString()));
         verify(mockView).query(Rating.class);
 
         assertTrue("ResultList RatingsByHour() should not be empty", !resultList.isEmpty());
-        assertEquals("Unexpected resultList size: ", EXPECTED_SIZE, resultList.size());
+        assertEquals("Unexpected resultList size: ", expectedSize, resultList.size());
     }
 
     @Test
     public void testGetRatingsByParkingLot() throws Exception {
-        final int EXPECTED_SIZE = 5;
+        final int expectedSize = 5;
 
         final List<Rating> mockResultList = new ArrayList<Rating>();
         for (int i = 0; i < 5; i++) {
@@ -176,7 +176,7 @@ public class TestRatingDao {
         verify(mockView).query(Rating.class);
 
         assertTrue("ResultList RatingsByParkingLot() should not be empty", !resultList.isEmpty());
-        assertEquals("Unexpected resultList size: ", EXPECTED_SIZE, resultList.size());
+        assertEquals("Unexpected resultList size: ", expectedSize, resultList.size());
     }
 
 }
