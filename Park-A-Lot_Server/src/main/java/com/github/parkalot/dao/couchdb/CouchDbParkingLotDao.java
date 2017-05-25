@@ -18,7 +18,7 @@ public class CouchDbParkingLotDao implements ParkingLotDao {
 
     private static final Logger LOGGER = Logger.getLogger(CouchDbParkingLotDao.class);
 
-    private CouchDbClient couchDbClient;
+    private final CouchDbClient couchDbClient;
 
     @Autowired
     public CouchDbParkingLotDao(final CouchDbClient couchDbClient) {

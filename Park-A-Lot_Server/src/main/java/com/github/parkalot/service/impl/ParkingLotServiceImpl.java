@@ -13,7 +13,7 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 
     private static final Logger LOGGER = Logger.getLogger(ParkingLotServiceImpl.class);
 
-    private ParkingLotDao parkingLotDao;
+    private final ParkingLotDao parkingLotDao;
 
     @Autowired
     public ParkingLotServiceImpl(final ParkingLotDao parkingLotDao) {

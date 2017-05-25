@@ -2,7 +2,6 @@ package com.github.parkalot.controller;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -18,6 +17,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -27,13 +27,10 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import com.github.parkalot.TestContext;
-import com.github.parkalot.TestHelper;
 import com.github.parkalot.model.ParkingLot;
 import com.github.parkalot.model.Rating;
 import com.github.parkalot.service.ParkingLotService;
 import com.github.parkalot.service.RatingService;
-import com.github.parkalot.service.impl.ParkingLotServiceImpl;
-import com.github.parkalot.service.impl.RatingServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestContext.class})
@@ -41,28 +38,22 @@ import com.github.parkalot.service.impl.RatingServiceImpl;
 @EnableWebMvc
 public class TestRatingController {
 
-    final static String PARKING_LOT_ID = "123";
+    private final static String PARKING_LOT_ID = "123";
 
     @Autowired
     private WebApplicationContext ctx;
 
+    @MockBean
     private RatingService mockRatingService;
+    @MockBean
     private ParkingLotService mockParkingLotService;
-
-    @Autowired
-    private RatingController ratingController;
-
     private MockMvc mockMvc;
-    List<Rating> mockRatingList = new ArrayList<Rating>();
+
+    private List<Rating> mockRatingList = new ArrayList<Rating>();
 
     @Before
     public void init() throws Exception {
         mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-        mockRatingService = mock(RatingServiceImpl.class);
-        mockParkingLotService = mock(ParkingLotServiceImpl.class);
-        TestHelper.injectMock(ratingController, mockRatingService, "ratingService");
-        TestHelper.injectMock(ratingController, mockParkingLotService, "parkingLotService");
-
         mockRatingList.add(new Rating("123", 2, "4"));
     }
 

@@ -1,7 +1,9 @@
 package com.github.parkalot.service;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.time.DayOfWeek;
 import java.util.Arrays;
@@ -9,9 +11,8 @@ import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -24,10 +25,9 @@ import com.github.parkalot.model.Rating;
 public class TestRatingService {
 
     @Autowired
-    @InjectMocks
     private RatingService ratingService;
 
-    @Mock
+    @MockBean
     private CouchDbRatingDao mockRatingDaoImpl;
     private final List<Rating> mockList =
             Arrays.asList(new Rating("1", 2, "2"), new Rating("4", 5, "2"));

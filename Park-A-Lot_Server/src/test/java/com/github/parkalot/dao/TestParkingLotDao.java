@@ -1,15 +1,14 @@
 package com.github.parkalot.dao;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.lightcouch.CouchDbClient;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,10 +20,9 @@ import com.github.parkalot.model.ParkingLot;
 public class TestParkingLotDao {
 
     @Autowired
-    @InjectMocks
     private ParkingLotDao parkingLotDao;
 
-    @Mock
+    @MockBean
     private CouchDbClient couchDbClient;
 
     @Test

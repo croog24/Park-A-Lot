@@ -34,8 +34,8 @@ public class RatingController {
     private static final int MIN_RATING_VALUE = 1;
     private static final int MAX_RATING_VALUE = 5;
 
-    private RatingService ratingService;
-    private ParkingLotService parkingLotService;
+    private final RatingService ratingService;
+    private final ParkingLotService parkingLotService;
 
     @Autowired
     public RatingController(final RatingService ratingService,

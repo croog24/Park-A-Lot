@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.DayOfWeek;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,10 +17,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.lightcouch.CouchDbClient;
 import org.lightcouch.View;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -33,10 +33,9 @@ public class TestRatingDao {
     private final static String PARKING_LOT_ID = "123";
 
     @Autowired
-    @InjectMocks
     private RatingDao ratingDao;
 
-    @Mock
+    @MockBean
     private CouchDbClient couchDbClient;
 
     private View createBaseMockView() {
@@ -133,12 +132,11 @@ public class TestRatingDao {
     @Test
     public void testGetRatingsByDayOfWeek() throws Exception {
         final int EXPECTED_SIZE = 5;
-        final DayOfWeek EXPECTED_DAY_OF_WEEK = DayOfWeek.SATURDAY;
+        final DayOfWeek EXPECTED_DAY_OF_WEEK = LocalDateTime.now().getDayOfWeek();
 
         final List<Rating> mockResultList = new ArrayList<Rating>();
         for (int i = 0; i < 5; i++) {
             final Rating rating = new Rating(PARKING_LOT_ID, 4, "123");
-            rating.setDayOfWeek(DayOfWeek.SATURDAY);
             mockResultList.add(rating);
         }
 

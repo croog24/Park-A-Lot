@@ -8,13 +8,13 @@ import org.lightcouch.Document;
 
 public class Rating extends Document {
 
-    private String ratingId;
-    private String parkingLotId;
-    private int value;
-    private int hour;
-    private DayOfWeek dayOfWeek;
+    private final String ratingId;
+    private final String parkingLotId;
+    private final int value;
+    private final int hour;
+    private final DayOfWeek dayOfWeek;
     // The unique device ID of the user
-    private String submittedByUserId;
+    private final String submittedByUserId;
 
     public Rating(final String parkingLotId, final int value, final String submittedByUserId) {
         this.ratingId = UUID.randomUUID().toString();
@@ -32,48 +32,24 @@ public class Rating extends Document {
         return ratingId;
     }
 
-    public void setRatingId(String ratingId) {
-        this.ratingId = ratingId;
-    }
-
     public int getValue() {
         return value;
-    }
-
-    public void setValue(int value) {
-        this.value = value;
     }
 
     public String getParkingLotId() {
         return parkingLotId;
     }
 
-    public void setParkingLotId(String parkingLotId) {
-        this.parkingLotId = parkingLotId;
-    }
-
     public String getSubmittedByUserId() {
         return submittedByUserId;
-    }
-
-    public void setSubmittedByUserId(String submittedByUserId) {
-        this.submittedByUserId = submittedByUserId;
     }
 
     public int getHour() {
         return hour;
     }
 
-    public void setHour(int hour) {
-        this.hour = hour;
-    }
-
     public DayOfWeek getDayOfWeek() {
         return dayOfWeek;
-    }
-
-    public void setDayOfWeek(DayOfWeek dayOfWeek) {
-        this.dayOfWeek = dayOfWeek;
     }
 
     @Override

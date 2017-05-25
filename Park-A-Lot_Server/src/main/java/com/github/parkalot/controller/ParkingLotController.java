@@ -19,7 +19,7 @@ public class ParkingLotController {
 
     private static final Logger LOGGER = Logger.getLogger(ParkingLotController.class);
 
-    private ParkingLotService parkingLotService;
+    private final ParkingLotService parkingLotService;
 
     @Autowired
     public ParkingLotController(final ParkingLotService parkingLotService) {

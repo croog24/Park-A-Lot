@@ -26,7 +26,7 @@ public class CouchDbRatingDao implements RatingDao {
     private static final String BY_DAY_VIEW = "rating/byDay";
     private static final String BY_HOUR_VIEW = "rating/byHour";
 
-    private CouchDbClient dbClient;
+    private final CouchDbClient dbClient;
 
     @Autowired
     public CouchDbRatingDao(final CouchDbClient dbClient) {
