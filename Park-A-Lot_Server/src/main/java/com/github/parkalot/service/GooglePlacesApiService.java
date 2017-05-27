@@ -1,5 +1,6 @@
 package com.github.parkalot.service;
 
+import com.github.parkalot.ValidationException;
 import com.googleapis.maps.place.GooglePlacesResponse;
 
 /**
@@ -7,7 +8,7 @@ import com.googleapis.maps.place.GooglePlacesResponse;
  * 
  * @author Craig
  */
-public interface GooglePlacesAPIService {
+public interface GooglePlacesApiService {
 
     /**
      * Sets the current location of the client.
@@ -15,7 +16,7 @@ public interface GooglePlacesAPIService {
      * @param latitude the latitude of the client
      * @param longitude the longitude of the client
      */
-    void setCurrentLocation(final String latitude, final String longitude);
+    void setCurrentLocation(final Double latitude, final Double longitude) throws ValidationException;
 
     /**
      * Sets the selected location of the client.
@@ -23,7 +24,7 @@ public interface GooglePlacesAPIService {
      * @param latitude the latitude of the client's selection
      * @param longitude the longitude of the client's selection
      */
-    void setSelectedLocation(final String latitude, final String longitude);
+    void setSelectedLocation(final Double latitude, final Double longitude) throws ValidationException;
 
     /**
      * Gets the parking spots nearby the current location using the default radius.

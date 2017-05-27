@@ -7,30 +7,27 @@ package com.googleapis.maps.place;
  *
  */
 public class GooglePlacesRequest {
-    private final String longitude;
-    private final String latitude;
+    private final CoordinatePair coords;
     private final int radius;
 
     /**
      * Creates a new GooglePlacesRequest with a specified radius.
      * 
-     * @param longitude the longitude coordinate of the request.
-     * @param latitude the latitude coordinate of the request.
-     * @param radius the radius to search within.
+     * @param coords the coordinates of the request
+     * @param radius the radius to search within
      */
-    public GooglePlacesRequest(final String longitude, final String latitude, final int radius) {
-        this.longitude = longitude;
-        this.latitude = latitude;
+    public GooglePlacesRequest(final CoordinatePair coords, final int radius) {
+        this.coords = coords;
         this.radius = radius;
     }
 
     /**
-     * Gets the coordinates of the request instance.
+     * Gets the coordinates of the request instance in a Google request-friendly String format.
      * 
-     * @return A <code>String</code> in the format of "<i>longitude, latitude</i>".
+     * @return A <code>String</code> in the format of '<i>longitude, latitude</i>'.
      */
-    public String getCoords() {
-        return longitude + "," + latitude;
+    public String getCoordString() {
+        return this.coords.getLongitudeStr() + "," + this.coords.getLatitudeStr();
     }
 
     /**

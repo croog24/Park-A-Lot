@@ -19,7 +19,8 @@ import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.parkalot.TestContext;
 import com.github.parkalot.TestHelper;
-import com.github.parkalot.service.GooglePlacesAPIService;
+import com.github.parkalot.ValidationException;
+import com.github.parkalot.service.GooglePlacesApiService;
 import com.googleapis.maps.place.GooglePlacesResponse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -34,19 +35,19 @@ public class TestGooglePlacesAPIService {
     private RestTemplate restTemplate;
 
     @Autowired
-    private GooglePlacesAPIService service;
+    private GooglePlacesApiService service;
 
     private GooglePlacesResponse sampleJSONResponse;
 
     @Before
-    public void setUp() {
+    public void setUp() throws ValidationException {
         mockServer = MockRestServiceServer.createServer(restTemplate);
         sampleJSONResponse = TestHelper.createJSONObjectFromResource(
                 "SampleGooglePlacesResponse.json", GooglePlacesResponse.class);
-        service.setCurrentLocation("123", "123");
-        service.setSelectedLocation("1111", "2222");
+        service.setCurrentLocation(123.0, 123.0);
+        service.setSelectedLocation(1111.0, 2222.0);
     }
-
+    
     @Test
     public void testGetNearbyParking() throws Exception {
         mockServer.expect(method(HttpMethod.GET)).andRespond(withSuccess(

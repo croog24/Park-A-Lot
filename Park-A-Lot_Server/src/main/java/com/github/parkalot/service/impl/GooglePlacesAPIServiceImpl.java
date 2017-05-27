@@ -9,13 +9,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.parkalot.service.GooglePlacesAPIService;
+import com.github.parkalot.ValidationException;
+import com.github.parkalot.service.GooglePlacesApiService;
+import com.googleapis.maps.place.CoordinatePair;
 import com.googleapis.maps.place.GooglePlacesRequest;
 import com.googleapis.maps.place.GooglePlacesResponse;
 
 @Service
 @Scope("prototype")
-public final class GooglePlacesAPIServiceImpl implements GooglePlacesAPIService {
+public final class GooglePlacesAPIServiceImpl implements GooglePlacesApiService {
 
     private static final Logger LOGGER = Logger.getLogger(GooglePlacesAPIServiceImpl.class);
     private static final int DEFAULT_RADIUS = 1000;
@@ -26,10 +28,8 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesAPIService 
     @Value("${google.api.maps.place.url}")
     private String MAPS_API_URI;
 
-    private String currLatitude;
-    private String currLongitude;
-    private String selectedLatitude;
-    private String selectedLongitude;
+    private CoordinatePair currCoords;
+    private CoordinatePair selectedCoords;
 
     private final RestTemplate restTemplate;
 
@@ -40,22 +40,31 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesAPIService 
     }
 
     @Override
-    public void setCurrentLocation(final String latitude, final String longitude) {
-        this.currLatitude = latitude;
-        this.currLongitude = longitude;
+    public void setCurrentLocation(final Double latitude, final Double longitude)
+            throws ValidationException {
+        CoordinatePair coords = new CoordinatePair(latitude, longitude);
+        if (coords.isRangeValid()) {
+            this.currCoords = coords;
+        } else {
+            throw new ValidationException("Invalid coordinates specified");
+        }
     }
 
     @Override
-    public void setSelectedLocation(final String latitude, final String longitude) {
-        this.selectedLatitude = latitude;
-        this.selectedLongitude = longitude;
+    public void setSelectedLocation(final Double latitude, final Double longitude)
+            throws ValidationException {
+        CoordinatePair coords = new CoordinatePair(latitude, longitude);
+        if (coords.isRangeValid()) {
+            this.selectedCoords = coords;
+        } else {
+            throw new ValidationException("Invalid coordinates specified");
+        }
     }
 
     @Override
     public GooglePlacesResponse getNearbyParking() {
         LOGGER.debug("Creating GetNearbyParking() request");
-        final GooglePlacesRequest req =
-                new GooglePlacesRequest(this.currLongitude, this.currLatitude, DEFAULT_RADIUS);
+        final GooglePlacesRequest req = new GooglePlacesRequest(this.currCoords, DEFAULT_RADIUS);
 
         return sendRequest(req);
     }
@@ -63,8 +72,7 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesAPIService 
     @Override
     public GooglePlacesResponse getNearbyParking(final int radius) {
         LOGGER.debug("Creating GetNearbyParking(radius) request");
-        final GooglePlacesRequest req =
-                new GooglePlacesRequest(this.currLongitude, this.currLatitude, radius);
+        final GooglePlacesRequest req = new GooglePlacesRequest(this.currCoords, radius);
 
         return sendRequest(req);
     }
@@ -72,8 +80,8 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesAPIService 
     @Override
     public GooglePlacesResponse getParkingAtSelectedLocation() {
         LOGGER.debug("Creating GetParkingAtSelectedLocation() request");
-        final GooglePlacesRequest req = new GooglePlacesRequest(this.selectedLongitude,
-                this.selectedLatitude, DEFAULT_RADIUS);
+        final GooglePlacesRequest req =
+                new GooglePlacesRequest(this.selectedCoords, DEFAULT_RADIUS);
 
         return sendRequest(req);
     }
@@ -81,8 +89,7 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesAPIService 
     @Override
     public GooglePlacesResponse getParkingAtSelectedLocation(final int radius) {
         LOGGER.debug("Creating GetParkingAtSelectedLocation(radius) request");
-        final GooglePlacesRequest req =
-                new GooglePlacesRequest(this.selectedLongitude, this.selectedLatitude, radius);
+        final GooglePlacesRequest req = new GooglePlacesRequest(this.selectedCoords, radius);
 
         return sendRequest(req);
     }
@@ -124,7 +131,7 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesAPIService 
         // @formatter:off
 		return String.format("%sjson?location=%s&radius=%s&type=parking&key=%s", 
 				MAPS_API_URI, 
-				request.getCoords(),
+				request.getCoordString(),
 				request.getRadius(), 
 				API_KEY);
 		// @formatter:on
