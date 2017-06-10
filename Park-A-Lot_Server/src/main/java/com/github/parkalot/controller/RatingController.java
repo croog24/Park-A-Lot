@@ -18,6 +18,7 @@ import com.github.parkalot.model.ParkingLot;
 import com.github.parkalot.model.Rating;
 import com.github.parkalot.service.ParkingLotService;
 import com.github.parkalot.service.RatingService;
+import com.github.parkalot.service.impl.RatingValidatorUtil;
 
 /**
  * Entry point for all requests involving {@link Rating} retrieval/adding.
@@ -29,10 +30,6 @@ import com.github.parkalot.service.RatingService;
 public class RatingController {
 
     private static final Logger LOGGER = Logger.getLogger(RatingController.class);
-    private static final int DEFAULT_MIN_HOUR = 0;
-    private static final int DEFAULT_MAX_HOUR = 23;
-    private static final int MIN_RATING_VALUE = 1;
-    private static final int MAX_RATING_VALUE = 5;
 
     private final RatingService ratingService;
     private final ParkingLotService parkingLotService;
@@ -50,9 +47,9 @@ public class RatingController {
      * {@code maxHour} are provided, if will filter by the hour range.
      * 
      * @param parkingLotId the mandatory parking lot ID.
-     * @param weekday the optional <b>valid</b> weekday
-     * @param minHour the optional <b>valid</b> min hour
-     * @param maxHour the optional <b>valid</b> max hour
+     * @param weekday the optional weekday
+     * @param minHour the optional min hour
+     * @param maxHour the optional max hour
      * @return A {@code List} of {@link Rating}s with {@link HttpStatus} {@code 200 OK} or
      *         {@code 400 BAD_REQUEST}/{@code 500 INTERNAL_SERVER_ERROR} if some error occurred
      */
@@ -81,9 +78,9 @@ public class RatingController {
             }
 
         } catch (ValidationException e) {
-            response = ResponseEntityUtils.createValidationExcResponse(e.getMessage());
+            response = ResponseEntityUtil.createValidationExcResponse(e.getMessage());
         } catch (Exception e) {
-            response = ResponseEntityUtils.createUnhandledExcResponse(e.getMessage());
+            response = ResponseEntityUtil.createUnhandledExcResponse(e.getMessage());
         }
 
         LOGGER.debug("End of RatingController.getRatings()");
@@ -110,20 +107,13 @@ public class RatingController {
         try {
             response = handleAddRating(parkingLotId, value, submittedBy);
         } catch (ValidationException e) {
-            response = ResponseEntityUtils.createValidationExcResponse(e.getMessage());
+            response = ResponseEntityUtil.createValidationExcResponse(e.getMessage());
         } catch (Exception e) {
-            response = ResponseEntityUtils.createUnhandledExcResponse(e.getMessage());
+            response = ResponseEntityUtil.createUnhandledExcResponse(e.getMessage());
         }
 
         LOGGER.debug("End of RatingController.addRating()");
         return response;
-    }
-
-    /**
-     * Checks if the given {@link Rating} value attribute is within the valid range.
-     */
-    private boolean isValueValid(final int value) {
-        return value >= MIN_RATING_VALUE && value <= MAX_RATING_VALUE;
     }
 
     /** Handles requests with no additional filters. */
@@ -151,7 +141,7 @@ public class RatingController {
     /** Handles requests with a single hour provided. */
     private ResponseEntity<List<Rating>> handleGetRatingsByHour(final String parkingLotId,
             final int hour) throws Exception {
-        if (!isHourRangeValid(hour)) {
+        if (!RatingValidatorUtil.isHourValid(hour)) {
             throw new Exception("Invalid hour specified!");
         }
 
@@ -162,7 +152,7 @@ public class RatingController {
     /** Handles requests with a specified hour range. */
     private ResponseEntity<List<Rating>> handleGetRatingsBetweenHours(final String parkingLotId,
             final int minHour, final int maxHour) throws Exception {
-        if (!isHourRangeValid(minHour, maxHour)) {
+        if (!RatingValidatorUtil.isHourRangeValid(minHour, maxHour)) {
             throw new Exception("Invalid hour range!");
         }
         return new ResponseEntity<List<Rating>>(
@@ -170,31 +160,10 @@ public class RatingController {
                 HttpStatus.OK);
     }
 
-    /**
-     * Checks if the supplied hour range is valid for the implemented Database's hours.
-     * 
-     * @param min the minimum hour used
-     * @param max the maximum hour used
-     * @return {@code true} if the provided hours meet the valid min/max range specifications
-     */
-    private boolean isHourRangeValid(final int min, final int max) {
-        return min < max || min >= DEFAULT_MIN_HOUR || max <= DEFAULT_MAX_HOUR;
-    }
-
-    /**
-     * Checks if the given hour is a searchable hour for the implemented Database hours.
-     * 
-     * @param hour the hour to check
-     * @return {@code true} if the provided hour meets the valid min/max range specifications
-     */
-    private boolean isHourRangeValid(final int hour) {
-        return DEFAULT_MIN_HOUR <= hour && hour <= DEFAULT_MAX_HOUR;
-    }
-
     /** Handles requests to add a {@link Rating}. */
     private ResponseEntity<String> handleAddRating(final String parkingLotId, final int value,
             final String submittedBy) throws Exception {
-        if (!isValueValid(value)) {
+        if (!RatingValidatorUtil.isValueValid(value)) {
             throw new ValidationException("Unexpected Rating value provided!");
         }
 
@@ -221,4 +190,5 @@ public class RatingController {
 
         return new ResponseEntity<String>(HttpStatus.CREATED);
     }
+
 }

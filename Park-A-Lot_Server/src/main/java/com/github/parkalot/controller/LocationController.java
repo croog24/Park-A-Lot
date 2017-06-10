@@ -25,7 +25,7 @@ public class LocationController {
             googleApiService.setCurrentLocation(latitude, longitude);
             response = new ResponseEntity<String>(HttpStatus.OK);
         } catch (ValidationException e) {
-            response = ResponseEntityUtils.createValidationExcResponse(e.getMessage());
+            response = ResponseEntityUtil.createValidationExcResponse(e.getMessage());
         }
         return response;
     }

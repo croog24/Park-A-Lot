@@ -41,7 +41,7 @@ public class CoordinatePair {
      * 
      * @return {@code true} if valid
      */
-    public boolean isRangeValid() {
+    public boolean isValidRange() {
         return (this.latitude < MIN_LAT 
                || this.latitude > MAX_LAT 
                || this.longitude < MIN_LON 

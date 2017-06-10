@@ -42,23 +42,23 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesApiService 
     @Override
     public void setCurrentLocation(final Double latitude, final Double longitude)
             throws ValidationException {
-        CoordinatePair coords = new CoordinatePair(latitude, longitude);
-        if (coords.isRangeValid()) {
-            this.currCoords = coords;
-        } else {
+        final CoordinatePair coords = new CoordinatePair(latitude, longitude);
+        if (!coords.isValidRange()) {
             throw new ValidationException("Invalid coordinates specified");
         }
+        
+        this.currCoords = coords;
     }
 
     @Override
     public void setSelectedLocation(final Double latitude, final Double longitude)
             throws ValidationException {
-        CoordinatePair coords = new CoordinatePair(latitude, longitude);
-        if (coords.isRangeValid()) {
-            this.selectedCoords = coords;
-        } else {
+        final CoordinatePair coords = new CoordinatePair(latitude, longitude);
+        if (!coords.isValidRange()) {
             throw new ValidationException("Invalid coordinates specified");
         }
+        
+        this.selectedCoords = coords;
     }
 
     @Override

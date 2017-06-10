@@ -6,9 +6,9 @@ import org.springframework.http.ResponseEntity;
 
 import com.github.parkalot.ValidationException;
 
-public abstract class ResponseEntityUtils<T> {
+public abstract class ResponseEntityUtil<T> {
 
-    private static final Logger LOGGER = Logger.getLogger(ResponseEntityUtils.class);
+    private static final Logger LOGGER = Logger.getLogger(ResponseEntityUtil.class);
 
     /**
      * Creates a {@code ResponseEntity} with information in which a {@link ValidationException}
