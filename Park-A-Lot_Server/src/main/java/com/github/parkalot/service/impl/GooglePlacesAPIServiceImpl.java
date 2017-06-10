@@ -128,13 +128,11 @@ public final class GooglePlacesAPIServiceImpl implements GooglePlacesApiService 
      */
     private String generateURI(final GooglePlacesRequest request) {
         LOGGER.debug("Generating GooglePlaces API URI");
-        // @formatter:off
 		return String.format("%sjson?location=%s&radius=%s&type=parking&key=%s", 
 				MAPS_API_URI, 
 				request.getCoordString(),
 				request.getRadius(), 
 				API_KEY);
-		// @formatter:on
     }
 
 }

@@ -42,11 +42,9 @@ public class CoordinatePair {
      * @return {@code true} if valid
      */
     public boolean isRangeValid() {
-        //@formatter:off
         return (this.latitude < MIN_LAT 
                || this.latitude > MAX_LAT 
                || this.longitude < MIN_LON 
                || this.longitude > MAX_LON);
-       //@formatter:on
     }
 }

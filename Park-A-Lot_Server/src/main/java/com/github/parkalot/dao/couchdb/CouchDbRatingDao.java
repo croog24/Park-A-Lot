@@ -48,7 +48,6 @@ public class CouchDbRatingDao implements RatingDao {
         dbClient.remove(rating);
     }
 
-    // @formatter:off
     @Override
     public List<Rating> getRatingsByHour(final String parkingLotId, final int hour) {
         return dbClient.view(BY_HOUR_VIEW)
@@ -81,6 +80,5 @@ public class CouchDbRatingDao implements RatingDao {
                 .key(parkingLotId)
                 .query(Rating.class);
     }
-    // @formatter:on
 
 }

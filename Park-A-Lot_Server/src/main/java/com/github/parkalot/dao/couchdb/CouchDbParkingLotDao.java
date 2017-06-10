@@ -22,7 +22,6 @@ public class CouchDbParkingLotDao implements ParkingLotDao {
 
     @Autowired
     public CouchDbParkingLotDao(final CouchDbClient couchDbClient) {
-        super();
         this.couchDbClient = couchDbClient;
     }
 

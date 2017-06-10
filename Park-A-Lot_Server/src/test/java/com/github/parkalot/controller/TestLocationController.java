@@ -1,6 +1,7 @@
 package com.github.parkalot.controller;
 
 import org.junit.Before;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -32,6 +33,11 @@ public class TestLocationController {
     @Before
     public void init() throws Exception {
         mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
+    }
+    
+    @Test
+    public void test() {
+        // TODO: Implement
     }
     
 }
