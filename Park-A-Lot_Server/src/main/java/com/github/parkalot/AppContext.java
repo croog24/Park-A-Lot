@@ -19,7 +19,7 @@ public class AppContext {
         return new RestTemplate();
     }
 
-    @Bean(name = "couchDbClient")
+    @Bean
     public CouchDbClient getCouchDbClient() {
         return new CouchDbClient();
     }
