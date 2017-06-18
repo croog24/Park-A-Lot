@@ -16,7 +16,7 @@ public final class RatingValidatorUtil {
     /**
      * Checks if the given {@link Rating} value attribute is within the valid range.
      */
-    public static boolean isValueValid(final Integer value) {
+    public static boolean isValueValid(final int value) {
         return value >= Rating.MIN_VALUE && value <= Rating.MAX_VALUE;
     }
 

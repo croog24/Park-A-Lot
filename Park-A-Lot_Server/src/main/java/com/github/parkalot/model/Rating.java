@@ -16,13 +16,13 @@ public class Rating extends Document {
 
     private final String ratingId;
     private final String parkingLotId;
-    private final Integer value;
-    private final Integer hour;
+    private final int value;
+    private final int hour;
     private final DayOfWeek dayOfWeek;
     // The unique device ID of the user
     private final String submittedByUserId;
 
-    public Rating(final String parkingLotId, final Integer value, final String submittedByUserId)
+    public Rating(final String parkingLotId, final int value, final String submittedByUserId)
             throws ValidationException {
         validateRatingValue(value);
 
@@ -43,7 +43,7 @@ public class Rating extends Document {
         return ratingId;
     }
 
-    public Integer getValue() {
+    public int getValue() {
         return value;
     }
 
@@ -55,7 +55,7 @@ public class Rating extends Document {
         return submittedByUserId;
     }
 
-    public Integer getHour() {
+    public int getHour() {
         return hour;
     }
 
