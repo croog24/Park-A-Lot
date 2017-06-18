@@ -26,7 +26,7 @@ public final class RatingValidatorUtil {
      * @param hour the hour to check
      * @return {@code true} if the provided hour meets the valid min/max range specifications
      */
-    public static boolean isHourValid(final Integer hour) {
+    public static boolean isHourValid(final int hour) {
         return MIN_HOUR <= hour && hour <= MAX_HOUR;
     }
 
@@ -37,7 +37,7 @@ public final class RatingValidatorUtil {
      * @param max the maximum hour used
      * @return {@code true} if the provided hours meet the valid min/max range specifications
      */
-    public static boolean isHourRangeValid(final Integer min, final Integer max) {
+    public static boolean isHourRangeValid(final int min, final int max) {
         return min < max && min >= MIN_HOUR && max <= MAX_HOUR;
     }
 }

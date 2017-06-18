@@ -30,6 +30,14 @@ public class ParkingLotController {
         this.parkingLotService = parkingLotService;
     }
 
+    /**
+     * Main PUT method to add a {@link ParkingLot} to the database.
+     * 
+     * @param parkingLotId the ParkingLot ID
+     * @param name the name of the parking lot
+     * @throws Exception if an error occurred while processing. Delegates to the
+     *         {@link ExceptionHandlerController}
+     */
     @PutMapping
     @ResponseStatus(value = CREATED)
     public void addParkingLot(@PathVariable("parking-lot-id") final String parkingLotId,
@@ -42,6 +50,14 @@ public class ParkingLotController {
         }
     }
 
+    /**
+     * Main GET method for retrieving a {@link ParkingLot}.
+     * 
+     * @param parkingLotId The ParkingLot ID to search for
+     * @return A non-null {@link ParkingLot} object
+     * @throws Exception if an error occurred while processing. Delegates to the
+     *         {@link ExceptionHandlerController}
+     */
     @GetMapping
     @ResponseStatus(value = OK)
     public @ResponseBody ParkingLot getParkingLot(

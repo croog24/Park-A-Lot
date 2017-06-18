@@ -74,7 +74,7 @@ public interface RatingDao {
      * Retrieves a {@code List} of {@link Rating}s on a {@link ParkingLot}.
      * 
      * @param parkingLotId the parking lot ID to search with
-     * @return a {@code List} of {@code Rating}s with the specified parameters.
+     * @return a {@code List} of {@code Rating}s with the given ParkingLot ID
      */
     List<Rating> getRatingsByParkingLot(final String parkingLotId);
 

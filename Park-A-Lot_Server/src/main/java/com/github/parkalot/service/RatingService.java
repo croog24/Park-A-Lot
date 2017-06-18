@@ -39,6 +39,7 @@ public interface RatingService {
     /**
      * Retrieves a {@code List} of {@link Rating}s in the supplied parkingLotId and hour.
      * 
+     * @param request the {@link QueryRequest} containing query criteria to search with
      * @return A list of {@code Rating}s with the given search parameters
      */
     List<Rating> getRatingsByHour(final QueryRequest request);
@@ -46,6 +47,7 @@ public interface RatingService {
     /**
      * Retrieves a {@code List} of {@link Rating}s in the supplied parkingLotId and hour range.
      * 
+     * @param request the {@link QueryRequest} containing query criteria to search with
      * @return A list of {@code Rating}s with the given search parameters
      */
     List<Rating> getRatingsBetweenHours(final QueryRequest request);
@@ -53,6 +55,7 @@ public interface RatingService {
     /**
      * Retrieves a {@code List} of {@link Rating}s in the supplied parkingLotId and week day.
      * 
+     * @param request the {@link QueryRequest} containing query criteria to search with
      * @return A list of {@code Rating}s with the given search parameters
      */
     List<Rating> getRatingsByDayOfWeek(final QueryRequest request);
@@ -60,6 +63,7 @@ public interface RatingService {
     /**
      * Retrieves a {@code List} of {@link Rating}s in the supplied parkingLotId.
      * 
+     * @param request the {@link QueryRequest} containing query criteria to search with
      * @return A list of {@code Rating}s with the given search parameters
      */
     List<Rating> getRatingsByParkingLot(final QueryRequest request);

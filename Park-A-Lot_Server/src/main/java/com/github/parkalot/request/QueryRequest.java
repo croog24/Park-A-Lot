@@ -6,7 +6,7 @@ import java.util.Objects;
 import com.github.parkalot.ValidationException;
 
 /**
- * Request criteria of a {@link Rating} request.
+ * Request criteria of a {@link Rating} related request.
  * 
  * @author Craig
  *
@@ -38,8 +38,8 @@ public class QueryRequest {
      * Parses the weekday into a {@link DayOfWeek} {@code enum}.
      * 
      * @param weekday
-     * @return A {@code DayOfWeek} or {@code null} if not supplied.
-     * @throws ValidationException if the string did not parse into any available {@code enum}.
+     * @return A {@code DayOfWeek} or {@code null} if not supplied
+     * @throws ValidationException if the string did not parse into any available {@code enum}
      */
     private DayOfWeek getWeekDay(final String weekday) throws ValidationException {
         try {

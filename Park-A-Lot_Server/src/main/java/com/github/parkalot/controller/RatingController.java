@@ -52,7 +52,8 @@ public class RatingController {
      * @param maxHour the optional max hour
      * @return A {@code List} of {@link Rating}s with HttpStatus code {@code 200 OK} or
      *         {@code 400 BAD_REQUEST}/{@code 500 INTERNAL_SERVER_ERROR} if some error occurred
-     * @throws Exception
+     * @throws Exception if an error occurred while processing. Delegates to the
+     *         {@link ExceptionHandlerController}
      */
     @GetMapping
     @ResponseStatus(value = OK)
@@ -82,7 +83,7 @@ public class RatingController {
                 responseList = ratingService.getRatingsByParkingLot(request);
                 break;
             default:
-                throw new Exception("Unable to determin Rating query type");
+                throw new Exception("Unable to determine Rating query type");
         }
 
         return responseList;
@@ -96,7 +97,8 @@ public class RatingController {
      * @param submittedBy the unique device ID of the user submitting the {@code Rating}
      * @return A {@link ResponseEntity} with HttpStatus code {@code 201} if successful or
      *         {@code 400}/{@code 500} if some error occurred
-     * @throws Exception
+     * @throws Exception if an error occurred while processing. Delegates to the
+     *         {@link ExceptionHandlerController}
      */
     @PutMapping
     @ResponseStatus(value = CREATED)
