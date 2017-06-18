@@ -64,7 +64,7 @@ public class TestRatingService {
 
         assertFalse("Expected ParkingLot get to return null, causing false result", result);
     }
-    
+
     @Test
     public void testAddRating_UpdateParkingLotFailed() {
         when(mockParkingLotService.getParkingLotById("1")).thenReturn(mockParkingLot);
@@ -74,13 +74,14 @@ public class TestRatingService {
 
         assertFalse("Expected updateParkingLot() to fail, causing false result", result);
     }
-    
+
     @Test
     public void testAddRating_DocumentConflictException() {
-        doThrow(new DocumentConflictException("Some message")).when(mockParkingLotService).getParkingLotById("1");
-        
+        doThrow(new DocumentConflictException("Some message")).when(mockParkingLotService)
+                                                              .getParkingLotById("1");
+
         final boolean result = ratingService.addRating(rating);
-        
+
         assertFalse("Expected no rating to be added", result);
     }
 
@@ -90,29 +91,31 @@ public class TestRatingService {
 
         assertTrue("Expected to return true", result);
     }
-    
+
     @Test
     public void testUpdateRating_NoDocumentException() {
-        doThrow(new NoDocumentException("Some message")).when(mockRatingDao).updateRating(rating);
-        
+        doThrow(new NoDocumentException("Some message")).when(mockRatingDao)
+                                                        .updateRating(rating);
+
         final boolean result = ratingService.updateRating(rating);
-        
+
         assertFalse("Expected no rating to be updated", result);
     }
-    
+
     @Test
     public void testDeleteRating() {
         final boolean result = ratingService.deleteRating(rating);
 
         assertTrue("Expected to return true", result);
     }
-    
+
     @Test
     public void testDeleteRating_NoDocumentException() {
-        doThrow(new NoDocumentException("Some message")).when(mockRatingDao).deleteRating(rating);
-        
+        doThrow(new NoDocumentException("Some message")).when(mockRatingDao)
+                                                        .deleteRating(rating);
+
         final boolean result = ratingService.deleteRating(rating);
-        
+
         assertFalse("Expected no rating to be updated", result);
     }
 
@@ -125,16 +128,16 @@ public class TestRatingService {
 
         assertEquals("Unexpected result size", 2, resultList.size());
     }
-    
+
     @Test
     public void testGetRatings_BetweenHours_InvalidRange() throws ValidationException {
         final QueryRequest queryRequest = new QueryRequest("123", null, 10, 50);
-     
+
         final List<Rating> resultList = ratingService.getRatingsBetweenHours(queryRequest);
-        
+
         assertEquals("Unexpected result size", 0, resultList.size());
     }
-    
+
     @Test
     public void testGetRatings_ByDayOfWeek() throws ValidationException {
         final QueryRequest queryRequest = new QueryRequest("123", "FRIDAY", null, null);
@@ -156,7 +159,7 @@ public class TestRatingService {
     }
 
     @Test
-    public void testGetRatings_ByHour_Max() throws ValidationException  {
+    public void testGetRatings_ByHour_Max() throws ValidationException {
         final QueryRequest queryRequest = new QueryRequest("123", null, null, 20);
         when(mockRatingDao.getRatingsByHour("123", 20)).thenReturn(mockList);
 
@@ -164,13 +167,13 @@ public class TestRatingService {
 
         assertEquals("Unexpected result size", 2, resultList.size());
     }
-    
+
     @Test
     public void testGetRatings_ByHour_InvalidHour() throws ValidationException {
         final QueryRequest queryRequest = new QueryRequest("123", null, 111, null);
-        
+
         final List<Rating> resultList = ratingService.getRatingsByHour(queryRequest);
-        
+
         assertEquals("Unexpected result size", 0, resultList.size());
     }
 
@@ -183,5 +186,5 @@ public class TestRatingService {
 
         assertEquals("Unexpected result size", 2, resultList.size());
     }
-    
+
 }

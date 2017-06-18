@@ -23,7 +23,9 @@ public class QueryRequest {
         HOUR, HOUR_RANGE, WEEKDAY, PARKING_LOT_ID
     }
 
-    public QueryRequest(final String parkingLotId, final String weekday, final Integer minHour,
+    public QueryRequest(final String parkingLotId,
+            final String weekday,
+            final Integer minHour,
             final Integer maxHour) throws ValidationException {
         this.queryType = determineQueryType(parkingLotId, weekday, minHour, maxHour);
         this.parkingLotId = Objects.requireNonNull(parkingLotId);
@@ -70,8 +72,10 @@ public class QueryRequest {
         return maxHour;
     }
 
-    private QueryType determineQueryType(final String parkingLotId, final String weekday,
-            final Integer minHour, final Integer maxHour) {
+    private QueryType determineQueryType(final String parkingLotId,
+            final String weekday,
+            final Integer minHour,
+            final Integer maxHour) {
         // Default query type
         QueryType queryType = QueryType.PARKING_LOT_ID;
 
@@ -79,7 +83,7 @@ public class QueryRequest {
             queryType = QueryType.WEEKDAY;
         } else if (bothHoursPresent(minHour, maxHour)) {
             queryType = QueryType.HOUR_RANGE;
-        } else if (oneHourPresent(minHour, maxHour)){
+        } else if (oneHourPresent(minHour, maxHour)) {
             queryType = QueryType.HOUR;
         }
 
@@ -89,11 +93,11 @@ public class QueryRequest {
     private boolean bothHoursPresent(final Integer min, final Integer max) {
         return min != null && max != null;
     }
-    
+
     private boolean oneHourPresent(final Integer min, final Integer max) {
         return min != null || max != null;
     }
-    
+
     @Override
     public String toString() {
         return "QueryRequest [queryType=" + queryType + ", parkingLotId=" + parkingLotId

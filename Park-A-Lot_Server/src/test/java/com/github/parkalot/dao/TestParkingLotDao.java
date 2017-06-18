@@ -21,7 +21,7 @@ public class TestParkingLotDao {
     @Mock
     private CouchDbClient mockCouchDbClient;
     private ParkingLot parkingLot;
-    
+
     @Before
     public void init() {
         parkingLotDao = new CouchDbParkingLotDao(mockCouchDbClient);
@@ -40,10 +40,12 @@ public class TestParkingLotDao {
 
     @Test
     public void testGetParkingLot_ThrowsNoException() throws Exception {
-        when(mockCouchDbClient.find(ParkingLot.class, parkingLot.getParkingLotId())).thenReturn(parkingLot);
+        when(mockCouchDbClient.find(ParkingLot.class, parkingLot.getParkingLotId())).thenReturn(
+                parkingLot);
 
         final ParkingLot result = parkingLotDao.getParkingLot("123");
 
-        assertEquals("Unexpected ParkingLot retrieved: ", result.getId(), parkingLot.getParkingLotId());
+        assertEquals("Unexpected ParkingLot retrieved: ", result.getId(),
+                parkingLot.getParkingLotId());
     }
 }

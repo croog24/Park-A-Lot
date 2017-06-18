@@ -14,15 +14,15 @@ import com.github.parkalot.ValidationException;
 public class ExceptionHandlerController {
 
     private static final Logger LOGGER = Logger.getLogger(ExceptionHandlerController.class);
-    
-    @ResponseStatus(value=INTERNAL_SERVER_ERROR)
+
+    @ResponseStatus(value = INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public String internalServerError(Exception e) {
         LOGGER.error(e.getMessage());
         return e.getMessage();
     }
-    
-    @ResponseStatus(value=BAD_REQUEST)
+
+    @ResponseStatus(value = BAD_REQUEST)
     @ExceptionHandler(ValidationException.class)
     public String validationError(ValidationException e) {
         LOGGER.error(e.getMessage());

@@ -57,7 +57,8 @@ public interface RatingDao {
      * @param maxHour the maximum hour range to search
      * @return a {@code List} of {@code Rating}s with the specified parameters
      */
-    List<Rating> getRatingsBetweenHours(final String parkingLotId, final int minHour,
+    List<Rating> getRatingsBetweenHours(final String parkingLotId,
+            final int minHour,
             final int maxHour);
 
     /**

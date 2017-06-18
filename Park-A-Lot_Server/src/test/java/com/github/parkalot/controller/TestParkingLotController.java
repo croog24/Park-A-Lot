@@ -36,7 +36,7 @@ public class TestParkingLotController {
         when(mockParkingLotService.addParkingLot(any(ParkingLot.class))).thenReturn(true);
 
         mockMvc.perform(put("/parking-lot/123").param("name", "NAME"))
-                .andExpect(status().isCreated());
+               .andExpect(status().isCreated());
     }
 
     @Test
@@ -44,14 +44,15 @@ public class TestParkingLotController {
         when(mockParkingLotService.addParkingLot(any(ParkingLot.class))).thenReturn(false);
 
         mockMvc.perform(put("/parking-lot/123").param("name", "NAME"))
-                .andExpect(status().isInternalServerError())
-                .andExpect(content().string("Failed to add ParkingLot"));
+               .andExpect(status().isInternalServerError())
+               .andExpect(content().string("Failed to add ParkingLot"));
     }
 
     @Test
     public void testPutParkingLot_MissingNameParam() throws Exception {
-        mockMvc.perform(put("/parking-lot/123")).andExpect(status().isInternalServerError())
-                .andExpect(content().string("Required String parameter 'name' is not present"));
+        mockMvc.perform(put("/parking-lot/123"))
+               .andExpect(status().isInternalServerError())
+               .andExpect(content().string("Required String parameter 'name' is not present"));
     }
 
     @Test
@@ -59,7 +60,8 @@ public class TestParkingLotController {
         final ParkingLot mockParkingLot = new ParkingLot("123", "NAME");
         when(mockParkingLotService.getParkingLotById("123")).thenReturn(mockParkingLot);
 
-        resultActions = mockMvc.perform(get("/parking-lot/123")).andExpect(status().isOk());
+        resultActions = mockMvc.perform(get("/parking-lot/123"))
+                               .andExpect(status().isOk());
         expectParkingLot(mockParkingLot);
     }
 
@@ -67,8 +69,9 @@ public class TestParkingLotController {
     public void testPutParkingLot_NoParkingLotFound() throws Exception {
         when(mockParkingLotService.getParkingLotById("123")).thenReturn(null);
 
-        mockMvc.perform(get("/parking-lot/123")).andExpect(status().isInternalServerError())
-                .andExpect(content().string("ParkingLot not found"));
+        mockMvc.perform(get("/parking-lot/123"))
+               .andExpect(status().isInternalServerError())
+               .andExpect(content().string("ParkingLot not found"));
     }
 
 

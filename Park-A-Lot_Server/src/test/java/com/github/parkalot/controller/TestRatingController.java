@@ -47,47 +47,52 @@ public class TestRatingController {
 
     @Test
     public void testGetRatings_ByParkingLot() throws Exception {
-        when(mockRatingService.getRatingsByParkingLot(any(QueryRequest.class)))
-                .thenReturn(mockRatingList);
+        when(mockRatingService.getRatingsByParkingLot(any(QueryRequest.class))).thenReturn(
+                mockRatingList);
 
-        mockMvc.perform(get("/rating/123")).andExpect(status().isOk())
-                .andExpect(jsonPath("$", not(empty())));
+        mockMvc.perform(get("/rating/123"))
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("$", not(empty())));
     }
 
     @Test
     public void testGetRatings_ByWeekday() throws Exception {
         final String weekDay = "SATURDAY";
 
-        when(mockRatingService.getRatingsByDayOfWeek(any(QueryRequest.class)))
-                .thenReturn(mockRatingList);
+        when(mockRatingService.getRatingsByDayOfWeek(any(QueryRequest.class))).thenReturn(
+                mockRatingList);
 
-        mockMvc.perform(get("/rating/123").param("weekday", weekDay)).andExpect(status().isOk())
-                .andExpect(jsonPath("$", not(empty())));;
+        mockMvc.perform(get("/rating/123").param("weekday", weekDay))
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("$", not(empty())));;
     }
 
     @Test
     public void testGetRatingsByWeekday_BadWeekday() throws Exception {
         mockMvc.perform(get("/rating/123").param("weekday", "bad"))
-                .andExpect(status().isBadRequest());
+               .andExpect(status().isBadRequest());
     }
 
     @Test
     public void testGetRatings_BetweenHours_OneParam() throws Exception {
 
-        when(mockRatingService.getRatingsByHour(any(QueryRequest.class)))
-                .thenReturn(mockRatingList);
+        when(mockRatingService.getRatingsByHour(any(QueryRequest.class))).thenReturn(
+                mockRatingList);
 
-        mockMvc.perform(get("/rating/123").param("min-hour", "10")).andExpect(status().isOk())
-                .andExpect(jsonPath("$", not(empty())));;
+        mockMvc.perform(get("/rating/123").param("min-hour", "10"))
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("$", not(empty())));;
     }
 
     @Test
     public void testGetRatings_BetweenHours_TwoParam() throws Exception {
-        when(mockRatingService.getRatingsBetweenHours(any(QueryRequest.class)))
-                .thenReturn(mockRatingList);
+        when(mockRatingService.getRatingsBetweenHours(any(QueryRequest.class))).thenReturn(
+                mockRatingList);
 
-        mockMvc.perform(get("/rating/123").param("min-hour", "10").param("max-hour", "20"))
-                .andExpect(status().isOk()).andExpect(jsonPath("$", not(empty())));;
+        mockMvc.perform(get("/rating/123").param("min-hour", "10")
+                                          .param("max-hour", "20"))
+               .andExpect(status().isOk())
+               .andExpect(jsonPath("$", not(empty())));;
     }
 
     @Test
@@ -98,17 +103,18 @@ public class TestRatingController {
         when(mockParkingLotService.getParkingLotById("123")).thenReturn(mockParkingLot);
         when(mockParkingLotService.updateParkingLot(mockParkingLot)).thenReturn(true);
 
-        mockMvc.perform(put("/rating/123").param("value", "3").param("submitted-by", "USER"))
-                .andExpect(status().isCreated());
+        mockMvc.perform(put("/rating/123").param("value", "3")
+                                          .param("submitted-by", "USER"))
+               .andExpect(status().isCreated());
     }
 
     @Test
     public void testAddRating_Failed() throws Exception {
         when(mockRatingService.addRating(any(Rating.class))).thenReturn(false);
 
-        mockMvc.perform(
-                put("/rating/123").param("value", "3").param("submitted-by", "USER"))
-                .andExpect(status().isInternalServerError());
+        mockMvc.perform(put("/rating/123").param("value", "3")
+                                          .param("submitted-by", "USER"))
+               .andExpect(status().isInternalServerError());
     }
 
 }

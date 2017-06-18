@@ -44,7 +44,7 @@ public class TestParkingLotService {
     @Test
     public void testAddParkingLot_DocumentConflictException() {
         doThrow(new DocumentConflictException("Some message")).when(mockParkingLotDao)
-                .addParkingLot(parkingLot);
+                                                              .addParkingLot(parkingLot);
 
         final boolean result = parkingLotService.addParkingLot(parkingLot);
 
@@ -61,7 +61,7 @@ public class TestParkingLotService {
     @Test
     public void testUpdateParkingLot_DocumentConflictException() {
         doThrow(new DocumentConflictException("Some message")).when(mockParkingLotDao)
-                .updateParkingLot(parkingLot);
+                                                              .updateParkingLot(parkingLot);
 
         final boolean result = parkingLotService.updateParkingLot(parkingLot);
 
@@ -81,7 +81,7 @@ public class TestParkingLotService {
     @Test
     public void testGetParkingLot_NoDocumentException() {
         doThrow(new NoDocumentException("Some message")).when(mockParkingLotDao)
-                .getParkingLot("123");
+                                                        .getParkingLot("123");
 
         final ParkingLot result = parkingLotService.getParkingLotById(parkingLot.getParkingLotId());
 

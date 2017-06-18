@@ -53,34 +53,36 @@ public class CouchDbRatingDao implements RatingDao {
     @Override
     public List<Rating> getRatingsByHour(final String parkingLotId, final int hour) {
         return dbClient.view(BY_HOUR_VIEW)
-                .includeDocs(true)
-                .keys(Arrays.asList(parkingLotId, String.valueOf(hour)))
-                .query(Rating.class);
+                       .includeDocs(true)
+                       .keys(Arrays.asList(parkingLotId, String.valueOf(hour)))
+                       .query(Rating.class);
     }
 
     @Override
-    public List<Rating> getRatingsBetweenHours(final String parkingLotId, final int minHour, final int maxHour) {
+    public List<Rating> getRatingsBetweenHours(final String parkingLotId,
+            final int minHour,
+            final int maxHour) {
         return dbClient.view(BY_HOUR_VIEW)
-                .includeDocs(true)
-                .startKey(Arrays.asList(parkingLotId, String.valueOf(minHour)))
-                .endKey((Arrays.asList(parkingLotId, String.valueOf(maxHour))))
-                .query(Rating.class);
+                       .includeDocs(true)
+                       .startKey(Arrays.asList(parkingLotId, String.valueOf(minHour)))
+                       .endKey((Arrays.asList(parkingLotId, String.valueOf(maxHour))))
+                       .query(Rating.class);
     }
 
     @Override
     public List<Rating> getRatingsByDayOfWeek(final String parkingLotId, final DayOfWeek weekDay) {
         return dbClient.view(BY_DAY_VIEW)
-                .includeDocs(true)
-                .key(Arrays.asList(parkingLotId, weekDay.toString()))
-                .query(Rating.class);
+                       .includeDocs(true)
+                       .key(Arrays.asList(parkingLotId, weekDay.toString()))
+                       .query(Rating.class);
     }
 
     @Override
     public List<Rating> getRatingsByParkingLot(final String parkingLotId) {
         return dbClient.view(BY_PARKING_LOT_VIEW)
-                .includeDocs(true)
-                .key(parkingLotId)
-                .query(Rating.class);
+                       .includeDocs(true)
+                       .key(parkingLotId)
+                       .query(Rating.class);
     }
 
 }

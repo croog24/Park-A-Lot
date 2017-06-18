@@ -41,7 +41,8 @@ public class RatingServiceImpl implements RatingService {
                 throw new Exception("Unable to find ParkingLot " + parkingLotId);
             }
 
-            parkingLot.getRatingList().add(rating.getRatingId());
+            parkingLot.getRatingList()
+                      .add(rating.getRatingId());
 
             final boolean lotUpdated = parkingLotService.updateParkingLot(parkingLot);
             if (!lotUpdated) {

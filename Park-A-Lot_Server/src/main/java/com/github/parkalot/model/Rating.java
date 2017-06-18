@@ -10,7 +10,7 @@ import com.github.parkalot.ValidationException;
 import com.github.parkalot.service.impl.RatingValidatorUtil;
 
 public class Rating extends Document {
-    
+
     public transient final static int MIN_VALUE = 1;
     public transient final static int MAX_VALUE = 5;
 
@@ -25,8 +25,9 @@ public class Rating extends Document {
     public Rating(final String parkingLotId, final Integer value, final String submittedByUserId)
             throws ValidationException {
         validateRatingValue(value);
-        
-        this.ratingId = UUID.randomUUID().toString();
+
+        this.ratingId = UUID.randomUUID()
+                            .toString();
         // Set the internal CouchDB _id as well
         this.setId(ratingId);
 
