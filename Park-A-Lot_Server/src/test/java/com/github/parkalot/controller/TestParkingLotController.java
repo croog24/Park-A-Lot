@@ -1,66 +1,79 @@
 package com.github.parkalot.controller;
 
-import static org.mockito.Mockito.verify;
+import static org.hamcrest.CoreMatchers.is;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
-import com.github.parkalot.TestContext;
 import com.github.parkalot.model.ParkingLot;
 import com.github.parkalot.service.ParkingLotService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContext.class})
-@WebAppConfiguration
-@EnableWebMvc
+@WebMvcTest(ParkingLotController.class)
 public class TestParkingLotController {
-
-    final static String PARKING_LOT_ID = "123";
-
     @Autowired
-    private WebApplicationContext ctx;
+    private MockMvc mockMvc;
 
     @MockBean
     private ParkingLotService mockParkingLotService;
-    private MockMvc mockMvc;
-
-    @Before
-    public void init() throws Exception {
-        mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
-    }
+    private ResultActions resultActions;
 
     @Test
-    public void testAddParkingLot() throws Exception {
-        final ParkingLot mockParkingLot = new ParkingLot(PARKING_LOT_ID, "NAME");
-        when(mockParkingLotService.addParkingLot(mockParkingLot)).thenReturn(true);
+    public void testPutParkingLot() throws Exception {
+        when(mockParkingLotService.addParkingLot(any(ParkingLot.class))).thenReturn(true);
 
-        mockMvc.perform(put("/parking-lot/" + PARKING_LOT_ID).param("name", "NAME"))
+        mockMvc.perform(put("/parking-lot/123").param("name", "NAME"))
                 .andExpect(status().isCreated());
-
-        verify(mockParkingLotService).addParkingLot(mockParkingLot);
     }
 
     @Test
-    public void getParkingLot() throws Exception {
-        final ParkingLot mockParkingLot = new ParkingLot(PARKING_LOT_ID, "NAME");
-        when(mockParkingLotService.getParkingLotById(PARKING_LOT_ID)).thenReturn(mockParkingLot);
+    public void testPutParkingLot_Fail() throws Exception {
+        when(mockParkingLotService.addParkingLot(any(ParkingLot.class))).thenReturn(false);
 
-        mockMvc.perform(get("/parking-lot/" + PARKING_LOT_ID)).andExpect(status().isOk());
+        mockMvc.perform(put("/parking-lot/123").param("name", "NAME"))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().string("Failed to add ParkingLot"));
+    }
 
-        verify(mockParkingLotService).getParkingLotById(PARKING_LOT_ID);
+    @Test
+    public void testPutParkingLot_MissingNameParam() throws Exception {
+        mockMvc.perform(put("/parking-lot/123")).andExpect(status().isInternalServerError())
+                .andExpect(content().string("Required String parameter 'name' is not present"));
+    }
+
+    @Test
+    public void testGetParkingLot() throws Exception {
+        final ParkingLot mockParkingLot = new ParkingLot("123", "NAME");
+        when(mockParkingLotService.getParkingLotById("123")).thenReturn(mockParkingLot);
+
+        resultActions = mockMvc.perform(get("/parking-lot/123")).andExpect(status().isOk());
+        expectParkingLot(mockParkingLot);
+    }
+
+    @Test
+    public void testPutParkingLot_NoParkingLotFound() throws Exception {
+        when(mockParkingLotService.getParkingLotById("123")).thenReturn(null);
+
+        mockMvc.perform(get("/parking-lot/123")).andExpect(status().isInternalServerError())
+                .andExpect(content().string("ParkingLot not found"));
+    }
+
+
+    private void expectParkingLot(final ParkingLot expected) throws Exception {
+        resultActions.andExpect(jsonPath("$.parkingLotId", is(expected.getParkingLotId())));
+        resultActions.andExpect(jsonPath("$.name", is(expected.getName())));
     }
 }

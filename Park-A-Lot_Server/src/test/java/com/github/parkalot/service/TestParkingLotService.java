@@ -1,60 +1,90 @@
 package com.github.parkalot.service;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.lightcouch.DocumentConflictException;
+import org.lightcouch.NoDocumentException;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
-import com.github.parkalot.TestContext;
 import com.github.parkalot.dao.ParkingLotDao;
 import com.github.parkalot.model.ParkingLot;
+import com.github.parkalot.service.impl.ParkingLotServiceImpl;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContext.class})
+@RunWith(MockitoJUnitRunner.class)
 public class TestParkingLotService {
 
-    @Autowired
     private ParkingLotService parkingLotService;
 
-    @MockBean
+    @Mock
     private ParkingLotDao mockParkingLotDao;
-    
-    @Test
-    public void testAddParkingLot() throws Exception {
-        final ParkingLot parkingLot = new ParkingLot("123", "name");
+    private ParkingLot parkingLot;
 
-        final boolean result = parkingLotService.addParkingLot(parkingLot);
-
-        assertTrue("Did not successfully add ParkingLot", result);
-        verify(mockParkingLotDao).addParkingLot(parkingLot);
+    @Before
+    public void init() {
+        parkingLotService = new ParkingLotServiceImpl(mockParkingLotDao);
+        parkingLot = new ParkingLot("123", "NAME");
     }
 
     @Test
-    public void testUpdateParkingLot() throws Exception {
-        final ParkingLot parkingLot = new ParkingLot("123", "name");
+    public void testAddParkingLot() {
+        final boolean result = parkingLotService.addParkingLot(parkingLot);
 
+        assertTrue("Did not successfully add ParkingLot", result);
+    }
+
+    @Test
+    public void testAddParkingLot_DocumentConflictException() {
+        doThrow(new DocumentConflictException("Some message")).when(mockParkingLotDao)
+                .addParkingLot(parkingLot);
+
+        final boolean result = parkingLotService.addParkingLot(parkingLot);
+
+        assertFalse("Did not expect to add ParkingLot", result);
+    }
+
+    @Test
+    public void testUpdateParkingLot() {
         final boolean result = parkingLotService.updateParkingLot(parkingLot);
 
-        verify(mockParkingLotDao).updateParkingLot(parkingLot);
         assertTrue("Did not successfully update ParkingLot", result);
     }
 
     @Test
-    public void testGetParkingLot() throws Exception {
-        final String parkingLotId = "123";
-        final ParkingLot parkingLot = new ParkingLot(parkingLotId, "name");
-        when(mockParkingLotDao.getParkingLot(parkingLotId)).thenReturn(parkingLot);
+    public void testUpdateParkingLot_DocumentConflictException() {
+        doThrow(new DocumentConflictException("Some message")).when(mockParkingLotDao)
+                .updateParkingLot(parkingLot);
 
-        final ParkingLot result = parkingLotService.getParkingLotById(parkingLotId);
+        final boolean result = parkingLotService.updateParkingLot(parkingLot);
 
-        verify(mockParkingLotDao).getParkingLot(parkingLotId);
+        assertFalse("Did not expect to update ParkingLot", result);
+    }
+
+    @Test
+    public void testGetParkingLot() {
+        when(mockParkingLotDao.getParkingLot(parkingLot.getParkingLotId())).thenReturn(parkingLot);
+
+        final ParkingLot result = parkingLotService.getParkingLotById(parkingLot.getParkingLotId());
+
         assertEquals("Unexpected ParkingLot returned", parkingLot.getParkingLotId(),
                 result.getParkingLotId());
+    }
+
+    @Test
+    public void testGetParkingLot_NoDocumentException() {
+        doThrow(new NoDocumentException("Some message")).when(mockParkingLotDao)
+                .getParkingLot("123");
+
+        final ParkingLot result = parkingLotService.getParkingLotById(parkingLot.getParkingLotId());
+
+        assertNull("Expected null ParkingLot object to be returned", result);
     }
 }

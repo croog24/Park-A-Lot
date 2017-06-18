@@ -1,58 +1,49 @@
 package com.github.parkalot.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.lightcouch.CouchDbClient;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
+import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.parkalot.TestContext;
+import com.github.parkalot.dao.couchdb.CouchDbParkingLotDao;
 import com.github.parkalot.model.ParkingLot;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContext.class})
 public class TestParkingLotDao {
 
-    @Autowired
     private ParkingLotDao parkingLotDao;
 
-    @MockBean
-    private CouchDbClient couchDbClient;
-
-    @Test
-    public void testAddParkingLot() throws Exception {
-        final ParkingLot p = new ParkingLot("123", "name");
-
-        parkingLotDao.addParkingLot(p);
-
-        verify(couchDbClient).save(p);
+    @Mock
+    private CouchDbClient mockCouchDbClient;
+    private ParkingLot parkingLot;
+    
+    @Before
+    public void init() {
+        parkingLotDao = new CouchDbParkingLotDao(mockCouchDbClient);
+        parkingLot = new ParkingLot("123", "NAME");
     }
 
     @Test
-    public void testUpdateParkingLot() throws Exception {
-        final ParkingLot p = new ParkingLot("123", "name");
-
-        parkingLotDao.updateParkingLot(p);
-
-        verify(couchDbClient).update(p);
+    public void testAddParkingLot_ThrowsNoException() throws Exception {
+        parkingLotDao.addParkingLot(parkingLot);
     }
 
     @Test
-    public void testGetParkingLot() throws Exception {
-        final String parkingLotId = "123";
+    public void testUpdateParkingLot_ThrowsNoException() throws Exception {
+        parkingLotDao.updateParkingLot(parkingLot);
+    }
 
-        final ParkingLot p = new ParkingLot(parkingLotId, "name");
-        when(couchDbClient.find(ParkingLot.class, parkingLotId)).thenReturn(p);
+    @Test
+    public void testGetParkingLot_ThrowsNoException() throws Exception {
+        when(mockCouchDbClient.find(ParkingLot.class, parkingLot.getParkingLotId())).thenReturn(parkingLot);
 
         final ParkingLot result = parkingLotDao.getParkingLot("123");
 
-        assertEquals("Unexpected ParkingLot retrieved: ", result.getId(), parkingLotId);
-        verify(couchDbClient).find(ParkingLot.class, parkingLotId);
+        assertEquals("Unexpected ParkingLot retrieved: ", result.getId(), parkingLot.getParkingLotId());
     }
 }

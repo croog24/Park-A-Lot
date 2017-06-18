@@ -3,6 +3,10 @@ package com.github.parkalot.dao;
 import java.time.DayOfWeek;
 import java.util.List;
 
+import org.lightcouch.CouchDbClient;
+import org.lightcouch.DocumentConflictException;
+import org.lightcouch.NoDocumentException;
+
 import com.github.parkalot.model.Rating;
 
 /**
@@ -16,22 +20,25 @@ public interface RatingDao {
      * Adds a {@link Rating} to the Database.
      * 
      * @param rating the {@code Rating} to add
+     * @see {@link CouchDbClient#save(Object)}
      */
-    void addRating(final Rating rating);
+    void addRating(final Rating rating) throws DocumentConflictException;
 
     /**
      * Updates a {@link Rating} in the Database.
      * 
      * @param rating the {@code Rating} to update
+     * @see {@link CouchDbClient#update(Object)}
      */
-    void updateRating(final Rating rating);
+    void updateRating(final Rating rating) throws DocumentConflictException;
 
     /**
      * Deletes a {@link Rating} in the Database.
      * 
      * @param rating the {@code Rating} to delete
+     * @see {@link CouchDbClient#remove(Object)}
      */
-    void deleteRating(final Rating rating);
+    void deleteRating(final Rating rating) throws NoDocumentException;
 
     /**
      * Retrieves a {@code List } of {@link Rating}s by hour.

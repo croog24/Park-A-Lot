@@ -1,182 +1,97 @@
 package com.github.parkalot.dao;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.DayOfWeek;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.lightcouch.CouchDbClient;
 import org.lightcouch.View;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.github.parkalot.TestContext;
+import com.github.parkalot.ValidationException;
+import com.github.parkalot.dao.couchdb.CouchDbRatingDao;
 import com.github.parkalot.model.Rating;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestContext.class})
 public class TestRatingDao {
 
-    private final static String PARKING_LOT_ID = "123";
-
-    @Autowired
     private RatingDao ratingDao;
 
-    @MockBean
-    private CouchDbClient couchDbClient;
+    @Mock
+    private CouchDbClient mockCouchDbClient;
+    @Mock
+    private View mockView;
+    private Rating rating;
+    private List<Rating> ratingList;
 
-    private View createBaseMockView() {
-        final View mockView = mock(View.class);
+    @Before
+    public void init() throws ValidationException {
+        ratingDao = new CouchDbRatingDao(mockCouchDbClient);
+        rating = new Rating("123", 1, "23");
+        ratingList = Arrays.asList(rating);
+        initViewMockBehavior();
+    }
+
+    private void initViewMockBehavior() {
         when(mockView.includeDocs(Mockito.anyBoolean())).thenReturn(mockView);
         when(mockView.key(Mockito.anyString())).thenReturn(mockView);
         when(mockView.keys(Mockito.anyListOf(String.class))).thenReturn(mockView);
         when(mockView.startKey(Mockito.anyString())).thenReturn(mockView);
         when(mockView.endKey(Mockito.anyString())).thenReturn(mockView);
-        when(couchDbClient.view(anyString())).thenReturn(mockView);
-        return mockView;
+        when(mockView.query(Rating.class)).thenReturn(ratingList);
+        when(mockCouchDbClient.view(anyString())).thenReturn(mockView);
     }
 
     @Test
-    public void testAddRating() throws Exception {
-        final Rating r = new Rating(PARKING_LOT_ID, 1, "23");
-
-        ratingDao.addRating(r);
-
-        verify(couchDbClient).save(r);
+    public void testAddRating_ThrowsNoException() {
+        ratingDao.addRating(rating);
     }
 
     @Test
-    public void testUpdateRating() throws Exception {
-        final Rating r = new Rating("123", 1, "23");
-
-        ratingDao.updateRating(r);
-
-        verify(couchDbClient).update(r);
+    public void testUpdateRating_ThrowsNoException() {
+        ratingDao.updateRating(rating);
     }
 
     @Test
-    public void testDeleteRating() throws Exception {
-        final Rating r = new Rating("123", 1, "23");
-
-        ratingDao.deleteRating(r);
-
-        verify(couchDbClient).remove(r);
+    public void testDeleteRating_ThrowsNoException() {
+        ratingDao.deleteRating(rating);
     }
 
     @Test
-    public void testGetRatingsBetweenHour() throws Exception {
-        final int expectedSize = 5;
-        final int minHour = 3;
-        final int maxHour = 6;
+    public void testGetRatingsBetweenHour_ThrowsNoException() {
+        final List<Rating> resultList = ratingDao.getRatingsBetweenHours("123", 1, 2);
 
-        final List<Rating> mockResultList = new ArrayList<Rating>();
-        for (int i = 0; i < 5; i++) {
-            final Rating rating = new Rating(PARKING_LOT_ID, 5, "123");
-            mockResultList.add(rating);
-        }
-
-        final View mockView = createBaseMockView();
-        when(mockView.query(Rating.class)).thenReturn(mockResultList);
-
-        final List<Rating> resultList =
-                ratingDao.getRatingsBetweenHours(PARKING_LOT_ID, minHour, maxHour);
-
-        verify(couchDbClient).view("rating/byHour");
-        verify(mockView).includeDocs(true);
-        verify(mockView).startKey(Arrays.asList(PARKING_LOT_ID, minHour + ""));
-        verify(mockView).endKey(Arrays.asList(PARKING_LOT_ID, maxHour + ""));
-        verify(mockView).query(Rating.class);
-
-        assertTrue("ResultList RatingsBetweenHours() should not be empty", !resultList.isEmpty());
-        assertEquals("Unexpected resultList size: ", expectedSize, resultList.size());
+        assertEquals("Unexpected resultList size: ", 1, resultList.size());
     }
 
     @Test
-    public void testGetRatingsByHour() throws Exception {
-        final int expectedSize = 5;
-        final int expectedHour = 3;
+    public void testGetRatingsByHour_ThrowsNoException() {
+        final List<Rating> resultList = ratingDao.getRatingsByHour("123", 3);
 
-        final List<Rating> mockResultList = new ArrayList<Rating>();
-        for (int i = 0; i < 5; i++) {
-            Rating rating = new Rating(PARKING_LOT_ID, 4, "123");
-            mockResultList.add(rating);
-        }
-
-        final View mockView = createBaseMockView();
-        when(mockView.query(Rating.class)).thenReturn(mockResultList);
-
-        final List<Rating> resultList = ratingDao.getRatingsByHour(PARKING_LOT_ID, expectedHour);
-
-        verify(couchDbClient).view("rating/byHour");
-        verify(mockView).includeDocs(true);
-        verify(mockView).keys(Arrays.asList(PARKING_LOT_ID, expectedHour + ""));
-        verify(mockView).query(Rating.class);
-
-        assertTrue("ResultList RatingsByHour() should not be empty", !resultList.isEmpty());
-        assertEquals("Unexpected resultList size: ", expectedSize, resultList.size());
+        assertEquals("Unexpected resultList size: ", 1, resultList.size());
     }
 
     @Test
-    public void testGetRatingsByDayOfWeek() throws Exception {
-        final int expectedSize = 5;
-        final DayOfWeek expectedDayOfWeek = LocalDateTime.now().getDayOfWeek();
+    public void testGetRatingsByDayOfWeek_ThrowsNoException() {
+        final List<Rating> resultList = ratingDao.getRatingsByDayOfWeek("123", DayOfWeek.FRIDAY);
 
-        final List<Rating> mockResultList = new ArrayList<Rating>();
-        for (int i = 0; i < 5; i++) {
-            final Rating rating = new Rating(PARKING_LOT_ID, 4, "123");
-            mockResultList.add(rating);
-        }
-
-        final View mockView = createBaseMockView();
-        when(mockView.query(Rating.class)).thenReturn(mockResultList);
-
-        final List<Rating> resultList =
-                ratingDao.getRatingsByDayOfWeek(PARKING_LOT_ID, expectedDayOfWeek);
-
-        verify(couchDbClient).view("rating/byDay");
-        verify(mockView).includeDocs(true);
-        verify(mockView).key(Arrays.asList(PARKING_LOT_ID, expectedDayOfWeek.toString()));
-        verify(mockView).query(Rating.class);
-
-        assertTrue("ResultList RatingsByHour() should not be empty", !resultList.isEmpty());
-        assertEquals("Unexpected resultList size: ", expectedSize, resultList.size());
+        assertEquals("Unexpected resultList size: ", 1, resultList.size());
     }
 
     @Test
-    public void testGetRatingsByParkingLot() throws Exception {
-        final int expectedSize = 5;
+    public void testGetRatingsByParkingLot_ThrowsNoException() {
+        final List<Rating> resultList = ratingDao.getRatingsByParkingLot("123");
 
-        final List<Rating> mockResultList = new ArrayList<Rating>();
-        for (int i = 0; i < 5; i++) {
-            final Rating rating = new Rating(PARKING_LOT_ID, 4, "123");
-            mockResultList.add(rating);
-        }
-
-        final View mockView = createBaseMockView();
-        when(mockView.query(Rating.class)).thenReturn(mockResultList);
-
-        final List<Rating> resultList = ratingDao.getRatingsByParkingLot(PARKING_LOT_ID);
-
-        verify(couchDbClient).view("rating/byParkingLot");
-        verify(mockView).includeDocs(true);
-        verify(mockView).key(PARKING_LOT_ID);
-        verify(mockView).query(Rating.class);
-
-        assertTrue("ResultList RatingsByParkingLot() should not be empty", !resultList.isEmpty());
-        assertEquals("Unexpected resultList size: ", expectedSize, resultList.size());
+        assertEquals("Unexpected resultList size: ", 1, resultList.size());
     }
 
 }

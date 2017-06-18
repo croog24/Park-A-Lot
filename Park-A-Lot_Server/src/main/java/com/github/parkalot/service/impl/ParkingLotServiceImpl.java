@@ -25,7 +25,7 @@ public class ParkingLotServiceImpl implements ParkingLotService {
         try {
             parkingLotDao.addParkingLot(parkingLot);
         } catch (Exception e) {
-            LOGGER.error("Error adding ParkingLot to DB: ", e);
+            LOGGER.error("Error adding ParkingLot to DB: " + e);
             return false;
         }
         return true;
@@ -36,7 +36,7 @@ public class ParkingLotServiceImpl implements ParkingLotService {
         try {
             parkingLotDao.updateParkingLot(parkingLot);
         } catch (Exception e) {
-            LOGGER.error("Error updating ParkingLot in DB: ", e);
+            LOGGER.error("Error updating ParkingLot in DB: " + e);
             return false;
         }
         return true;
@@ -44,13 +44,13 @@ public class ParkingLotServiceImpl implements ParkingLotService {
 
     @Override
     public ParkingLot getParkingLotById(final String parkingLotId) {
-        ParkingLot p = null;
+        ParkingLot parkingLot = null;
         try {
-            p = parkingLotDao.getParkingLot(parkingLotId);
+            parkingLot = parkingLotDao.getParkingLot(parkingLotId);
         } catch (Exception e) {
-            LOGGER.error("Error retrieving ParkingLot from DB: ", e);
+            LOGGER.error("Error retrieving ParkingLot from DB: " + e);
         }
-        return p;
+        return parkingLot;
     }
 
 }

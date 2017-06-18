@@ -1,19 +1,23 @@
 package com.github.parkalot.controller;
 
+import static org.springframework.http.HttpStatus.OK;
+import static org.springframework.http.HttpStatus.CREATED;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.github.parkalot.model.ParkingLot;
 import com.github.parkalot.service.ParkingLotService;
 
-@RestController
+@Controller
 @RequestMapping("/parking-lot/{parking-lot-id}")
 public class ParkingLotController {
 
@@ -26,45 +30,29 @@ public class ParkingLotController {
         this.parkingLotService = parkingLotService;
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity<String> addParkingLot(
-            @PathVariable("parking-lot-id") final String parkingLotId,
-            @RequestParam(value = "name") final String name) {
-        LOGGER.debug("Start of ParkingLotController.addParkingLot()");
-        ResponseEntity<String> response = null;
-        try {
-            final boolean isCreated =
-                    parkingLotService.addParkingLot(new ParkingLot(parkingLotId, name));
-            if (isCreated) {
-                response = new ResponseEntity<String>(HttpStatus.CREATED);
-            } else {
-                throw new Exception("Parking Lot not successfully added, please try again!");
-            }
-        } catch (Exception e) {
-            response = ResponseEntityUtil.createUnhandledExcResponse(e.getMessage());
+    @PutMapping
+    @ResponseStatus(value = CREATED)
+    public void addParkingLot(@PathVariable("parking-lot-id") final String parkingLotId,
+            @RequestParam(value = "name") final String name) throws Exception {
+        LOGGER.debug("Processing request for addParkingLot()");
+        final boolean isCreated =
+                parkingLotService.addParkingLot(new ParkingLot(parkingLotId, name));
+        if (!isCreated) {
+            throw new Exception("Failed to add ParkingLot");
         }
-
-        LOGGER.debug("End of ParkingLotController.addParkingLot()");
-        return response;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<?> getParkingLot(
-            @PathVariable("parking-lot-id") final String parkingLotId) {
-        LOGGER.debug("Start of ParkingLotController.getParkingLot()");
-        ResponseEntity<?> response = null;
-        try {
-            final ParkingLot p = parkingLotService.getParkingLotById(parkingLotId);
-            if (p == null) {
-                throw new Exception("ParkingLot not found!");
-            }
-
-            response = new ResponseEntity<ParkingLot>(p, HttpStatus.OK);
-        } catch (Exception e) {
-            response = ResponseEntityUtil.createUnhandledExcResponse(e.getMessage());
+    @GetMapping
+    @ResponseStatus(value = OK)
+    public @ResponseBody ParkingLot getParkingLot(
+            @PathVariable("parking-lot-id") final String parkingLotId) throws Exception {
+        LOGGER.debug("Processing request for getParkingLot()");
+        final ParkingLot parkingLot = parkingLotService.getParkingLotById(parkingLotId);
+        if (parkingLot == null) {
+            throw new Exception("ParkingLot not found");
         }
-        LOGGER.debug("End of ParkingLotController.getParkingLot()");
-        return response;
+
+        return parkingLot;
     }
 
 }

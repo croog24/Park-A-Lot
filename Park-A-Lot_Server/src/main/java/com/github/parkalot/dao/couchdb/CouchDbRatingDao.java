@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.lightcouch.CouchDbClient;
+import org.lightcouch.DocumentConflictException;
+import org.lightcouch.NoDocumentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -29,17 +31,17 @@ public class CouchDbRatingDao implements RatingDao {
     private final CouchDbClient dbClient;
 
     @Autowired
-    public CouchDbRatingDao(final CouchDbClient dbClient) {
+    public CouchDbRatingDao(final CouchDbClient dbClient) throws DocumentConflictException {
         this.dbClient = dbClient;
     }
 
     @Override
-    public void addRating(final Rating rating) {
+    public void addRating(final Rating rating) throws DocumentConflictException {
         dbClient.save(rating);
     }
 
     @Override
-    public void updateRating(final Rating rating) {
+    public void updateRating(final Rating rating) throws NoDocumentException {
         dbClient.update(rating);
     }
 
