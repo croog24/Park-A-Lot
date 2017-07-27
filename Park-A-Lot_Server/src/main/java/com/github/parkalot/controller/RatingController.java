@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,11 +20,6 @@ import com.github.parkalot.model.Rating;
 import com.github.parkalot.request.QueryRequest;
 import com.github.parkalot.service.RatingService;
 
-/**
- * Entry point for all requests involving {@link Rating} retrieval/adding.
- * 
- * @author Craig
- */
 @RestController
 @RequestMapping("/rating/{parking-lot-id}")
 public class RatingController {
@@ -39,22 +33,7 @@ public class RatingController {
         this.ratingService = ratingService;
     }
 
-    /**
-     * Main GET request handler for {@link Rating} types. Handles several optional filters, but a
-     * {@code ParkingLotId} must be provided.
-     * <p>
-     * <b>Note</b>: if both {@code minHour} and {@code maxHour} are provided, if will filter by the
-     * hour range.
-     * 
-     * @param parkingLotId the mandatory parking lot ID.
-     * @param weekday the optional weekday
-     * @param minHour the optional min hour
-     * @param maxHour the optional max hour
-     * @return A {@code List} of {@link Rating}s with HttpStatus code {@code 200 OK} or
-     *         {@code 400 BAD_REQUEST}/{@code 500 INTERNAL_SERVER_ERROR} if some error occurred
-     * @throws Exception if an error occurred while processing. Delegates to the
-     *         {@link ExceptionHandlerController}
-     */
+    /** If both minHour and maxHour are provided, if will filter by the hour range. */
     @GetMapping
     @ResponseStatus(value = OK)
     public @ResponseBody List<Rating> getRatings(
@@ -89,17 +68,6 @@ public class RatingController {
         return responseList;
     }
 
-    /**
-     * Main PUT request handler for {@link Rating} types.
-     * 
-     * @param parkingLotId the mandatory parking lot ID
-     * @param value the value of the {@code Rating}
-     * @param submittedBy the unique device ID of the user submitting the {@code Rating}
-     * @return A {@link ResponseEntity} with HttpStatus code {@code 201} if successful or
-     *         {@code 400}/{@code 500} if some error occurred
-     * @throws Exception if an error occurred while processing. Delegates to the
-     *         {@link ExceptionHandlerController}
-     */
     @PutMapping
     @ResponseStatus(value = CREATED)
     public void addRating(@PathVariable("parking-lot-id") final String parkingLotId,

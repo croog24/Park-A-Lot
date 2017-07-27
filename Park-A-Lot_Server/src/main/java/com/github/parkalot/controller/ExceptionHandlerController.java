@@ -10,13 +10,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.github.parkalot.ValidationException;
 
-/**
- * The default exception handler controller for all {@code Exceptions} during this applications
- * controller invocations.
- * 
- * @author Craig
- *
- */
 @RestControllerAdvice
 public class ExceptionHandlerController {
 

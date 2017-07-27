@@ -34,13 +34,6 @@ public class QueryRequest {
         this.maxHour = maxHour;
     }
 
-    /**
-     * Parses the weekday into a {@link DayOfWeek} {@code enum}.
-     * 
-     * @param weekday
-     * @return A {@code DayOfWeek} or {@code null} if not supplied
-     * @throws ValidationException if the string did not parse into any available {@code enum}
-     */
     private DayOfWeek getWeekDay(final String weekday) throws ValidationException {
         try {
             return DayOfWeek.valueOf(weekday);

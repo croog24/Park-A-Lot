@@ -14,12 +14,8 @@ import com.github.parkalot.dao.RatingDao;
 import com.github.parkalot.model.Rating;
 
 /**
- * The RatingDao with a CouchDB based implementation.
- * 
  * TODO: Consider more practical approach for storing Ratings to retrieve by weeks/seasons/etc for
  * more accurate result sets...less parking during the winter would effect results in the summer.
- * 
- * @author Craig
  */
 @Repository
 public class CouchDbRatingDao implements RatingDao {

@@ -10,11 +10,6 @@ import org.springframework.stereotype.Repository;
 import com.github.parkalot.dao.ParkingLotDao;
 import com.github.parkalot.model.ParkingLot;
 
-/**
- * The ParkingLotDao with a CouchDB based implementation.
- * 
- * @author Craig
- */
 @Repository
 public class CouchDbParkingLotDao implements ParkingLotDao {
 
