@@ -1,6 +1,7 @@
 package com.github.parkalot.service.impl;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import com.github.parkalot.service.ParkingLotService;
 @Service
 public class ParkingLotServiceImpl implements ParkingLotService {
 
-    private static final Logger LOGGER = Logger.getLogger(ParkingLotServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ParkingLotServiceImpl.class);
 
     private final ParkingLotDao parkingLotDao;
 

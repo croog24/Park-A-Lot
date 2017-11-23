@@ -3,7 +3,8 @@ package com.github.parkalot.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import com.github.parkalot.service.RatingService;
 @Service
 public class RatingServiceImpl implements RatingService {
 
-    private static final Logger LOGGER = Logger.getLogger(RatingServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RatingServiceImpl.class);
 
     private final RatingDao ratingDao;
     private final ParkingLotService parkingLotService;

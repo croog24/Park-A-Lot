@@ -3,7 +3,8 @@ package com.github.parkalot.controller;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,7 +22,7 @@ import com.github.parkalot.service.ParkingLotService;
 @RequestMapping("/parking-lot/{parking-lot-id}")
 public class ParkingLotController {
 
-    private static final Logger LOGGER = Logger.getLogger(ParkingLotController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(ParkingLotController.class);
 
     private final ParkingLotService parkingLotService;
 

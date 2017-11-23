@@ -5,7 +5,8 @@ import static org.springframework.http.HttpStatus.OK;
 
 import java.util.List;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +25,7 @@ import com.github.parkalot.service.RatingService;
 @RequestMapping("/rating/{parking-lot-id}")
 public class RatingController {
 
-    private static final Logger LOGGER = Logger.getLogger(RatingController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RatingController.class);
 
     private final RatingService ratingService;
 
