@@ -1,8 +1,10 @@
 plugins {
     id 'org.springframework.boot' version '1.5.5.RELEASE'
+  	id 'com.github.ben-manes.versions' version '0.17.0'
 }
 apply plugin: 'java'
 apply plugin: 'eclipse'
+apply plugin: 'com.github.ben-manes.versions'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -14,6 +16,7 @@ def springBootVersion = '1.5.5.RELEASE'
 
 repositories {
     mavenCentral()
+	jcenter()
 }
 
 jar {
