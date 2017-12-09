@@ -1,17 +1,19 @@
+
 plugins {
-    id 'org.springframework.boot' version '1.5.5.RELEASE'
+    id 'org.springframework.boot' version '1.5.9.RELEASE'
   	id 'com.github.ben-manes.versions' version '0.17.0'
 }
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'com.github.ben-manes.versions'
 
+// Dependency Verions
+def springFrameworkVersion = '4.3.13.RELEASE'
+def log4jVersion = '2.10.0'
+def springBootVersion = '1.5.9.RELEASE'
+
 version = '0.0.1'
 
-// Dependency Verions
-def springFrameworkVersion = '4.3.10.RELEASE'
-def springBootVersion = '1.5.9.RELEASE'
-def log4jVersion = '2.10.0'
 
 repositories {
     mavenCentral()
