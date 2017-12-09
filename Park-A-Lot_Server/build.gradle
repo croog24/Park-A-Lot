@@ -10,7 +10,8 @@ version = '0.0.1'
 
 // Dependency Verions
 def springFrameworkVersion = '4.3.10.RELEASE'
-def springBootVersion = '1.5.5.RELEASE'
+def springBootVersion = '1.5.9.RELEASE'
+def log4jVersion = '2.10.0'
 
 repositories {
     mavenCentral()
@@ -44,7 +45,7 @@ dependencies {
 	
 	// Logging
 	compile group: 'commons-logging', name: 'commons-logging', version: '1.2'
-	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.9.1'
+	compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: log4jVersion
 	compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
 
 	
