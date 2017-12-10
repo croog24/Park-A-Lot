@@ -11,8 +11,8 @@ import com.github.parkalot.service.impl.RatingValidatorUtil;
 
 public class Rating extends Document {
 
-    public transient final static int MIN_VALUE = 1;
-    public transient final static int MAX_VALUE = 5;
+    public transient static final int MIN_VALUE = 1;
+    public transient static final int MAX_VALUE = 5;
 
     private final String ratingId;
     private final String parkingLotId;
