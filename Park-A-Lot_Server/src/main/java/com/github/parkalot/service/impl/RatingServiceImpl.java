@@ -34,7 +34,7 @@ public class RatingServiceImpl implements RatingService {
         try {
             ratingDao.addRating(rating);
 
-            // Update the parent parking lot
+            // Check if ParkingLot exists before attmpting to add
             final String parkingLotId = rating.getParkingLotId();
             final ParkingLot parkingLot = parkingLotService.getParkingLotById(parkingLotId);
             if (parkingLot == null) {
@@ -42,30 +42,11 @@ public class RatingServiceImpl implements RatingService {
                 throw new Exception("Unable to find ParkingLot " + parkingLotId);
             }
 
-            parkingLot.getRatingList()
-                      .add(rating.getRatingId());
-
-            final boolean lotUpdated = parkingLotService.updateParkingLot(parkingLot);
-            if (!lotUpdated) {
-                deleteRating(rating);
-                throw new Exception("Unable to update the parent ParkingLot " + parkingLot);
-            }
+            // TODO: Rework this to add rating separately
         } catch (Exception e) {
             LOGGER.error("Error adding Rating to Database: " + e.getMessage());
             return false;
         }
-        return true;
-    }
-
-    @Override
-    public boolean updateRating(final Rating rating) {
-        try {
-            ratingDao.updateRating(rating);
-        } catch (Exception e) {
-            LOGGER.error("Error updating Rating in Database: " + e.getMessage());
-            return false;
-        }
-
         return true;
     }
 

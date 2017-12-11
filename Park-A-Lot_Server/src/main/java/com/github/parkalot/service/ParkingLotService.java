@@ -18,14 +18,6 @@ public interface ParkingLotService {
     boolean addParkingLot(final ParkingLot parkingLot);
 
     /**
-     * Updates the {@link ParkingLot} in the database.
-     * 
-     * @param parkingLot the {@code ParkingLot} to update
-     * @return {@code true} if the {@code ParkingLot} has been successfully updated
-     */
-    boolean updateParkingLot(final ParkingLot parkingLot);
-
-    /**
      * Retrieves the {@link ParkingLot} by ID.
      * 
      * @param parkingLotId the ID of the {@code ParkingLot} to retrieve

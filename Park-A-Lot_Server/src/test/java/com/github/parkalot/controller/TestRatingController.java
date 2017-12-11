@@ -101,7 +101,6 @@ public class TestRatingController {
 
         when(mockRatingService.addRating(any(Rating.class))).thenReturn(true);
         when(mockParkingLotService.getParkingLotById("123")).thenReturn(mockParkingLot);
-        when(mockParkingLotService.updateParkingLot(mockParkingLot)).thenReturn(true);
 
         mockMvc.perform(put("/rating/123").param("value", "3")
                                           .param("submitted-by", "USER"))

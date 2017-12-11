@@ -49,7 +49,6 @@ public class TestRatingService {
     @Test
     public void testAddRating() {
         when(mockParkingLotService.getParkingLotById("1")).thenReturn(mockParkingLot);
-        when(mockParkingLotService.updateParkingLot(mockParkingLot)).thenReturn(true);
 
         final boolean result = ratingService.addRating(rating);
 
@@ -66,16 +65,6 @@ public class TestRatingService {
     }
 
     @Test
-    public void testAddRating_UpdateParkingLotFailed() {
-        when(mockParkingLotService.getParkingLotById("1")).thenReturn(mockParkingLot);
-        when(mockParkingLotService.updateParkingLot(mockParkingLot)).thenReturn(false);
-
-        final boolean result = ratingService.addRating(rating);
-
-        assertFalse("Expected updateParkingLot() to fail, causing false result", result);
-    }
-
-    @Test
     public void testAddRating_DocumentConflictException() {
         doThrow(new DocumentConflictException("Some message")).when(mockParkingLotService)
                                                               .getParkingLotById("1");
@@ -83,23 +72,6 @@ public class TestRatingService {
         final boolean result = ratingService.addRating(rating);
 
         assertFalse("Expected no rating to be added", result);
-    }
-
-    @Test
-    public void testUpdateRating() {
-        final boolean result = ratingService.updateRating(rating);
-
-        assertTrue("Expected to return true", result);
-    }
-
-    @Test
-    public void testUpdateRating_NoDocumentException() {
-        doThrow(new NoDocumentException("Some message")).when(mockRatingDao)
-                                                        .updateRating(rating);
-
-        final boolean result = ratingService.updateRating(rating);
-
-        assertFalse("Expected no rating to be updated", result);
     }
 
     @Test

@@ -21,14 +21,6 @@ public interface RatingService {
     boolean addRating(final Rating rating);
 
     /**
-     * Updates the provided {@link Rating} in the Database.
-     * 
-     * @param rating the {@code Rating} to update.
-     * @return {@code true} if the {@code Rating} has been successfully updated
-     */
-    boolean updateRating(final Rating rating);
-
-    /**
      * Deletes a {@link Rating}.
      * 
      * @param rating the {@code Rating} to delete

@@ -33,17 +33,6 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     }
 
     @Override
-    public boolean updateParkingLot(final ParkingLot parkingLot) {
-        try {
-            parkingLotDao.updateParkingLot(parkingLot);
-        } catch (Exception e) {
-            LOGGER.error("Error updating ParkingLot in DB: " + e);
-            return false;
-        }
-        return true;
-    }
-
-    @Override
     public ParkingLot getParkingLotById(final String parkingLotId) {
         ParkingLot parkingLot = null;
         try {

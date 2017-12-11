@@ -52,23 +52,6 @@ public class TestParkingLotService {
     }
 
     @Test
-    public void testUpdateParkingLot() {
-        final boolean result = parkingLotService.updateParkingLot(parkingLot);
-
-        assertTrue("Did not successfully update ParkingLot", result);
-    }
-
-    @Test
-    public void testUpdateParkingLot_DocumentConflictException() {
-        doThrow(new DocumentConflictException("Some message")).when(mockParkingLotDao)
-                                                              .updateParkingLot(parkingLot);
-
-        final boolean result = parkingLotService.updateParkingLot(parkingLot);
-
-        assertFalse("Did not expect to update ParkingLot", result);
-    }
-
-    @Test
     public void testGetParkingLot() {
         when(mockParkingLotDao.getParkingLot(parkingLot.getParkingLotId())).thenReturn(parkingLot);
 

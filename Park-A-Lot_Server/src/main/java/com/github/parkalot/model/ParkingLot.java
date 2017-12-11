@@ -8,12 +8,10 @@ public class ParkingLot extends Document {
 
     private final String parkingLotId;
     private final String name;
-    private final ArrayList<String> ratingIdList;
 
     public ParkingLot(final String parkingLotId, final String name) {
         this.parkingLotId = parkingLotId;
         this.name = name;
-        this.ratingIdList = new ArrayList<String>();
         // Set the internal CouchDB _id as well
         this.setId(parkingLotId);
     }
@@ -26,14 +24,9 @@ public class ParkingLot extends Document {
         return name;
     }
 
-    public ArrayList<String> getRatingList() {
-        return ratingIdList;
-    }
-
     @Override
     public String toString() {
-        return String.format("Parking Lot ID:%s Name:%s Ratings:%s", parkingLotId, name,
-                ratingIdList);
+        return String.format("Parking Lot ID:%s Name:%s", parkingLotId, name);
     }
 
 }
