@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.lightcouch.DocumentConflictException;
 import org.lightcouch.NoDocumentException;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -22,7 +23,8 @@ import com.github.parkalot.service.impl.ParkingLotServiceImpl;
 @RunWith(MockitoJUnitRunner.class)
 public class TestParkingLotService {
 
-    private ParkingLotService parkingLotService;
+	@InjectMocks
+    private ParkingLotServiceImpl parkingLotService;
 
     @Mock
     private ParkingLotDao mockParkingLotDao;
@@ -30,7 +32,6 @@ public class TestParkingLotService {
 
     @Before
     public void init() {
-        parkingLotService = new ParkingLotServiceImpl(mockParkingLotDao);
         parkingLot = new ParkingLot("123", "NAME");
     }
 

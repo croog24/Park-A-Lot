@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.lightcouch.DocumentConflictException;
 import org.lightcouch.NoDocumentException;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
@@ -28,7 +29,8 @@ import com.github.parkalot.service.impl.RatingServiceImpl;
 @RunWith(MockitoJUnitRunner.class)
 public class TestRatingService {
 
-    private RatingService ratingService;
+	@InjectMocks
+    private RatingServiceImpl ratingService;
 
     @Mock
     private RatingDao mockRatingDao;
@@ -40,7 +42,6 @@ public class TestRatingService {
 
     @Before
     public void init() throws ValidationException {
-        ratingService = new RatingServiceImpl(mockRatingDao, mockParkingLotService);
         mockList = Arrays.asList(new Rating("1", 2, "2"), new Rating("4", 5, "2"));
         mockParkingLot = new ParkingLot("1", "NAME");
         rating = new Rating("1", 5, "USER");
