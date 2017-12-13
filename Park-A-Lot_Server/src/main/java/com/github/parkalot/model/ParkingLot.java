@@ -1,10 +1,6 @@
 package com.github.parkalot.model;
 
-import java.util.ArrayList;
-
-import org.lightcouch.Document;
-
-public class ParkingLot extends Document {
+public class ParkingLot {
 
     private final String parkingLotId;
     private final String name;
@@ -12,8 +8,6 @@ public class ParkingLot extends Document {
     public ParkingLot(final String parkingLotId, final String name) {
         this.parkingLotId = parkingLotId;
         this.name = name;
-        // Set the internal CouchDB _id as well
-        this.setId(parkingLotId);
     }
 
     public String getParkingLotId() {

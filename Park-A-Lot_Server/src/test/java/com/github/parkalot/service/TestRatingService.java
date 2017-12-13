@@ -3,7 +3,6 @@ package com.github.parkalot.service;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.when;
 
 import java.time.DayOfWeek;
@@ -13,8 +12,6 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.lightcouch.DocumentConflictException;
-import org.lightcouch.NoDocumentException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
@@ -63,33 +60,6 @@ public class TestRatingService {
         final boolean result = ratingService.addRating(rating);
 
         assertFalse("Expected ParkingLot get to return null, causing false result", result);
-    }
-
-    @Test
-    public void testAddRating_DocumentConflictException() {
-        doThrow(new DocumentConflictException("Some message")).when(mockParkingLotService)
-                                                              .getParkingLotById("1");
-
-        final boolean result = ratingService.addRating(rating);
-
-        assertFalse("Expected no rating to be added", result);
-    }
-
-    @Test
-    public void testDeleteRating() {
-        final boolean result = ratingService.deleteRating(rating);
-
-        assertTrue("Expected to return true", result);
-    }
-
-    @Test
-    public void testDeleteRating_NoDocumentException() {
-        doThrow(new NoDocumentException("Some message")).when(mockRatingDao)
-                                                        .deleteRating(rating);
-
-        final boolean result = ratingService.deleteRating(rating);
-
-        assertFalse("Expected no rating to be updated", result);
     }
 
     @Test

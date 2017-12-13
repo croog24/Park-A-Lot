@@ -4,12 +4,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import org.lightcouch.Document;
-
 import com.github.parkalot.ValidationException;
 import com.github.parkalot.service.impl.RatingValidatorUtil;
 
-public class Rating extends Document {
+public class Rating {
 
     public transient static final int MIN_VALUE = 1;
     public transient static final int MAX_VALUE = 5;
@@ -28,9 +26,6 @@ public class Rating extends Document {
 
         this.ratingId = UUID.randomUUID()
                             .toString();
-        // Set the internal CouchDB _id as well
-        this.setId(ratingId);
-
         this.value = value;
         this.parkingLotId = parkingLotId;
         LocalDateTime dt = LocalDateTime.now();

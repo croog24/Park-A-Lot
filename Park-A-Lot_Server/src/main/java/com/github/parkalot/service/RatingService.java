@@ -21,14 +21,6 @@ public interface RatingService {
     boolean addRating(final Rating rating);
 
     /**
-     * Deletes a {@link Rating}.
-     * 
-     * @param rating the {@code Rating} to delete
-     * @return {@code true} if the {@code Rating} has been successfully deleted
-     */
-    boolean deleteRating(final Rating rating);
-
-    /**
      * Retrieves a {@code List} of {@link Rating}s in the supplied parkingLotId and hour.
      * 
      * @param request the {@link QueryRequest} containing query criteria to search with

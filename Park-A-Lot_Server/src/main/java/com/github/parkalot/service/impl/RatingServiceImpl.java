@@ -32,33 +32,13 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public boolean addRating(final Rating rating) {
         try {
+        	// TODO: Check for parking lot id existance or make FK (depends on DB...sqlite is not really for this kind of thing)
             ratingDao.addRating(rating);
-
-            // Check if ParkingLot exists before attmpting to add
-            final String parkingLotId = rating.getParkingLotId();
-            final ParkingLot parkingLot = parkingLotService.getParkingLotById(parkingLotId);
-            if (parkingLot == null) {
-                LOGGER.error("Unable to find ParkingLot " + parkingLotId);
-                throw new Exception("Unable to find ParkingLot " + parkingLotId);
-            }
-
-            // TODO: Rework this to add rating separately
         } catch (Exception e) {
             LOGGER.error("Error adding Rating to Database: " + e.getMessage());
+            e.printStackTrace();
             return false;
         }
-        return true;
-    }
-
-    @Override
-    public boolean deleteRating(final Rating rating) {
-        try {
-            ratingDao.deleteRating(rating);
-        } catch (Exception e) {
-            LOGGER.error("Error deleting Rating in Database: " + e.getMessage());
-            return false;
-        }
-
         return true;
     }
 
