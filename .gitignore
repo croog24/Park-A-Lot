@@ -27,6 +27,9 @@ RemoteSystemsTempFiles
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
 
+# Sqlite DB file
+/sqlite/park_a_lot
+
 # Code Recommenders
 .recommenders/
 
