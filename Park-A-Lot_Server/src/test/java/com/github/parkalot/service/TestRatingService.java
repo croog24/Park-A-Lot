@@ -1,7 +1,6 @@
 package com.github.parkalot.service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.when;
 
@@ -51,15 +50,6 @@ public class TestRatingService {
         final boolean result = ratingService.addRating(rating);
 
         assertTrue("Expected all add/update calls to return true", result);
-    }
-
-    @Test
-    public void testAddRating_NoParkingLotFound() {
-        when(mockParkingLotService.getParkingLotById("1")).thenReturn(null);
-
-        final boolean result = ratingService.addRating(rating);
-
-        assertFalse("Expected ParkingLot get to return null, causing false result", result);
     }
 
     @Test
