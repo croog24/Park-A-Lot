@@ -9,12 +9,12 @@ import org.springframework.stereotype.Component;
 import com.github.parkalot.model.ParkingLot;
 
 @Component
-public class ParkingLotMapper implements RowMapper<ParkingLot>{
+public class ParkingLotMapper implements RowMapper<ParkingLot> {
 
-	@Override
-	public ParkingLot mapRow(ResultSet rs, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public ParkingLot mapRow(ResultSet rs, int rowNum) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

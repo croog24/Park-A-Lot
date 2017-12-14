@@ -24,9 +24,10 @@ public class QueryRequest {
     }
 
     public QueryRequest(final String parkingLotId,
-            final String weekday,
-            final Integer minHour,
-            final Integer maxHour) throws ValidationException {
+                        final String weekday,
+                        final Integer minHour,
+                        final Integer maxHour)
+            throws ValidationException {
         this.queryType = determineQueryType(parkingLotId, weekday, minHour, maxHour);
         this.parkingLotId = Objects.requireNonNull(parkingLotId);
         this.weekday = getWeekDay(weekday);
@@ -41,7 +42,7 @@ public class QueryRequest {
             return null;
         } catch (IllegalArgumentException e) {
             throw new ValidationException(
-                    String.format("Weekday value %s is not a valid weekday", weekday));
+                                          String.format("Weekday value %s is not a valid weekday", weekday));
         }
     }
 
@@ -66,9 +67,9 @@ public class QueryRequest {
     }
 
     private QueryType determineQueryType(final String parkingLotId,
-            final String weekday,
-            final Integer minHour,
-            final Integer maxHour) {
+                                         final String weekday,
+                                         final Integer minHour,
+                                         final Integer maxHour) {
         // Default query type
         QueryType queryType = QueryType.PARKING_LOT_ID;
 

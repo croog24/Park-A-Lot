@@ -34,10 +34,10 @@ public class ParkingLotController {
     @PutMapping
     @ResponseStatus(value = CREATED)
     public void addParkingLot(@PathVariable("parking-lot-id") final String parkingLotId,
-            @RequestParam(value = "name") final String name) throws Exception {
+                              @RequestParam(value = "name") final String name)
+            throws Exception {
         LOGGER.debug("Processing request for addParkingLot()");
-        final boolean isCreated =
-                parkingLotService.addParkingLot(new ParkingLot(parkingLotId, name));
+        final boolean isCreated = parkingLotService.addParkingLot(new ParkingLot(parkingLotId, name));
         if (!isCreated) {
             throw new Exception("Failed to add ParkingLot");
         }
@@ -46,7 +46,8 @@ public class ParkingLotController {
     @GetMapping
     @ResponseStatus(value = OK)
     public @ResponseBody ParkingLot getParkingLot(
-            @PathVariable("parking-lot-id") final String parkingLotId) throws Exception {
+                                                  @PathVariable("parking-lot-id") final String parkingLotId)
+            throws Exception {
         LOGGER.debug("Processing request for getParkingLot()");
         final ParkingLot parkingLot = parkingLotService.getParkingLotById(parkingLotId);
         if (parkingLot == null) {

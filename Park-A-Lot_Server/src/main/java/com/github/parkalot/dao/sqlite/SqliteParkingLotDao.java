@@ -8,22 +8,22 @@ import com.github.parkalot.model.ParkingLot;
 @Repository
 public class SqliteParkingLotDao implements ParkingLotDao {
 
-	@Override
-	public void addParkingLot(ParkingLot parkingLot) {
-		// TODO Auto-generated method stub
+    @Override
+    public void addParkingLot(ParkingLot parkingLot) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public void updateParkingLot(ParkingLot parkingLot) {
-		// TODO Auto-generated method stub
+    @Override
+    public void updateParkingLot(ParkingLot parkingLot) {
+        // TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	public ParkingLot getParkingLot(String parkingLotId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public ParkingLot getParkingLot(String parkingLotId) {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

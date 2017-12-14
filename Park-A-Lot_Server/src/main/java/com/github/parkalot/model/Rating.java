@@ -24,8 +24,9 @@ public class Rating {
             throws ValidationException {
         validateRatingValue(value);
 
-        this.ratingId = UUID.randomUUID()
-                            .toString();
+        this.ratingId = UUID
+                .randomUUID()
+                .toString();
         this.value = value;
         this.parkingLotId = parkingLotId;
         LocalDateTime dt = LocalDateTime.now();
@@ -67,8 +68,8 @@ public class Rating {
     @Override
     public String toString() {
         return String.format("ParkingLotId: %s RatingId: %s Value: %s SubmittedBy: %s @ %s %s",
-                this.parkingLotId, this.ratingId, this.value, this.submittedByUserId,
-                this.dayOfWeek, this.hour);
+                             this.parkingLotId, this.ratingId, this.value, this.submittedByUserId,
+                             this.dayOfWeek, this.hour);
     }
 
 }

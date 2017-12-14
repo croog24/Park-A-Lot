@@ -38,8 +38,8 @@ public interface RatingDao {
      * @return a {@code List} of {@code Rating}s with the specified parameters
      */
     List<Rating> getRatingsBetweenHours(final String parkingLotId,
-            final int minHour,
-            final int maxHour);
+                                        final int minHour,
+                                        final int maxHour);
 
     /**
      * Retrieves a {@code List} of {@link Rating}s on a specified day of the week.

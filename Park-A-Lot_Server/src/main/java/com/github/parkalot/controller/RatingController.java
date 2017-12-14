@@ -38,10 +38,10 @@ public class RatingController {
     @GetMapping
     @ResponseStatus(value = OK)
     public @ResponseBody List<Rating> getRatings(
-            @PathVariable("parking-lot-id") final String parkingLotId,
-            @RequestParam(value = "weekday", required = false) final String weekday,
-            @RequestParam(value = "min-hour", required = false) final Integer minHour,
-            @RequestParam(value = "max-hour", required = false) final Integer maxHour)
+                                                 @PathVariable("parking-lot-id") final String parkingLotId,
+                                                 @RequestParam(value = "weekday", required = false) final String weekday,
+                                                 @RequestParam(value = "min-hour", required = false) final Integer minHour,
+                                                 @RequestParam(value = "max-hour", required = false) final Integer maxHour)
             throws Exception {
         LOGGER.info("Processing request for getRatings()");
 
@@ -72,8 +72,9 @@ public class RatingController {
     @PutMapping
     @ResponseStatus(value = CREATED)
     public void addRating(@PathVariable("parking-lot-id") final String parkingLotId,
-            @RequestParam(value = "value") final Integer value,
-            @RequestParam(value = "submitted-by") final String submittedBy) throws Exception {
+                          @RequestParam(value = "value") final Integer value,
+                          @RequestParam(value = "submitted-by") final String submittedBy)
+            throws Exception {
         LOGGER.debug("Processing request for addRating()");
         final Rating r = new Rating(parkingLotId, value, submittedBy);
         final boolean isCreated = ratingService.addRating(r);

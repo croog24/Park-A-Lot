@@ -14,14 +14,14 @@ public interface ParkingLotDao {
      * 
      * @param parkingLot the {@link ParkingLot} to add
      */
-    void addParkingLot(final ParkingLot parkingLot) ;
+    void addParkingLot(final ParkingLot parkingLot);
 
     /**
      * Updates a specified {@link ParkingLot} in the Database.
      * 
      * @param parkingLot the {@link ParkingLot} to update
      */
-    void updateParkingLot(final ParkingLot parkingLot) ;
+    void updateParkingLot(final ParkingLot parkingLot);
 
     /**
      * Retrieves a {@link ParkingLot} from the Database.
@@ -29,5 +29,5 @@ public interface ParkingLotDao {
      * @param parkingLotId the ID of the {@link ParkingLot} to retrieve
      * @return ParkingLot the non-null stored {@link ParkingLot} object
      */
-    ParkingLot getParkingLot(final String parkingLotId) ;
+    ParkingLot getParkingLot(final String parkingLotId);
 }

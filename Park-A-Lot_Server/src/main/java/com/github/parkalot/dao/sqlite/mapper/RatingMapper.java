@@ -11,10 +11,10 @@ import com.github.parkalot.model.Rating;
 @Component("sqliteRatingMapper")
 public class RatingMapper implements RowMapper<Rating> {
 
-	@Override
-	public Rating mapRow(ResultSet rs, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Rating mapRow(ResultSet rs, int rowNum) throws SQLException {
+        // TODO Auto-generated method stub
+        return null;
+    }
 
 }

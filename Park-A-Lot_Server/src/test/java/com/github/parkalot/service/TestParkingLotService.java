@@ -18,7 +18,7 @@ import com.github.parkalot.service.impl.ParkingLotServiceImpl;
 @RunWith(MockitoJUnitRunner.class)
 public class TestParkingLotService {
 
-	@InjectMocks
+    @InjectMocks
     private ParkingLotServiceImpl parkingLotService;
 
     @Mock
@@ -44,6 +44,6 @@ public class TestParkingLotService {
         final ParkingLot result = parkingLotService.getParkingLotById(parkingLot.getParkingLotId());
 
         assertEquals("Unexpected ParkingLot returned", parkingLot.getParkingLotId(),
-                result.getParkingLotId());
+                     result.getParkingLotId());
     }
 }

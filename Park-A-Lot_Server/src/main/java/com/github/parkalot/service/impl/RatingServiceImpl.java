@@ -32,7 +32,8 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public boolean addRating(final Rating rating) {
         try {
-        	// TODO: Check for parking lot id existance or make FK (depends on DB...sqlite is not really for this kind of thing)
+            // TODO: Check for parking lot id existance or make FK (depends on DB...sqlite is not really for this kind
+            // of thing)
             ratingDao.addRating(rating);
         } catch (Exception e) {
             LOGGER.error("Error adding Rating to Database: " + e.getMessage());
@@ -70,10 +71,10 @@ public class RatingServiceImpl implements RatingService {
                 throw new Exception("Invalid hour range");
             }
             ratingList = ratingDao.getRatingsBetweenHours(request.getParkingLotId(),
-                    request.getMinHour(), request.getMaxHour());
+                                                          request.getMinHour(), request.getMaxHour());
         } catch (Exception e) {
             LOGGER.error(
-                    "Error retrieving resultset for getRatingsBetweenHours(): " + e.getMessage());
+                         "Error retrieving resultset for getRatingsBetweenHours(): " + e.getMessage());
         }
         return ratingList;
     }
@@ -81,11 +82,9 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public List<Rating> getRatingsByDayOfWeek(final QueryRequest request) {
         List<Rating> ratingList = new ArrayList<Rating>();
-        ratingList =
-                ratingDao.getRatingsByDayOfWeek(request.getParkingLotId(), request.getWeekday());
+        ratingList = ratingDao.getRatingsByDayOfWeek(request.getParkingLotId(), request.getWeekday());
         return ratingList;
     }
-
 
     @Override
     public List<Rating> getRatingsByParkingLot(final QueryRequest request) {

@@ -25,7 +25,7 @@ import com.github.parkalot.service.impl.RatingServiceImpl;
 @RunWith(MockitoJUnitRunner.class)
 public class TestRatingService {
 
-	@InjectMocks
+    @InjectMocks
     private RatingServiceImpl ratingService;
 
     @Mock
