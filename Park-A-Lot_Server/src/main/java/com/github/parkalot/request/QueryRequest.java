@@ -30,7 +30,7 @@ public class QueryRequest {
             throws ValidationException {
         this.queryType = determineQueryType(parkingLotId, weekday, minHour, maxHour);
         this.parkingLotId = Objects.requireNonNull(parkingLotId);
-        this.weekday = getWeekDay(weekday);
+        this.weekday = weekday == null ? null : getWeekDay(weekday);
         this.minHour = minHour;
         this.maxHour = maxHour;
     }
@@ -38,8 +38,6 @@ public class QueryRequest {
     private DayOfWeek getWeekDay(final String weekday) throws ValidationException {
         try {
             return DayOfWeek.valueOf(weekday);
-        } catch (NullPointerException e) {
-            return null;
         } catch (IllegalArgumentException e) {
             throw new ValidationException(
                                           String.format("Weekday value %s is not a valid weekday", weekday));
