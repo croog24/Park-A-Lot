@@ -1,3 +1,5 @@
+_Note: No longer being developed/improved. Stopped halfway through converting to sqlite3, but keeping for historical purposes_
+
 # Park-A-Lot
 A sample Microservice for a Parking App in which Users rate and track local parking availability data.
 
